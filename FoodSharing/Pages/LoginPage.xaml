@@ -9,14 +9,16 @@
             <Image HorizontalOptions="Center" WidthRequest="200" Source="logo.jpg"/>
             <Frame BackgroundColor="#085F63" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
-                    <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
+                    <Entry x:Name="UserName" Text="{Binding Email}" Placeholder="User Name"   
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Email"  
-                           TextColor="White"/>
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
                     <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
                            PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="White"/>
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
                 </StackLayout>
             </Frame>
             <Button Command="{Binding SubmitCommand}" Text="Login" TextColor="White"  

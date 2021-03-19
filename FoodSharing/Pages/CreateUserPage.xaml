@@ -6,17 +6,53 @@
         <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
             <BoxView HeightRequest="10"/>
             <Image HorizontalOptions="Center" WidthRequest="200" Source="logo.jpg"/>
-            <Label Text="Create Account" HorizontalTextAlignment="Center" FontSize="25" Padding="20,0,30,0" TextColor="#ba0965"/>
+            <Label Text="Create Account" HorizontalTextAlignment="Center" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
             <Frame BackgroundColor="#ba0965" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
+                    <Entry x:Name="FirstName" Text="{Binding FirstName}" Placeholder="First Name"   
+                           PlaceholderColor="White" HeightRequest="40"     
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing">
+                             <Entry.Keyboard>
+                                 <Keyboard x:FactoryMethod="Create">
+                                     <x:Arguments>
+                                         <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                                      </x:Arguments>
+                                </Keyboard>
+                            </Entry.Keyboard>
+                        </Entry>
+                           <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder=" Last Name"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing">
+                           <Entry.Keyboard>
+                                 <Keyboard x:FactoryMethod="Create">
+                                     <x:Arguments>
+                                         <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                                     </x:Arguments>
+                                 </Keyboard>
+                            </Entry.Keyboard>
+                            </Entry>
+                    <Entry x:Name="Telephone" Text="{Binding Telephone}" Placeholder="Telephone"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           Keyboard="Telephone"  
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
+                    <Entry x:Name="UserName" Text="{Binding UserName}" Placeholder="User Name"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           Keyboard="Text"  
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
                     <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Email"  
-                           TextColor="White"/>
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
                     <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
                            PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="White"/>
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
                 </StackLayout>
             </Frame>
             <Button Command="{Binding RegisterCommand}" Text="Create" TextColor="White"  

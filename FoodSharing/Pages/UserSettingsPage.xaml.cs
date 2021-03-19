@@ -1,4 +1,5 @@
-﻿using FoodSharing.ViewModels;
+﻿using FoodSharing.Models;
+using FoodSharing.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,15 @@ namespace FoodSharing.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserSettingsPage : ContentPage
     {
-        public UserSettingsPage()
+        public UserSettingsPage(User _user)
         {
-            var vm = new UserSettingsViewModel();
+            var vm = new UserSettingsViewModel(_user);
+            this.BindingContext = vm;
+            vm.DisplayDeletedAccount += () => DisplayAlert("Deletion", "Your account was deleted!", "OK");
+            vm.DisplayNoPassword += () => DisplayAlert("Error", "Password cannot be empty!", "OK");
+            vm.DisplayPasswordChanged += () => DisplayAlert("Success", "Password changed!", "OK");
             InitializeComponent();
+
         }
     }
 }
