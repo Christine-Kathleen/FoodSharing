@@ -19,7 +19,7 @@ namespace FoodSharing.Pages
             var vm = new MainViewModel(_user);
             this.BindingContext = vm;
             this.Master = new MasterPage();
-            this.Detail = new NavigationPage(new DetailsPage());
+            this.Detail = new NavigationPage(new TabbedPageTest());
            
         }
     }

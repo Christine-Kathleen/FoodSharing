@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Pages.LoginPage"
-             BackgroundColor="AliceBlue">
+             NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
+        <StackLayout Orientation="Vertical" Padding="20" Spacing="40">
             <BoxView HeightRequest="10"/>
-            <Image HorizontalOptions="Center" WidthRequest="200" Source="logo.jpg"/>
-            <Frame BackgroundColor="#085F63" HasShadow="False">
+            <Image HorizontalOptions="Center" WidthRequest="340" Source="loginpic.jpeg"/>
+            <Frame BackgroundColor="#70AE98" HasShadow="False" Opacity="0.70" CornerRadius="8" >
                 <StackLayout Orientation="Vertical" Spacing="10">
-                    <Entry x:Name="UserName" Text="{Binding Email}" Placeholder="User Name"   
+                    <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Email"  
                            TextColor="White"
@@ -19,12 +19,13 @@
                            IsPassword="True"  
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing"/>
+                    <Label Text="Forgot your password?" FontSize="14" Padding="10,0,10,0" TextColor="White" />
                 </StackLayout>
             </Frame>
             <Button Command="{Binding SubmitCommand}" Text="Login" TextColor="White"  
                     FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
-                    BackgroundColor="#ff8d03" />
-            <Button Command="{Binding CreateUserCommand}" Text="Sign up now" BackgroundColor="#ff8d03" TextColor="White" />
+                    BackgroundColor="#CA7E8D" CornerRadius="8" Opacity="0.70"/>
+            <Button Command="{Binding CreateUserCommand}" Text="Sign up now" FontAttributes="Bold" FontSize="Large" BackgroundColor="#CA7E8D" TextColor="White" Opacity="0.70" CornerRadius="8" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

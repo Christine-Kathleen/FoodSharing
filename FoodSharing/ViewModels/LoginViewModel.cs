@@ -1,5 +1,4 @@
-﻿
-using FoodSharing.Models;
+﻿using FoodSharing.Models;
 using FoodSharing.Pages;
 using System;
 using System.Collections.Generic;
@@ -47,7 +46,7 @@ namespace FoodSharing.ViewModels
             CreateUserCommand = new Command(OnCreateUser);
         }
 
-        public void OnSubmit()
+        public async void OnSubmit()
         {
             if (!regexemail.IsMatch(email.ToUpper()))
             {
@@ -63,13 +62,20 @@ namespace FoodSharing.ViewModels
                 //if (user == null)
                 //{
                 //    DisplayInvalidLoginPrompt();
-                //}
+                
                 //else
                 //{
                 User user = new User(){ UserName="test",Email="test@test.com"};;
                 //Shell.Current.GoToAsync(nameof(MainPage));
                 //DO write shell to navigate
                 //new NavigationPage(new MainPage(user));
+
+                //var newPage = new MainPage(user);
+                //object p = await NavigationPage.PushAsync(newPage);
+
+                //TabbedPageTest tabbedPageTest = new TabbedPageTest();
+                //Application.Current.MainPage = tabbedPageTest;
+                //await  App.Current.MainPage.Navigation.PushAsync(new MainPage(user));
                 MainPage Page = new MainPage(user);
                 Application.Current.MainPage = Page;
                 //}

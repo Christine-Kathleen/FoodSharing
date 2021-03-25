@@ -11,8 +11,9 @@ namespace FoodSharing
         public App()
         {
             InitializeComponent();
-
-            MainPage = new LoginPage();
+            //LoginPage Page = new LoginPage();
+            //Application.Current.MainPage = Page;
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()
