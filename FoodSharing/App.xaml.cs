@@ -10,6 +10,7 @@ namespace FoodSharing
     {
         public App()
         {
+            Device.SetFlags(new string[] { "RadioButton_Experimental" });
             InitializeComponent();
             //LoginPage Page = new LoginPage();
             //Application.Current.MainPage = Page;
@@ -27,5 +28,6 @@ namespace FoodSharing
         protected override void OnResume()
         {
         }
+       
     }
 }

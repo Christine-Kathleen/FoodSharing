@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Essentials;
 
 namespace FoodSharing.Models
 {
-    public class User
-    {
-       // [PrimaryKey, AutoIncrement]
-        public int ID { get; set; } 
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string UserName { get; set; }
+    //public class UserInfo
+    //{
+    //   // [PrimaryKey, AutoIncrement]
+    //    public int ID { get; set; } 
+    //    public string Email { get; set; }
+    //    public string FirstName { get; set; }
+    //    public string LastName { get; set; }
+    //    public string UserName { get; set; }
+    //    public string Telephone { get; set; }
+    //    public string Password { get; set; }
 
-        public string Telephone { get; set; }
-
-        public string Password { get; set; }
-
-    }
+    //}
     public static class UserHelper
     {
         public static string CreateMD5(string input)
@@ -35,6 +34,39 @@ namespace FoodSharing.Models
                     sb.Append(hashBytes[i].ToString("X2"));
                 }
                 return sb.ToString();
+            }
+        }
+    }
+
+    public sealed class User
+    {
+        private static User instance = null;
+        private static readonly object padlock = new object();
+        public int ID { get; set; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
+        public string Telephone { get; set; }
+        public string Password { get; set; }
+        public Location UserLoc { get; set; }
+
+        User()
+        {
+        }
+
+        public static User Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new User();
+                    }
+                    return instance;
+                }
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿using FoodSharing.Models;
-using FoodSharing.ViewModels;
+﻿using FoodSharing.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +11,11 @@ using Xamarin.Forms.Xaml;
 namespace FoodSharing.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MasterPage : ContentPage
+    public partial class AddFoodPage : ContentPage
     {
-        public MasterPage()
+        public AddFoodPage()
         {
-            var vm = new MasterViewModel();
+            var vm = new AddFoodViewModel();
             this.BindingContext = vm;
             InitializeComponent();
         }

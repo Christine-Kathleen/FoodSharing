@@ -14,9 +14,9 @@ namespace FoodSharing.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserSettingsPage : ContentPage
     {
-        public UserSettingsPage(User _user)
+        public UserSettingsPage()
         {
-            var vm = new UserSettingsViewModel(_user);
+            var vm = new UserSettingsViewModel();
             this.BindingContext = vm;
             vm.DisplayDeletedAccount += () => DisplayAlert("Deletion", "Your account was deleted!", "OK");
             vm.DisplayNoPassword += () => DisplayAlert("Error", "Password cannot be empty!", "OK");

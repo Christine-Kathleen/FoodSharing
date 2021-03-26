@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace FoodSharing.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TabbedPageTest : TabbedPage
+    public partial class HelpGrowPage : ContentPage
     {
-        public TabbedPageTest()
+        public HelpGrowPage()
         {
             InitializeComponent();
         }

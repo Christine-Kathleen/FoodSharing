@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FoodSharing.Models;
+using FoodSharing.Pages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -24,28 +26,29 @@ namespace FoodSharing.ViewModels
             AccountSettingsCommand = new Command(OnAccountSettings);
             HelpGrowCommand = new Command(OnHelpGrow);
             LogoutCommand = new Command(OnLogout);
-        }
-
-        public void OnHome()
-        {
-
-        }
-        public void OnMyProfile()
-        {
 
         }
 
-        public void OnAccountSettings()
+        public async void OnHome()
         {
-
+            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
         }
-        public void OnHelpGrow()
+        public async void OnMyProfile()
         {
-
+            await App.Current.MainPage.Navigation.PushAsync(new MyProfile());
         }
-        public void OnLogout()
-        {
 
+        public async void OnAccountSettings()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new UserSettingsPage());
+        }
+        public async void OnHelpGrow()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new HelpGrowPage());
+        }
+        public async void OnLogout()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
 
     }

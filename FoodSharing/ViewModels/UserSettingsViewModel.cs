@@ -13,7 +13,7 @@ namespace FoodSharing.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         //private string email;
-        private readonly User user;
+        //private readonly User user;
         public Action DisplayDeletedAccount;
         public Action DisplayNoPassword;
         public Action DisplayPasswordChanged;
@@ -39,9 +39,8 @@ namespace FoodSharing.ViewModels
 
 
 
-        public UserSettingsViewModel(User _user)
+        public UserSettingsViewModel()
         {
-           user = _user;
             //email = user.Email;
             BackToMainPageCommand = new Command(OnBackToMainPage);
             DeleteAccountCommand = new Command(OnDeleteAccount);
@@ -49,7 +48,7 @@ namespace FoodSharing.ViewModels
         }
         public void OnBackToMainPage()
         {
-            MainPage Page = new MainPage(user);
+            MainPage Page = new MainPage();
             Application.Current.MainPage = Page;
         }
         async public void OnDeleteAccount()
@@ -64,7 +63,7 @@ namespace FoodSharing.ViewModels
         {
             if (!string.IsNullOrEmpty(NewPassword))
             {
-                user.Password = UserHelper.CreateMD5(NewPassword);
+                User.Instance.Password = UserHelper.CreateMD5(NewPassword);
                // await App.Database.SaveUpdateUserAsync(user);
                 DisplayPasswordChanged();
             }

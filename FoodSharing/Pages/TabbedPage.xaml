@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            x:Class="FoodSharing.Pages.TabbedPageTest" >
+    
+    <ContentPage Title="From Store">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+            <CollectionView ItemsSource="{Binding Items }">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                       Source="{Binding ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="200"
+                       WidthRequest="200" />
+                            <Label Grid.Column="1"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold" />
+                            <Label Grid.Column="1"
+                       Text="{Binding Distance}"
+                       FontAttributes="Italic"
+                       VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
+                                TextColor="White" BackgroundColor="#CA7E8D" 
+                                WidthRequest="60" HeightRequest="60" BorderRadius="30" 
+                                VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
+        </Grid>
+    </ContentPage>
+    <ContentPage Title="Home Made">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+            <CollectionView ItemsSource="{Binding Items }">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                       Source="{Binding ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="200"
+                       WidthRequest="200" />
+                            <Label Grid.Column="1"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold" />
+                            <Label Grid.Column="1"
+                       Text="{Binding Distance}"
+                       FontAttributes="Italic"
+                       VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
+                                TextColor="White" BackgroundColor="#CA7E8D" 
+                                WidthRequest="60" HeightRequest="60" BorderRadius="30" 
+                                VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
+        </Grid>
+    </ContentPage>
+    <ContentPage Title="Messages">
+        
+    </ContentPage>
+</TabbedPage>

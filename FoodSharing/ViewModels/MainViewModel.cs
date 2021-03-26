@@ -13,8 +13,8 @@ namespace FoodSharing.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private string email;
-        private readonly User user;
-
+        //private readonly User user;
+        
         public string Email
         {
             get { return email; }
@@ -30,10 +30,9 @@ namespace FoodSharing.ViewModels
         public ICommand GameCategoriesCommand { protected set; get; }
 
 
-        public MainViewModel(User _user)
+        public MainViewModel()
         {
-            user = _user;
-            email = user.Email;
+            //email = user.Email;
             LogOutUserCommand = new Command(OnLogOut);
             AccountSettingsCommand = new Command(OnAccountSettings);
            
@@ -50,16 +49,14 @@ namespace FoodSharing.ViewModels
         //    List<Game> g = await App.Database.GetGamesAsync();
         //}
        
-        public void OnAccountSettings()
+        public async void OnAccountSettings()
         {
-            UserSettingsPage Page = new UserSettingsPage(user);
-            Application.Current.MainPage = Page;
+            await App.Current.MainPage.Navigation.PushAsync(new UserSettingsPage());
         }
 
-        public void OnLogOut()
+        public async void OnLogOut()
         {
-            LoginPage Page = new LoginPage();
-            Application.Current.MainPage = Page;
+            await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
     }
 }

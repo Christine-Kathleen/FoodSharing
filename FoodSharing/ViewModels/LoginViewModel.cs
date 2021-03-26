@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace FoodSharing.ViewModels
 {
@@ -42,6 +43,11 @@ namespace FoodSharing.ViewModels
         public ICommand CreateUserCommand { protected set; get; }
         public LoginViewModel()
         {
+            //create fake user to enter app easy
+            Email = "belep@elek.hu";
+            Password = "semmi";
+
+
             SubmitCommand = new Command(OnSubmit);
             CreateUserCommand = new Command(OnCreateUser);
         }
@@ -62,10 +68,10 @@ namespace FoodSharing.ViewModels
                 //if (user == null)
                 //{
                 //    DisplayInvalidLoginPrompt();
-                
+
                 //else
                 //{
-                User user = new User(){ UserName="test",Email="test@test.com"};;
+                //User user = new User(){ UserName="test",Email="test@test.com"};
                 //Shell.Current.GoToAsync(nameof(MainPage));
                 //DO write shell to navigate
                 //new NavigationPage(new MainPage(user));
@@ -75,17 +81,19 @@ namespace FoodSharing.ViewModels
 
                 //TabbedPageTest tabbedPageTest = new TabbedPageTest();
                 //Application.Current.MainPage = tabbedPageTest;
-                //await  App.Current.MainPage.Navigation.PushAsync(new MainPage(user));
-                MainPage Page = new MainPage(user);
-                Application.Current.MainPage = Page;
+                User.Instance.Email =Email;
+                User.Instance.Password = Password;
+                User.Instance.UserLoc =new Location(46.2, 23.68);
+                await  App.Current.MainPage.Navigation.PushAsync(new MainPage());
+                //MainPage Page = new MainPage(user);
+                //Application.Current.MainPage = Page;
                 //}
             }
 
         }
-        public void OnCreateUser()
+        public async void OnCreateUser()
         {
-            CreateUserPage Page = new CreateUserPage();
-            Application.Current.MainPage = Page;
+            await App.Current.MainPage.Navigation.PushAsync(new CreateUserPage());
         }
     }
 }

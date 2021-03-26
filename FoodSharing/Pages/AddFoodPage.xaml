@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodSharing.Pages.AddFoodPage"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
+                <BoxView HeightRequest="10"/>
+                <Frame BackgroundColor="#70AE98" HasShadow="False">
+                    <StackLayout Orientation="Vertical" Spacing="10">
+                        <Entry x:Name="Name" Text="{Binding FoodName }" Placeholder="Naming of the product"   
+                           PlaceholderColor="White" HeightRequest="40"     
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing">
+                            <Entry.Keyboard>
+                                <Keyboard x:FactoryMethod="Create">
+                                    <x:Arguments>
+                                        <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                                    </x:Arguments>
+                                </Keyboard>
+                            </Entry.Keyboard>
+                        </Entry>
+                    <Entry x:Name="Details" Text="{Binding FoodDetails}" Placeholder="Details about the product"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </Entry>
+                    <RadioButton Content="FromStore" GroupName="Type">
+                    </RadioButton>
+                    <RadioButton Content="HomeMade" GroupName="Type">
+                    </RadioButton>
+                    <!--<RadioButton Margin = "5" GroupName="Type" >
+                        <RadioButton.Text>Test</RadioButton.Text>
+                    </RadioButton>
+                    <RadioButton Margin = "5" GroupName="Type" />-->
+                </StackLayout>
+                </Frame>
+                <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#CA7E8D"  CornerRadius="8" Opacity="0.70" />
+                <Button Command="{Binding HomeCommand}" Text="Home" FontAttributes="Bold" FontSize="Large" BackgroundColor="#CA7E8D" TextColor="White" CornerRadius="8" Opacity="0.70"/>
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

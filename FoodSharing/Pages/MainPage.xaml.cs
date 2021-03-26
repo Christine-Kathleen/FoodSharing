@@ -13,10 +13,10 @@ namespace FoodSharing.Pages
 {
     public partial class MainPage : MasterDetailPage
     {
-        public MainPage (User _user)
+        public MainPage ()
         {
             InitializeComponent();
-            var vm = new MainViewModel(_user);
+            var vm = new MainViewModel();
             this.BindingContext = vm;
             this.Master = new MasterPage();
             this.Detail = new NavigationPage(new TabbedPageTest());
