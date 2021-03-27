@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodSharing.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace FoodSharing.Pages
     {
         public MyProfile()
         {
+            var vm = new MyProfileViewModel();
+            this.BindingContext = vm;
             InitializeComponent();
         }
     }

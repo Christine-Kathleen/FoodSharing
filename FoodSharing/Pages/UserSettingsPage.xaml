@@ -4,25 +4,29 @@
              x:Class="FoodSharing.Pages.UserSettingsPage"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout>
-            <Frame BackgroundColor="#ba0965" Padding="24" CornerRadius="0">
-                <Label Text="Account Settings" HorizontalTextAlignment="Center" TextColor="#ff8d03" FontSize="36"/>
-            </Frame>
-            <Label Text="The email of your account is" FontSize="25" Padding="30,0,30,0" TextColor="White"/>
-            <Label Text="{Binding Email}" FontSize="25" Padding="30,0,30,0" TextColor="White"/>
-            <StackLayout Orientation="Vertical" Spacing="10">
-                <Label Text="Please enter the new password!" FontSize="25" Padding="30,0,30,0" TextColor="White"/>
-                <Entry x:Name="NewPassword" Text="{Binding NewPassword}" Placeholder="Password"   
-                           PlaceholderColor="White" HeightRequest="40"   
+        <Grid>
+            <StackLayout>
+                <Frame BackgroundColor="#70AE98" Padding="24" CornerRadius="0">
+                    <Label Text="Account Settings" HorizontalTextAlignment="Center" TextColor="#CA7E8D" FontSize="36"/>
+                </Frame>
+                <StackLayout Orientation="Vertical" Spacing="10">
+                    <Label Text="In order to perform any actions please enter your password!" FontSize="25" Padding="30,0,30,0" TextColor="#CA7E8D"/>
+                    <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
+                           PlaceholderColor="#CA7E8D" HeightRequest="40"   
                            IsPassword="True"  
                            TextColor="White"/>
+                    <Entry x:Name="NewPassword" Text="{Binding NewPassword}" Placeholder="NEW Password"   
+                           PlaceholderColor="#CA7E8D" HeightRequest="40"   
+                           IsPassword="True"  
+                           TextColor="White"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="10" Spacing="30">
+                    <BoxView HeightRequest="10"/>
+                    <Button Command="{Binding PasswordChangeCommand}" Text="Change Password" BackgroundColor="#CA7E8D" TextColor="White" Padding="10,10,10,10" />
+                    <Button Command="{Binding DeleteAccountCommand}" Text="Delete Account" BackgroundColor="#CA7E8D" TextColor="White" Padding="10,10,10,10" />
+                    <Button Command="{Binding BackToMainPageCommand}" Text="Cancel" BackgroundColor="#CA7E8D" TextColor="White" Padding="10,10,10,10" />
+                </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Vertical" Padding="20" Spacing="30">
-                <BoxView HeightRequest="10"/>
-                <Button Command="{Binding PasswordChangeCommand}" Text="Change Password" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
-                <Button Command="{Binding DeleteAccountCommand}" Text="Delete Account" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
-                <Button Command="{Binding BackToMainPageCommand}" Text="Back to Main Page" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
-            </StackLayout>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
