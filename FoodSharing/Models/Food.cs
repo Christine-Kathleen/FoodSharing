@@ -18,6 +18,7 @@ namespace FoodSharing.Models
         public string ImageUrl { get; set; }
         public string Distance { get { return Math.Round(Location.CalculateDistance(FoodLoc, userLoc, DistanceUnits.Kilometers), 2).ToString() + "km"; } }
         public TypeOfFood FoodType { get; set; } 
+        public string UserName { get; set; }
     }
 
     public enum TypeOfFood

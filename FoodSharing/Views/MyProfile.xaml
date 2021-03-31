@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodSharing.Pages.MyProfile"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding ProfileImage}" Grid.Column="0" Grid.Row="0"/>
+            <Label Text="Change profile picture" Grid.Column="0" Grid.Row="1">
+            </Label>
+            <Label Text="{Binding UserName}" FontSize="25" Padding="30,0,30,0" TextColor="Black" Grid.Column="0" Grid.Row="2"/>
+            <Label Text="About you" Margin="20,0,0,0" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="3"/>
+            <Frame BackgroundColor="White" HasShadow="False" Grid.Column="0" Grid.Row="4">
+                    <StackLayout Orientation="Vertical" Spacing="10">
+                        <Entry x:Name="FirstName" Text="{Binding FirstName}" Placeholder="First Name"   
+                           PlaceholderColor="Black" HeightRequest="40"     
+                           TextColor="Black"
+                           ClearButtonVisibility="WhileEditing">
+                            <Entry.Keyboard>
+                                <Keyboard x:FactoryMethod="Create">
+                                    <x:Arguments>
+                                        <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                                    </x:Arguments>
+                                </Keyboard>
+                            </Entry.Keyboard>
+                        </Entry>
+                        <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder=" Last Name"   
+                           PlaceholderColor="Black" HeightRequest="40"   
+                           TextColor="Black"
+                           ClearButtonVisibility="WhileEditing">
+                            <Entry.Keyboard>
+                                <Keyboard x:FactoryMethod="Create">
+                                    <x:Arguments>
+                                        <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                                    </x:Arguments>
+                                </Keyboard>
+                            </Entry.Keyboard>
+                        </Entry>
+                        <Entry x:Name="Telephone" Text="{Binding Telephone}" Placeholder="Telephone"   
+                           PlaceholderColor="Black" HeightRequest="40"   
+                           Keyboard="Telephone"  
+                           TextColor="Black"
+                           ClearButtonVisibility="WhileEditing"/>
+                        <Entry x:Name="UserName" Text="{Binding UserName}" Placeholder="User Name"   
+                           PlaceholderColor="Black" HeightRequest="40"   
+                           Keyboard="Text"  
+                           TextColor="Black"
+                           ClearButtonVisibility="WhileEditing"/>
+                    <Entry x:Name="Description" Text="{Binding Description}" Placeholder="Add a description"   
+                           PlaceholderColor="Black" HeightRequest="40"   
+                           Keyboard="Text"  
+                           TextColor="Black"
+                           ClearButtonVisibility="WhileEditing"/>
+                </StackLayout>
+                </Frame>
+                <Button Command="{Binding UpdateProfileCommand}" Text="Update your profile" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"  
+                    Grid.Column="0" Grid.Row="5" BackgroundColor="Black"  CornerRadius="8" Opacity="0.70"/>
+                <Button Command="{Binding PublicProfileCommand}" Text="View public profile" TextColor="Black"  
+                    FontAttributes="Bold" FontSize="Large" VerticalOptions="Start" Margin="20,0,20,0"
+                    Grid.Column="0" Grid.Row="6" BackgroundColor="White" BorderColor="Black" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

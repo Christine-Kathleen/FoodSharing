@@ -1,10 +1,13 @@
-﻿using FoodSharing.Pages;
+﻿using Android;
+using Android.Content.PM;
+using FoodSharing.Pages;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace FoodSharing.ViewModels
@@ -15,7 +18,11 @@ namespace FoodSharing.ViewModels
         public ICommand CreateProductCommand { get; set; }
         public ICommand HomeCommand { get; set; }
         public ICommand TakePicCommand { get; set; }
+        public ICommand ImageTapped { get; set; }
+        
         private ImageSource takePhoto;
+        
+
         public ImageSource TakePhoto
         {
             get { return takePhoto; }
@@ -30,12 +37,15 @@ namespace FoodSharing.ViewModels
             CreateProductCommand = new Command(OnCreateProduct);
             HomeCommand = new Command(OnHome);
             TakePicCommand = new Command(OnTakePic);
-            
+            ImageTapped = new Command(OnImageTapped);
+
+
         }
 
         public void OnCreateProduct()
         {
             //TO DO ADD product to DB
+            //must add location&Pic
         }
 
         public async void OnHome()
@@ -70,6 +80,25 @@ namespace FoodSharing.ViewModels
                 var stream = file.GetStream();
                 return stream;
             });
+        }
+        private async void OnImageTapped()
+        {
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                // open the maps app directly
+                await Launcher.OpenAsync("geo:0,0?q=394+Pacific+Ave+San+Francisco+CA");
+            }
+            //Code to execute on tapped event
+            //    if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
+            //    {
+            //    StartRequestingLocationUpdates();
+            //    isRequestingLocationUpdates = true;
+            //    }
+            //    else
+            //    {
+            //    // The app does not have permission ACCESS_FINE_LOCATION 
+            //}
+
         }
     }
 }

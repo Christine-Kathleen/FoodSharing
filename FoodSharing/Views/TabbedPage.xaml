@@ -6,9 +6,9 @@
             mc:Ignorable="d"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
-            x:Class="FoodSharing.Pages.TabbedPageTest" >
-    
-    <ContentPage Title="From Store">
+            x:Class="FoodSharing.Pages.TabbedPageTest">
+
+    <ContentPage Shell.NavBarHasShadow="true" Title="From Store">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -16,10 +16,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
-            <CollectionView ItemsSource="{Binding Items }">
+            <CollectionView ItemsSource="{Binding Items }" 
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10">
+                        <Grid Padding="10" BackgroundColor="White">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -44,7 +46,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
-                                TextColor="White" BackgroundColor="#CA7E8D" 
+                                TextColor="White" BackgroundColor="#70AE98" 
                                 WidthRequest="60" HeightRequest="60" BorderRadius="30" 
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
         </Grid>
@@ -85,12 +87,12 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
-                                TextColor="White" BackgroundColor="#CA7E8D" 
+                                TextColor="#70AE98" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2"
                                 WidthRequest="60" HeightRequest="60" BorderRadius="30" 
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
         </Grid>
     </ContentPage>
-    <ContentPage Title="Messages">
+    <ContentPage Shell.BackgroundColor="#70AE98" Title="Messages">
         
     </ContentPage>
 </TabbedPage>

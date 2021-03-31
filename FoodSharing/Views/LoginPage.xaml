@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodSharing.Pages.LoginPage"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical" Padding="20" Spacing="40" Grid.Column="0" Grid.Row="0">
+                <BoxView HeightRequest="10"/>
+                <Image HorizontalOptions="Center" WidthRequest="340" Source="loginpic.jpeg"/>
+                <Frame BackgroundColor="#70AE98" HasShadow="False" CornerRadius="8" >
+                    <StackLayout Orientation="Vertical" Spacing="10">
+                        <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           Keyboard="Email"  
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
+                        <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           IsPassword="True"  
+                           TextColor="White"
+                           ClearButtonVisibility="WhileEditing"/>
+                        <Label Text="Forgot your password?" FontSize="14" Padding="10,0,10,0" TextColor="White" />
+                    </StackLayout>
+                </Frame>
+                   </StackLayout>
+            <Button Command="{Binding SubmitCommand}" Text="Login" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1" 
+                    BackgroundColor="#70AE98" CornerRadius="8" Margin="20,0,20,0"/>
+            <Button Command="{Binding CreateUserCommand}" Grid.Column="0" Grid.Row="2" Text="Sign up now" VerticalOptions="Start"
+                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="20,0,20,0" FontSize="Large" BackgroundColor="White"
+                    TextColor="Black" Opacity="0.70" CornerRadius="8" />
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

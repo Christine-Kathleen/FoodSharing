@@ -10,7 +10,7 @@
                 <StackLayout Orientation="Vertical" Spacing="10">
                     <Entry x:Name="Name" Text="{Binding FoodName }" Placeholder="Naming of the product"   
                            PlaceholderColor="White" HeightRequest="40"     
-                           TextColor="White"
+                           TextColor="White" 
                            ClearButtonVisibility="WhileEditing">
                         <Entry.Keyboard>
                             <Keyboard x:FactoryMethod="Create">
@@ -37,7 +37,13 @@
                     <RadioButton Content="HomeMade" GroupName="Type">
                     </RadioButton>
                     <Button Command="{Binding TakePicCommand}" Text="Take a picture" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" TextColor="Black" CornerRadius="8"   />
-                    <Image  HorizontalOptions="Center" HeightRequest="200" Source="{Binding TakePhoto}"/>
+                    <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
+                    <Label Text="Please select your location:" FontSize="Large"/>
+                    <Image Source="strazi.jpg">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ImageTapped}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
                 </StackLayout>
             </Frame>
             <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White"  
