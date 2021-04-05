@@ -10,9 +10,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="290" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Grid.Row="0"
@@ -20,32 +22,38 @@
                        Aspect="AspectFill"
                        HeightRequest="200"
                        WidthRequest="200" />
-            <Label Grid.Column="0" Grid.Row="1"
+            <Label Grid.Column="1" Grid.Row="1"
                        Text="{Binding FoodType}"
-                       TextColor="Black" FontSize="Medium"
-                       FontAttributes="Bold" />
-            <Label Grid.Column="1" Grid.Row="0"
+                       TextColor="Black" FontSize="Medium"/>
+            <Label Grid.Column="0" Grid.Row="1"
                        Text="{Binding Name}"
                        TextColor="Black" FontSize="Large"
                        FontAttributes="Bold" />
-            <Label Grid.Column="1" Grid.Row="1"
-                       Text="{Binding Details}"
-                       TextColor="Black" FontSize="Large"
-                       FontAttributes="Bold" />
             <Label Grid.Column="0" Grid.Row="2"
+                       Text="{Binding Details}"
+                       TextColor="Black" FontSize="Large"/>
+            <Label Grid.Column="1" Grid.Row="2"
                        TextColor="Black" FontSize="Large"
                        Text="{Binding FoodLoc}"
                        FontAttributes="Bold" />
-            <Button Grid.Column="1" Grid.Row="2" FontSize="Large" 
+            <Button Grid.Column="0" Grid.Row="3" FontSize="Large" 
                        Command="{Binding UserClickedCommand}"
-                       Background="White" TextColor="Black"
-                       Text="{Binding UserName}"
+                       BackgroundColor="Transparent" TextColor="Black"
+                       Text="{Binding UserName}" Margin="20,20,20,20"
                        FontAttributes="Bold" />
-            <Label Grid.Column="1" Grid.Row="3"
+            <Label Grid.Column="1" Grid.Row="2"
                        Text="{Binding Distance}"
                        TextColor="Black" FontSize="Large"
                        FontAttributes="Italic"
                        VerticalOptions="End" />
+            <Label Grid.Column="0" Grid.Row="4" TextColor="Black" Text="Message the user:" FontSize="Large" Margin="20,0,20,0" />
+            <Editor Grid.Column="0" Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,20,20,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
+            <Button Grid.Column="1" Grid.Row="5" FontSize="Large" 
+                       Command="{Binding SendMessageCommand}"
+                       HorizontalOptions="FillAndExpand" 
+                       BackgroundColor="#70AE98" CornerRadius="8" 
+                       Margin="0,20,20,20" TextColor="White"
+                       Text="Send" FontAttributes="Bold" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

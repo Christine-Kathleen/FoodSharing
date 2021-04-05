@@ -15,7 +15,7 @@
             </Grid.ColumnDefinitions>
             <StackLayout Orientation="Vertical" Padding="20" Spacing="40" Grid.Column="0" Grid.Row="0">
                 <BoxView HeightRequest="10"/>
-                <Image HorizontalOptions="Center" WidthRequest="340" Source="loginpic.jpeg"/>
+                <!--<Image HorizontalOptions="Center" WidthRequest="340" Source="loginpic.jpeg"/>-->
                 <Frame BackgroundColor="#70AE98" HasShadow="False" CornerRadius="8" >
                     <StackLayout Orientation="Vertical" Spacing="10">
                         <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   

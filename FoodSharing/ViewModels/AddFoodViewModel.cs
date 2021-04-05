@@ -39,13 +39,14 @@ namespace FoodSharing.ViewModels
             TakePicCommand = new Command(OnTakePic);
             ImageTapped = new Command(OnImageTapped);
 
-
+            
         }
 
         public void OnCreateProduct()
         {
             //TO DO ADD product to DB
             //must add location&Pic
+            //TO DO take location from the user device
         }
 
         public async void OnHome()

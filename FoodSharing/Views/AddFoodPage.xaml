@@ -38,12 +38,6 @@
                     </RadioButton>
                     <Button Command="{Binding TakePicCommand}" Text="Take a picture" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" TextColor="Black" CornerRadius="8"   />
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
-                    <Label Text="Please select your location:" FontSize="Large"/>
-                    <Image Source="strazi.jpg">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ImageTapped}"/>
-                        </Image.GestureRecognizers>
-                    </Image>
                 </StackLayout>
             </Frame>
             <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White"  

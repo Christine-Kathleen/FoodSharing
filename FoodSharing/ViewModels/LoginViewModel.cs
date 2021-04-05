@@ -18,14 +18,14 @@ namespace FoodSharing.ViewModels
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private Regex regexemail = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
-        private string email;
-        public string Email
+        private int id;
+        public int ID
         {
-            get { return email; }
+            get { return id; }
             set
             {
-                email = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("Email"));
+                id = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("ID"));
             }
         }
         private string password;
@@ -38,12 +38,23 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                email = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Email"));
+            }
+        }
 
         public ICommand SubmitCommand { protected set; get; }
         public ICommand CreateUserCommand { protected set; get; }
         public LoginViewModel()
         {
             //create fake user to enter app easy
+            ID = 1;
             Email = "belep@elek.hu";
             Password = "semmi";
 
@@ -81,10 +92,10 @@ namespace FoodSharing.ViewModels
 
                 //TabbedPageTest tabbedPageTest = new TabbedPageTest();
                 //Application.Current.MainPage = tabbedPageTest;
-                User.Instance.Email =Email;
+                User.Instance.Email = Email;
                 User.Instance.Password = Password;
-                User.Instance.UserLoc =new Location(46.2, 23.68);
-                await  App.Current.MainPage.Navigation.PushAsync(new MainPage());
+                User.Instance.UserLoc = new Location(46.2, 23.68);
+                await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                 //MainPage Page = new MainPage(user);
                 //Application.Current.MainPage = Page;
                 //}
