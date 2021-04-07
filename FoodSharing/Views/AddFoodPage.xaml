@@ -6,11 +6,12 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="5" Spacing="10">
                 <BoxView HeightRequest="10"/>
-            <Frame BackgroundColor="#70AE98" HasShadow="False">
+            <Label Text="Give away anything you would eat yourself:" TextColor="Black" FontSize="Medium" Margin="20,0,20,0"/>
+            <Frame BackgroundColor="Transparent" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
                     <Entry x:Name="Name" Text="{Binding FoodName }" Placeholder="Naming of the product"   
-                           PlaceholderColor="White" HeightRequest="40"     
-                           TextColor="White" 
+                           PlaceholderColor="Black" HeightRequest="40"     
+                           TextColor="Black" 
                            ClearButtonVisibility="WhileEditing">
                         <Entry.Keyboard>
                             <Keyboard x:FactoryMethod="Create">
@@ -21,8 +22,8 @@
                         </Entry.Keyboard>
                     </Entry>
                     <Entry x:Name="Details" Text="{Binding FoodDetails}" Placeholder="Details about the product"   
-                           PlaceholderColor="White" HeightRequest="40"   
-                           TextColor="White"
+                           PlaceholderColor="Black" HeightRequest="40"   
+                           TextColor="Black"
                            ClearButtonVisibility="WhileEditing">
                         <Entry.Keyboard>
                             <Keyboard x:FactoryMethod="Create">
@@ -36,14 +37,16 @@
                     </RadioButton>
                     <RadioButton Content="HomeMade" GroupName="Type">
                     </RadioButton>
-                    <Button Command="{Binding TakePicCommand}" Text="Take a picture" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" TextColor="Black" CornerRadius="8"   />
+                    <Button Command="{Binding TakePicCommand}" Margin="10,10,120,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="Black" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
                 </StackLayout>
             </Frame>
             <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White"  
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
-                    BackgroundColor="#CA7E8D"  CornerRadius="8" Opacity="0.70" />
-                <Button Command="{Binding HomeCommand}" Text="Cancel" FontAttributes="Bold" FontSize="Large" BackgroundColor="#CA7E8D" TextColor="White" CornerRadius="8" Opacity="0.70"/>
-        </StackLayout>
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"  
+                    Grid.Column="0" Grid.Row="5" BackgroundColor="Black"  CornerRadius="8" Opacity="0.70"/>
+            <Button Command="{Binding HomeCommand}" Text="Cancel" TextColor="Black"  
+                    FontAttributes="Bold" FontSize="Large" VerticalOptions="Start" Margin="20,0,20,0"
+                    Grid.Column="0" Grid.Row="6" BackgroundColor="White" BorderColor="Black" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+            </StackLayout>
     </ContentPage.Content>
 </ContentPage>

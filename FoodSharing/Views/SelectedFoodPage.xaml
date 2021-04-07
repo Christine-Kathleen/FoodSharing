@@ -26,13 +26,13 @@
                        Text="{Binding FoodType}"
                        TextColor="Black" FontSize="Medium"/>
             <Label Grid.Column="0" Grid.Row="1"
-                       Text="{Binding Name}"
+                       Text="{Binding Name}" Margin="10,10,10,10"
                        TextColor="Black" FontSize="Large"
                        FontAttributes="Bold" />
             <Label Grid.Column="0" Grid.Row="2"
-                       Text="{Binding Details}"
+                       Text="{Binding Details}" Margin="10,10,10,10"
                        TextColor="Black" FontSize="Large"/>
-            <Label Grid.Column="1" Grid.Row="2"
+            <Label Grid.Column="0" Grid.Row="2"
                        TextColor="Black" FontSize="Large"
                        Text="{Binding FoodLoc}"
                        FontAttributes="Bold" />

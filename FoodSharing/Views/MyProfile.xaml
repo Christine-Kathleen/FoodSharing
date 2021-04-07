@@ -12,6 +12,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
@@ -70,7 +71,35 @@
                 <Button Command="{Binding PublicProfileCommand}" Text="View public profile" TextColor="Black"  
                     FontAttributes="Bold" FontSize="Large" VerticalOptions="Start" Margin="20,0,20,0"
                     Grid.Column="0" Grid.Row="6" BackgroundColor="White" BorderColor="Black" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
-
+            <CollectionView ItemsSource="{Binding GiveAways }" Grid.Column="0" Grid.Row="7"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                       Source="{Binding ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="200"
+                       WidthRequest="200" />
+                            <Label Grid.Column="1"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold" />
+                            <Label Grid.Column="1"
+                       Text="{Binding Distance}"
+                       FontAttributes="Italic"
+                       VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

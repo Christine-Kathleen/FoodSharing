@@ -14,10 +14,77 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Image Source="{Binding ProfilePicture}" Grid.Column="0" Grid.Row="0"/>
-            
+            <Label Text="{Binding UserName}" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Large"/>
+            <Label Text="Rattings" TextColor="Black" FontSize="Medium" Grid.Column="0" Grid.Row="2"  Margin="20,10,10,10"/>
+            <Label Text="Comments section" TextColor="Black" FontSize="Medium" Grid.Column="0" Grid.Row="3" Margin="20,10,10,10"/>
+            <CollectionView ItemsSource="{Binding Items }" Grid.ColumnSpan="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0"
+                                Text="{Binding Comment}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Entry x:Name="chatTextInput" 
+                             Text="{Binding TextToSend}" 
+                             Margin="1"  
+                             TextColor="Black" 
+                             Keyboard="Chat"  
+                             HorizontalOptions="FillAndExpand" 
+                             PlaceholderColor="LightGray"
+                             Placeholder="Type your comment here"
+                             Grid.Row="4"
+                             Grid.Column="0"/>
+            <Button Text="Write a comment" Grid.Row="5"
+                                   Grid.ColumnSpan="0" FontSize="Medium" Command="{Binding SendMessageCommunicateCommand}" 
+                                   HorizontalOptions="FillAndExpand" 
+                                   BackgroundColor="#70AE98" CornerRadius="8" 
+                                   Margin="90,10,90,30" TextColor="White"
+                                   FontAttributes="Bold" />
+            <Label Text="Donations:" Grid.Column="0" Grid.Row="6" TextColor="Black" FontSize="Medium" Margin="20,10,10,10"/>
+            <CollectionView ItemsSource="{Binding GiveAways}" Grid.Column="0" Grid.Row="7"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Row="0"
+                       Source="{Binding ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="200"
+                       WidthRequest="200" />
+                            <Label Grid.Row="1"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold" />
+                            <Label Grid.Row="2"
+                       Text="{Binding Distance}"
+                       FontAttributes="Italic"
+                       VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

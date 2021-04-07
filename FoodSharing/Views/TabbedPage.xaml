@@ -7,51 +7,49 @@
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="FoodSharing.Pages.TabbedPageTest">
-
-    <ContentPage Shell.NavBarHasShadow="true" Title="From Store">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
-            </Grid.ColumnDefinitions>
-            <CollectionView ItemsSource="{Binding Items }" 
-                            SelectionMode="Single"
-                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10" BackgroundColor="White">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0"
+    
+    <ContentPage Title="🏪 From Store">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400" />
+                </Grid.ColumnDefinitions>
+                <CollectionView ItemsSource="{Binding Items }">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0"
                        Source="{Binding ImageUrl}"
                        Aspect="AspectFill"
-                       HeightRequest="200"
-                       WidthRequest="200" />
-                            <Label Grid.Column="1"
+                       HeightRequest="150"
+                       WidthRequest="150" />
+                                <Label Grid.Column="1"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
-                            <Label Grid.Column="1"
+                                <Label Grid.Column="1"
                        Text="{Binding Distance}"
                        FontAttributes="Italic"
                        VerticalOptions="End" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
                                 TextColor="White" BackgroundColor="#70AE98" 
                                 WidthRequest="60" HeightRequest="60" BorderRadius="30" 
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
-        </Grid>
-    </ContentPage>
-    <ContentPage Title="Home Made">
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="🏠 Home Made">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -73,8 +71,8 @@
                             <Image Grid.Column="0"
                        Source="{Binding ImageUrl}"
                        Aspect="AspectFill"
-                       HeightRequest="200"
-                       WidthRequest="200" />
+                       HeightRequest="150"
+                       WidthRequest="150" />
                             <Label Grid.Column="1"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
@@ -92,58 +90,57 @@
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
         </Grid>
     </ContentPage>
-    <ContentPage Shell.BackgroundColor="#70AE98" Title="Communicate">
-        <!--<ContentPage.Resources>
-                <ResourceDictionary>
-                    --><!--<local:ChatTemplateSelector x:Key="MessageTemplateSelector"/>--><!--
-                </ResourceDictionary>
-            </ContentPage.Resources>
-        <Grid RowSpacing="0" 
-           ColumnSpacing="0">
+    <ContentPage Shell.BackgroundColor="#70AE98" Title="💬 Communicate">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="1" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="450" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="290" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <ListView Grid.Row="0" 
-                 ItemTemplate="{StaticResource MessageTemplateSelector}" 
-                 ItemsSource="{Binding Messages}" 
-                 Margin="0" 
-                 HasUnevenRows="True" 
-                 VerticalOptions="FillAndExpand" 
-                 SeparatorColor="Transparent" >
-            </ListView>
-            <BoxView HorizontalOptions="FillAndExpand"
-                 HeightRequest="1"
-                 BackgroundColor="LightGray"
-                 Grid.Row="1"/>
-            --><!--<partials:ChatInputBarView Grid.Row="2"
-                                   Margin="0,0,10,0"/>--><!--
+            <CollectionView ItemsSource="{Binding Messages }">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ListView Grid.Row="0"
+                             Margin="0" 
+                             HasUnevenRows="True" 
+                             VerticalOptions="FillAndExpand" 
+                             SeparatorColor="Transparent" >
+                            </ListView>
+                            <BoxView HorizontalOptions="FillAndExpand"
+                             HeightRequest="1"
+                             BackgroundColor="LightGray"
+                             Grid.Row="1" Margin="0,0,10,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Entry x:Name="chatTextInput" 
-                 Text="{Binding TextToSend}" 
-                 Margin="1"  
-                 TextColor="Black" 
-                 Keyboard="Chat"  
-                 HorizontalOptions="FillAndExpand" 
-                 PlaceholderColor="LightGray"
-                 Placeholder="Type your message here"
-                 Grid.Row="0" 
-                 Grid.Column="0"/>
-            <Label Text="Send"
-               Grid.Row="0"
-               Grid.Column="1"
-               VerticalTextAlignment="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer
-                      Command="{Binding OnSendCommand}"/>
-                      --><!--Tapped="Handle_Completed"--><!--
-                </Label.GestureRecognizers>
-            </Label>
-        </Grid>-->
+                             Text="{Binding TextToSend}" 
+                             Margin="1"  
+                             TextColor="Black" 
+                             Keyboard="Chat"  
+                             HorizontalOptions="FillAndExpand" 
+                             PlaceholderColor="LightGray"
+                             Placeholder="Type your message here"
+                             Grid.Row="1"
+                             Grid.Column="0"/>
+            <Button Text="Send" Grid.Row="1"
+                                   Grid.Column="1" FontSize="Large" Command="{Binding SendMessageCommunicateCommand}" 
+                                   HorizontalOptions="FillAndExpand" 
+                                   BackgroundColor="#70AE98" CornerRadius="8" 
+                                   Margin="0,20,20,20" TextColor="White"
+                                   FontAttributes="Bold" />
+        </Grid>
     </ContentPage>
 </TabbedPage>

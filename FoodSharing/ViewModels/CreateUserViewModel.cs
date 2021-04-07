@@ -77,6 +77,7 @@ namespace FoodSharing.ViewModels
             LoginPage Page = new LoginPage();
             Application.Current.MainPage = Page;
         }
+        //TO DO checkbox must be checked 
     }
 }
 

@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Pages.CreateUserPage"
-             BackgroundColor="#ADDDCE"
+             BackgroundColor="#70AE98"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
+        <StackLayout Orientation="Vertical" Padding="10" Spacing="10">
             <BoxView HeightRequest="10"/>
             <Frame BackgroundColor="#70AE98" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
@@ -35,12 +35,12 @@
                             </Entry>
                     <Entry x:Name="Telephone" Text="{Binding Telephone}" Placeholder="Telephone"   
                            PlaceholderColor="White" HeightRequest="40"   
-                           Keyboard="Telephone"  
+                           Keyboard="Telephone" MaxLength="10" 
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing"/>
                     <Entry x:Name="UserName" Text="{Binding UserName}" Placeholder="User Name"   
                            PlaceholderColor="White" HeightRequest="40"   
-                           Keyboard="Text"  
+                           Keyboard="Text" MaxLength="20" 
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing"/>
                     <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
@@ -49,7 +49,7 @@
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing"/>
                     <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
-                           PlaceholderColor="White" HeightRequest="40"   
+                           PlaceholderColor="White" HeightRequest="40" 
                            IsPassword="True"  
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing"/>
@@ -60,10 +60,23 @@
                            ClearButtonVisibility="WhileEditing"/>
                 </StackLayout>
             </Frame>
-            <Button Command="{Binding RegisterCommand}" Text="Create" TextColor="White"  
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <CheckBox IsChecked="False" Grid.Row="0" Grid.Column="0" Color="#CA7E8D" Margin="0,0,0,0" />
+                <Label Text="I consent to having FoodSharing Inc collect my personal data" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" FontSize="Medium"/>
+                <Button Command="{Binding RegisterCommand}" Grid.Row="1" Grid.Column="1" Text="Create new user" IsEnabled="{Binding CreateEnabled}" TextColor="#70AE98"  
                     FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
-                    BackgroundColor="#CA7E8D"  CornerRadius="8" Opacity="0.70" />
-            <Button Command="{Binding ChangeToSignIn}" Text="Sign in now" FontAttributes="Bold" FontSize="Large" BackgroundColor="#CA7E8D" TextColor="White" CornerRadius="8" Opacity="0.70"/>
+                    BackgroundColor="White"  CornerRadius="8" Opacity="0.70" Margin="0,30,60,0" />
+                <Button Command="{Binding ChangeToSignIn}" Grid.Row="2" Grid.Column="1" Margin="0,0,60,0" Text="Sign in now" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" TextColor="#70AE98" CornerRadius="8" Opacity="0.70"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

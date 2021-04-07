@@ -5,18 +5,6 @@ using Xamarin.Essentials;
 
 namespace FoodSharing.Models
 {
-    //public class UserInfo
-    //{
-    //   // [PrimaryKey, AutoIncrement]
-    //    public int ID { get; set; } 
-    //    public string Email { get; set; }
-    //    public string FirstName { get; set; }
-    //    public string LastName { get; set; }
-    //    public string UserName { get; set; }
-    //    public string Telephone { get; set; }
-    //    public string Password { get; set; }
-
-    //}
     public static class UserHelper
     {
         public static string CreateMD5(string input)

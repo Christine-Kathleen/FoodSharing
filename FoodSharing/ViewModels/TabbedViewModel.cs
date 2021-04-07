@@ -49,6 +49,7 @@ namespace FoodSharing.ViewModels
             {
                 food.SetUserLoc(User.Instance.UserLoc);
             }
+
         }
         public async void OnSelectedFood()
         {
