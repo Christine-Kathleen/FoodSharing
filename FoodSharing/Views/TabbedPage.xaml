@@ -16,10 +16,12 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="400" />
                 </Grid.ColumnDefinitions>
-                <CollectionView ItemsSource="{Binding Items }">
-                    <CollectionView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding Items }" 
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
+                <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10">
+                        <Grid Padding="10" BackgroundColor="White">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>

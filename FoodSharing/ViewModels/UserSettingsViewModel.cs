@@ -46,10 +46,11 @@ namespace FoodSharing.ViewModels
             DeleteAccountCommand = new Command(OnDeleteAccount);
             PasswordChangeCommand = new Command(OnPasswordChange);
         }
-        public void OnBackToMainPage()
+        async public void OnBackToMainPage()
         {
-            MainPage Page = new MainPage();
-            Application.Current.MainPage = Page;
+            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+            //MainPage Page = new MainPage();
+            //Application.Current.MainPage = Page;
         }
         async public void OnDeleteAccount()
         {
