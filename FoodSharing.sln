@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodSharing", "FoodSharing\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{340E04FE-D0A6-4B60-8301-0B1731D0F26C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{81A506F0-8300-4D9F-9E90-E32AED3F1530}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,18 @@ Global
 		{340E04FE-D0A6-4B60-8301-0B1731D0F26C}.Release|iPhone.Build.0 = Release|Any CPU
 		{340E04FE-D0A6-4B60-8301-0B1731D0F26C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{340E04FE-D0A6-4B60-8301-0B1731D0F26C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Release|iPhone.Build.0 = Release|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{81A506F0-8300-4D9F-9E90-E32AED3F1530}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
