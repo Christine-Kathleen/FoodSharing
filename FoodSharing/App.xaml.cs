@@ -8,6 +8,7 @@ namespace FoodSharing
 {
     public partial class App : Application
     {
+       // public static FoodSharingDB Database { get; private set; }
         public App()
         {
             Device.SetFlags(new string[] { "RadioButton_Experimental" });
