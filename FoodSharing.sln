@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodSharing.iOS", "FoodSharing.iOS\FoodSharing.iOS.csproj", "{09A59BBA-47E5-4B88-8F2C-C2DD54C70649}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodSharing", "FoodSharing\FoodSharing.csproj", "{6644AA48-2017-433B-842F-5CB392B260D9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2BEEE651-A82F-4120-B396-21C2FAA00A80} = {2BEEE651-A82F-4120-B396-21C2FAA00A80}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebApplication\WebAPI.csproj", "{2BEEE651-A82F-4120-B396-21C2FAA00A80}"
 EndProject

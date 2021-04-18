@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WebAPI.Authentication;
 
-namespace FoodSharing.Models
+namespace WebAPI.Models
 {
     public class Comment
     {

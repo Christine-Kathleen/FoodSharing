@@ -92,9 +92,10 @@ namespace FoodSharing.ViewModels
 
                 //TabbedPageTest tabbedPageTest = new TabbedPageTest();
                 //Application.Current.MainPage = tabbedPageTest;
-                User.Instance.Email = Email;
-                User.Instance.Password = Password;
-                User.Instance.UserLoc = new Location(46.2, 23.68);
+
+                //User.Instance.Email = Email;
+                //User.Instance.Password = Password;
+                //User.Instance.UserLoc = new Location(46.2, 23.68);
                 await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                 //MainPage Page = new MainPage(user);
                 //Application.Current.MainPage = Page;

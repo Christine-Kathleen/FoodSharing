@@ -6,12 +6,12 @@ namespace FoodSharing.Models
 {
     public class Message
     {
-        public string Content { get; set; }
-        public DateTime SendTime {get; set;}
-        public User Sender { get; set; }
-        public User Receiver { get; set; }
-        public string Subject { get; set; }
-        public MessageState State { get; set; }
+        //public string Content { get; set; }
+        //public DateTime SendTime {get; set;}
+        //public User Sender { get; set; }
+        //public User Receiver { get; set; }
+        //public string Subject { get; set; }
+        //public MessageState State { get; set; }
     }
     public enum MessageState
     {

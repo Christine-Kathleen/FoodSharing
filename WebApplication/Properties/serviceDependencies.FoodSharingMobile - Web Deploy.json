@@ -5,6 +5,12 @@
       "type": "mssql.azure",
       "connectionId": "FoodSharingDataBaseConnection",
       "secretStore": "AzureAppSettings"
+    },
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/foodsharingserver/databases/FoodSharingDB",
+      "type": "mssql.azure",
+      "connectionId": "ConnStr",
+      "secretStore": "AzureAppSettings"
     }
   }
 }

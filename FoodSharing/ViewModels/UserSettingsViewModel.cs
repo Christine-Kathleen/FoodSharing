@@ -64,7 +64,7 @@ namespace FoodSharing.ViewModels
         {
             if (!string.IsNullOrEmpty(NewPassword))
             {
-                User.Instance.Password = UserHelper.CreateMD5(NewPassword);
+                //User.Instance.Password = UserHelper.CreateMD5(NewPassword);
                // await App.Database.SaveUpdateUserAsync(user);
                 DisplayPasswordChanged();
             }
