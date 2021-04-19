@@ -16,8 +16,10 @@ namespace WebAPI.Models
         public string ReviewContent { get; set; }
         [Required]
         public DateTime SendTime { get; set; }
-        public string Id { get; set; }
+        public string ReviewedUserId { get; set; }
         public ApplicationUser ReviewedId { get; set; }
+
+        public string ReviewerUserId { get; set; }
         public ApplicationUser ReviewerId { get; set; }
 
     }

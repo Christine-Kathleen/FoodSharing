@@ -60,7 +60,7 @@ namespace FoodSharing.ViewModels
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
                 //not really mvvm conform!!!!
-                App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
+                await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
                 return;
             }
 

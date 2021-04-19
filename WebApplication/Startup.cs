@@ -16,7 +16,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPI.Authentication;
-using WebAPI.FoodAnnouncement;
 
 namespace WebAPI
 {
@@ -36,7 +35,7 @@ namespace WebAPI
 
             // For Entity Framework  
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
-            services.AddDbContext<FoodsDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+            //services.AddDbContext<FoodsDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()

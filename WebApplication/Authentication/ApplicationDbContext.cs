@@ -10,57 +10,70 @@ namespace WebAPI.Authentication
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<ApplicationUser> Users { get; set; }
+        public override DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Food> Foods { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Review>();
+            builder.Entity<Food>();
+            builder.Entity<Message>();
+
+            builder.Entity<ApplicationUser>().HasMany(t => t.Revieweds)
+            .WithOne(g => g.ReviewedId)
+            .HasForeignKey(g => g.ReviewedUserId);
+            builder.Entity<ApplicationUser>().HasMany(t => t.Reviewers)
+            .WithOne(g => g.ReviewerId)
+            .HasForeignKey(g => g.ReviewerUserId).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>().HasMany(t => t.Senders)
+                .WithOne(g => g.SenderId)
+                .HasForeignKey(g => g.SenderUserId);
+            builder.Entity<ApplicationUser>().HasMany(t => t.Receivers)
+                .WithOne(g => g.ReceiverId)
+                .HasForeignKey(g => g.ReceiverUserId).OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
     }
-    public class FoodsDBContext : DbContext
-    {
-        public DbSet<Food> Foods { get; set; }
-        public FoodsDBContext(DbContextOptions<FoodsDBContext> options) : base(options)
-        {
+   
+    //public class ReviewDbContext : IdentityDbContext<ApplicationUser>
+    //{
+    //    public DbSet<Review> Reviews { get; set; }
+    //    public ReviewDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    //    {
 
-        }
-        protected override void OnModelCreating(ModelBuilder foodBuilder)
-        {
-            foodBuilder.Entity<Food>().HasKey(t => new { t.FoodId });
-            foodBuilder.Entity<Food>()
-            .HasOne(p => p.User)
-            .WithMany(b => b.Foods)
-            .OnDelete(DeleteBehavior.Cascade)
-            .HasForeignKey(fd => fd.FoodId);
-            //base.OnModelCreating(builder);
-        }
-    }
-    public class ReviewDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public DbSet<Review> Reviews { get; set; }
-        public ReviewDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
+    //    }
+    //    protected override void OnModelCreating(ModelBuilder reviewBuilder)
+    //    { 
+    //        reviewBuilder.Entity<Review>().HasKey(t => new { t.ReviewId });
+    //        reviewBuilder.Entity<Review>()
+    //        .HasOne(p => p.)
+    //        .WithMany(b => b.)
+    //        .OnDelete(DeleteBehavior.Cascade)
+    //        .HasForeignKey(fd => fd.ReviewedId);
+    //    }
+    //}
+    //public class MessageDbContext : IdentityDbContext<ApplicationUser>
+    //{
+    //    public DbSet<Message> Messages { get; set; }
+    //    public MessageDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    //    {
 
-        }
-        protected override void OnModelCreating(ModelBuilder reviewBuilder)
-        {
-            base.OnModelCreating(reviewBuilder);
-        }
-    }
-    public class MessageDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public DbSet<Message> Messages { get; set; }
-        public MessageDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-
-        }
-        protected override void OnModelCreating(ModelBuilder messageBuilder)
-        {
-            base.OnModelCreating(messageBuilder);
-        }
-    }
+    //    }
+    //    protected override void OnModelCreating(ModelBuilder messageBuilder)
+    //    {
+    //        messageBuilder.Entity<Message>().HasKey(t => new { t.MessageId });
+    //        messageBuilder.Entity<Message>()
+    //        //.HasOne(p => p.Receiver)
+    //        //.WithOne(b => b.Id)
+    //        //.OnDelete(DeleteBehavior.Cascade);
+    //    }
+    //}
 
 }

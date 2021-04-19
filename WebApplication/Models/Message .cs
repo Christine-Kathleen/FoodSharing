@@ -17,11 +17,13 @@ namespace WebAPI.Models
         public DateTime SendTime { get; set; }
         public string Id { get; set; }
 
+        public string SenderUserId { get; set; }
         [Required(ErrorMessage = "Must have a sender")]
-        public ApplicationUser Sender { get; set; }
+        public ApplicationUser SenderId { get; set; }
 
+        public string ReceiverUserId { get; set; }
         [Required(ErrorMessage = "Must have a receiver")]
-        public ApplicationUser Receiver { get; set; }
+        public ApplicationUser ReceiverId { get; set; }
         [Required]
         public string Subject { get; set; }
 

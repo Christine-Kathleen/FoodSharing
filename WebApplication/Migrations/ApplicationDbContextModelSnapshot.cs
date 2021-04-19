@@ -15,8 +15,8 @@ namespace WebAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -29,18 +29,18 @@ namespace WebAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
+                        .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
@@ -163,16 +163,18 @@ namespace WebAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -182,12 +184,12 @@ namespace WebAPI.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -208,20 +210,118 @@ namespace WebAPI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
+                        .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("WebAPI.Models.Food", b =>
+                {
+                    b.Property<string>("FoodId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AnnouncementAvailability")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FoodType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("FoodId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Foods");
+                });
+
+            modelBuilder.Entity("WebAPI.Models.Message", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("SendTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ReceiverUserId");
+
+                    b.HasIndex("SenderUserId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("WebAPI.Models.Review", b =>
+                {
+                    b.Property<int>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReviewContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReviewedUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReviewerUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("SendTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("ReviewedUserId");
+
+                    b.HasIndex("ReviewerUserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -273,6 +373,63 @@ namespace WebAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebAPI.Models.Food", b =>
+                {
+                    b.HasOne("WebAPI.Authentication.ApplicationUser", "User")
+                        .WithMany("Foods")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebAPI.Models.Message", b =>
+                {
+                    b.HasOne("WebAPI.Authentication.ApplicationUser", "ReceiverId")
+                        .WithMany("Receivers")
+                        .HasForeignKey("ReceiverUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Authentication.ApplicationUser", "SenderId")
+                        .WithMany("Senders")
+                        .HasForeignKey("SenderUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ReceiverId");
+
+                    b.Navigation("SenderId");
+                });
+
+            modelBuilder.Entity("WebAPI.Models.Review", b =>
+                {
+                    b.HasOne("WebAPI.Authentication.ApplicationUser", "ReviewedId")
+                        .WithMany("Revieweds")
+                        .HasForeignKey("ReviewedUserId");
+
+                    b.HasOne("WebAPI.Authentication.ApplicationUser", "ReviewerId")
+                        .WithMany("Reviewers")
+                        .HasForeignKey("ReviewerUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ReviewedId");
+
+                    b.Navigation("ReviewerId");
+                });
+
+            modelBuilder.Entity("WebAPI.Authentication.ApplicationUser", b =>
+                {
+                    b.Navigation("Foods");
+
+                    b.Navigation("Receivers");
+
+                    b.Navigation("Revieweds");
+
+                    b.Navigation("Reviewers");
+
+                    b.Navigation("Senders");
                 });
 #pragma warning restore 612, 618
         }

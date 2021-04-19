@@ -30,7 +30,6 @@ namespace WebAPI.Models
         [Required(ErrorMessage = "The food type is required")]
         public TypeOfFood FoodType { get; set; }
         public Availability AnnouncementAvailability { get; set; }
-        public string Id { get; set; }
         public ApplicationUser User { get; set; }
     }
     
