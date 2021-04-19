@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Messages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Message>> GetMessage(string id)
+        public async Task<ActionResult<Message>> GetMessage(int id)
         {
             var message = await _context.Messages.FindAsync(id);
 
@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
         // PUT: api/Messages/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessage(string id, Message message)
+        public async Task<IActionResult> PutMessage(int id, Message message)
         {
             if (id != message.MessageId)
             {
@@ -100,7 +100,7 @@ namespace WebAPI.Controllers
 
         // DELETE: api/Messages/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMessage(string id)
+        public async Task<IActionResult> DeleteMessage(int id)
         {
             var message = await _context.Messages.FindAsync(id);
             if (message == null)
@@ -114,7 +114,7 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        private bool MessageExists(string id)
+        private bool MessageExists(int id)
         {
             return _context.Messages.Any(e => e.MessageId == id);
         }

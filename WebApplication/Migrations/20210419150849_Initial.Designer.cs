@@ -10,8 +10,8 @@ using WebAPI.Authentication;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210419115337_initial")]
-    partial class initial
+    [Migration("20210419150849_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -230,8 +230,10 @@ namespace WebAPI.Migrations
 
             modelBuilder.Entity("WebAPI.Models.Food", b =>
                 {
-                    b.Property<string>("FoodId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("FoodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AnnouncementAvailability")
                         .HasColumnType("int");
@@ -250,26 +252,25 @@ namespace WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("FoodId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Foods");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Message", b =>
                 {
-                    b.Property<string>("MessageId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReceiverUserId")
@@ -283,10 +284,6 @@ namespace WebAPI.Migrations
 
                     b.Property<int>("State")
                         .HasColumnType("int");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MessageId");
 
@@ -381,7 +378,7 @@ namespace WebAPI.Migrations
                 {
                     b.HasOne("WebAPI.Authentication.ApplicationUser", "User")
                         .WithMany("Foods")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserID");
 
                     b.Navigation("User");
                 });

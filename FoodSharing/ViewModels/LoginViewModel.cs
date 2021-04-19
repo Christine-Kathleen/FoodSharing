@@ -82,26 +82,17 @@ namespace FoodSharing.ViewModels
 
                 //else
                 //{
-                //User user = new User(){ UserName="test",Email="test@test.com"};
-                //Shell.Current.GoToAsync(nameof(MainPage));
-                //DO write shell to navigate
-                //new NavigationPage(new MainPage(user));
 
                 //var newPage = new MainPage(user);
                 //object p = await NavigationPage.PushAsync(newPage);
 
-                //TabbedPageTest tabbedPageTest = new TabbedPageTest();
-                //Application.Current.MainPage = tabbedPageTest;
 
                 //User.Instance.Email = Email;
                 //User.Instance.Password = Password;
                 //User.Instance.UserLoc = new Location(46.2, 23.68);
                 await App.Current.MainPage.Navigation.PushAsync(new MainPage());
-                //MainPage Page = new MainPage(user);
-                //Application.Current.MainPage = Page;
                 //}
             }
-
         }
         public async void OnCreateUser()
         {
