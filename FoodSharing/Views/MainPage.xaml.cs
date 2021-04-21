@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 
 namespace FoodSharing.Pages
 {
-    public partial class MainPage : MasterDetailPage
+    public partial class MainPage : FlyoutPage
     {
         public MainPage ()
         {

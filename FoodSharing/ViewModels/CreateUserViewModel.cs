@@ -49,7 +49,7 @@ namespace FoodSharing.ViewModels
                 
             }
 
-        async public void OnRegister()
+        public async void OnRegister()
             {
                 //if (!regexemail.IsMatch(email.ToUpper()))
                 //{
@@ -72,10 +72,9 @@ namespace FoodSharing.ViewModels
                 //    DisplayNoPassword();
                 //}
             }
-        public void OnChangeToSignIn()
+        public async void OnChangeToSignIn()
         {
-            LoginPage Page = new LoginPage();
-            Application.Current.MainPage = Page;
+            await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
         //TO DO checkbox must be checked 
     }

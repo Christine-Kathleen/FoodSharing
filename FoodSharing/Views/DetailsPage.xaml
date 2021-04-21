@@ -12,9 +12,8 @@
         <Label Text="Welcome! You are logged in as:" FontSize="Title" Padding="30,10,30,10" HorizontalTextAlignment="Center" TextColor="White"/>
         <Label Text="{Binding UserName}" FontSize="25" Padding="30,0,30,0" HorizontalTextAlignment="Center" TextColor="White"/>
         <StackLayout Orientation="Vertical" Padding="20" Spacing="30">
-            <BoxView HeightRequest="10"/>
-            
-        </StackLayout>
+                <BoxView HeightRequest="10"/>
+            </StackLayout>
     </StackLayout>
     </ContentPage.Content>
 </ContentPage>

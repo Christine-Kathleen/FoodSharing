@@ -98,12 +98,7 @@ namespace FoodSharing.ViewModels
         public async void OnCreateUserClicked()
         {
 
-            // await App.Current.MainPage.Navigation.PushAsync(new CreateUserPage());
-            RestService restSevice = new RestService();
-            FoodManager myFoodManager = new FoodManager(restSevice);
-
-            List<Food> test;
-            test = await myFoodManager.GetTasksAsync();
+            await App.Current.MainPage.Navigation.PushAsync(new CreateUserPage());
         }
     }
 }
