@@ -16,7 +16,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="400" />
                 </Grid.ColumnDefinitions>
-            <CollectionView ItemsSource="{Binding Items }" 
+            <CollectionView ItemsSource="{Binding Foods }" 
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
                 <CollectionView.ItemTemplate>
@@ -59,7 +59,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
-            <CollectionView ItemsSource="{Binding Items }">
+            <CollectionView ItemsSource="{Binding Foods }" 
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">

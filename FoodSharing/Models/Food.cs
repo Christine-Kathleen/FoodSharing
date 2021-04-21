@@ -21,6 +21,7 @@ namespace FoodSharing.Models
         [Required]
         public string Name { get; set; }
         //public Location FoodLoc { get; set; }
+        //time posted!!!!!
         [Required]
         public string Details { get; set; }
         public string ImageUrl { get; set; }

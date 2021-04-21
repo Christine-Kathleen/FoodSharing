@@ -18,7 +18,7 @@ namespace FoodSharing.Pages
             InitializeComponent();
             var vm = new MainViewModel();
             this.BindingContext = vm;
-            this.Master = new MasterPage();
+            this.Flyout = new MasterPage();
             this.Detail = new NavigationPage(new TabbedPageTest());
            
         }

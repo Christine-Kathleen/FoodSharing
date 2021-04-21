@@ -13,7 +13,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
 
     public class FoodsController : ControllerBase
     {
@@ -22,7 +22,36 @@ namespace WebAPI.Controllers
         public FoodsController(ApplicationDbContext context)
         {
             _context = context;
+            //AddTestData();
         }
+
+        public  async void AddTestData()
+        {
+            var food = new Food();
+            food.Name = "Cake";
+            food.Details = "Vanilla";
+            food.FoodType = TypeOfFood.FromStore;
+            food.AnnouncementAvailability = Availability.Available;
+            food.User = _context.Users.First();
+            food.UserID = food.User.Id;
+            _context.Foods.Add(food);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                //if (!FoodExists(id))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    throw;
+                //}
+            }
+        }
+
 
         // GET: api/Foods
         [HttpGet]

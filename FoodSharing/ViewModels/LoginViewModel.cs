@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using FoodSharing.Services;
 
 namespace FoodSharing.ViewModels
 {
@@ -49,7 +50,7 @@ namespace FoodSharing.ViewModels
             }
         }
 
-        public ICommand SubmitCommand { protected set; get; }
+        public ICommand LoginCommand { protected set; get; }
         public ICommand CreateUserCommand { protected set; get; }
         public LoginViewModel()
         {
@@ -59,11 +60,11 @@ namespace FoodSharing.ViewModels
             Password = "semmi";
 
 
-            SubmitCommand = new Command(OnSubmit);
-            CreateUserCommand = new Command(OnCreateUser);
+            LoginCommand = new Command(OnLoginClicked);
+            CreateUserCommand = new Command(OnCreateUserClicked);
         }
 
-        public async void OnSubmit()
+        public async void OnLoginClicked()
         {
             if (!regexemail.IsMatch(email.ToUpper()))
             {
@@ -94,9 +95,15 @@ namespace FoodSharing.ViewModels
                 //}
             }
         }
-        public async void OnCreateUser()
+        public async void OnCreateUserClicked()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new CreateUserPage());
+
+            // await App.Current.MainPage.Navigation.PushAsync(new CreateUserPage());
+            RestService restSevice = new RestService();
+            FoodManager myFoodManager = new FoodManager(restSevice);
+
+            List<Food> test;
+            test = await myFoodManager.GetTasksAsync();
         }
     }
 }

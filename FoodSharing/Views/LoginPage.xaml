@@ -9,6 +9,7 @@
                 <RowDefinition Height="350" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
@@ -30,10 +31,11 @@
                     </StackLayout>
                 </Frame>
                    </StackLayout>
-            <Button Command="{Binding SubmitCommand}" Text="Login" TextColor="White"  
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1" 
+            <!--<ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Grid.Column="0" Grid.Row="1"/>-->
+            <Button Command="{Binding LoginCommand}" Text="Login" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="2" 
                     BackgroundColor="#70AE98" CornerRadius="8" Margin="60,20,60,0"/>
-            <Button Command="{Binding CreateUserCommand}" Grid.Column="0" Grid.Row="2" Text="Sign up now" VerticalOptions="Start"
+            <Button Command="{Binding CreateUserCommand}" Grid.Column="0" Grid.Row="3" Text="Sign up now" VerticalOptions="Start"
                     BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="60,10,60,0" FontSize="Large" BackgroundColor="White"
                     TextColor="Black" Opacity="0.70" CornerRadius="8" />
 
