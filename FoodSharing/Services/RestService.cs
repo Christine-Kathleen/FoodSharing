@@ -8,6 +8,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using Newtonsoft.Json.Linq;
+using Xamarin.Essentials;
 
 namespace FoodSharing.Services
 {
@@ -15,6 +17,7 @@ namespace FoodSharing.Services
     {
         HttpClient client;
         JsonSerializerOptions serializerOptions;
+        public string BearerToken => Preferences.Get("BearerToken", string.Empty);
         public RestService()
         {
                 client = new HttpClient();
@@ -25,15 +28,41 @@ namespace FoodSharing.Services
                 };
         }
 
+        public async Task<AuthResponse> AuthWithCredentialsAsync(string username, string password)
+        {
+            dynamic jsonObject = new JObject();
+            jsonObject.Username = username;
+            jsonObject.Password = password;
+
+            var content = new StringContent(jsonObject.ToString(), Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync(Constants.LoginUrl, content);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var stringResponse = await responseMessage.Content.ReadAsStringAsync();
+                var authResponse = JsonConvert.DeserializeObject<AuthResponse>(stringResponse);
+
+                Preferences.Set("BearerToken", authResponse.Token);
+                //Preferences.Set("RefreshToken", authResponse.RefreshToken);
+
+                return authResponse;
+            }
+            else
+            {
+                return new AuthResponse();
+            }
+        }
+
         public List<Food> Foods { get; set; }
 
         public async Task<List<Food>> RefreshDataAsync()
         {
             Foods = new List<Food>();
 
-            Uri uri = new Uri(string.Format(Constants.RestUrl, string.Empty));
+            Uri uri = new Uri(string.Format(Constants.FoodUrl, string.Empty));
             try
             {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = await client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
@@ -51,7 +80,7 @@ namespace FoodSharing.Services
 
         public async Task SaveFoodAsync(Food food, bool isNewItem = false)
         {
-            Uri uri = new Uri(string.Format(Constants.RestUrl, string.Empty));
+            Uri uri = new Uri(string.Format(Constants.FoodUrl, string.Empty));
 
             try
             {
@@ -82,7 +111,7 @@ namespace FoodSharing.Services
 
         public async Task DeleteFoodAsync(int id)
         {
-            Uri uri = new Uri(string.Format(Constants.RestUrl, id));
+            Uri uri = new Uri(string.Format(Constants.FoodUrl, id));
 
             try
             {

@@ -18,7 +18,7 @@
                 <BoxView HeightRequest="10"/>
                 <Frame BackgroundColor="#70AE98" HasShadow="False" CornerRadius="8" >
                     <StackLayout Orientation="Vertical" Spacing="10">
-                        <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
+                        <Entry x:Name="Username" Text="{Binding Username}" Placeholder="Username"   
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Email"  
                            TextColor="White"

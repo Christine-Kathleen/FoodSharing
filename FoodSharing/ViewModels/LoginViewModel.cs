@@ -19,6 +19,17 @@ namespace FoodSharing.ViewModels
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private Regex regexemail = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
+        private string username = "cristina";
+        private string password = "Password@123456";
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                username = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Username"));
+            }
+        }
         private int id;
         public int ID
         {
@@ -29,7 +40,7 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("ID"));
             }
         }
-        private string password;
+       // private string password;
         public string Password
         {
             get { return password; }
@@ -66,16 +77,18 @@ namespace FoodSharing.ViewModels
 
         public async void OnLoginClicked()
         {
-            if (!regexemail.IsMatch(email.ToUpper()))
-            {
-                DisplayInvalidEmail();
-            }
-            else if (string.IsNullOrEmpty(password))
-            {
-                DisplayNoPassword();
-            }
-            else
-            {
+            //if (!regexemail.IsMatch(email.ToUpper()))
+            //{
+            //    DisplayInvalidEmail();
+            //}
+            //else if (string.IsNullOrEmpty(password))
+            //{
+            //    DisplayNoPassword();
+            //}
+            //else
+            //{
+                RestService userRestService = new RestService();
+                var response = await userRestService.AuthWithCredentialsAsync(Username, Password);
                 //User user = await App.Database.GetUserAsync(email, UserHelper.CreateMD5(password));
                 //if (user == null)
                 //{
@@ -93,7 +106,7 @@ namespace FoodSharing.ViewModels
                 //User.Instance.UserLoc = new Location(46.2, 23.68);
                 await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                 //}
-            }
+            //}
         }
         public async void OnCreateUserClicked()
         {
