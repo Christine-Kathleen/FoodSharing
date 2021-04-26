@@ -20,7 +20,9 @@ namespace FoodSharing.Pages
             this.BindingContext = vm;
             this.Flyout = new MasterPage();
             this.Detail = new NavigationPage(new TabbedPageTest());
-           
+            //var clr = Color.FromHex("#FAFAFA");
+            //this.BarBackgroundColor = clr;
         }
+
     }
 }

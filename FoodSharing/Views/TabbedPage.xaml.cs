@@ -18,6 +18,8 @@ namespace FoodSharing.Pages
             InitializeComponent();
             var vm = new TabbedViewModel();
             this.BindingContext = vm;
+            //var clr = Color.FromHex("#FAFAFB");
+            //this.BarBackgroundColor = clr;
         }
     }
 }

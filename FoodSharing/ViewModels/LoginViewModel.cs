@@ -66,9 +66,9 @@ namespace FoodSharing.ViewModels
         public LoginViewModel()
         {
             //create fake user to enter app easy
-            ID = 1;
-            Email = "belep@elek.hu";
-            Password = "semmi";
+            //ID = 1;
+            //Email = "belep@elek.hu";
+            //Password = "semmi";
 
 
             LoginCommand = new Command(OnLoginClicked);

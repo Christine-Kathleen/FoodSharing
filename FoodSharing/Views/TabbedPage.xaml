@@ -6,7 +6,7 @@
             mc:Ignorable="d"
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.ToolbarPlacement="Bottom"
-            x:Class="FoodSharing.Pages.TabbedPageTest">
+            x:Class="FoodSharing.Pages.TabbedPageTest" BarBackgroundColor="White">
     
     <ContentPage Title="🏪 From Store">
             <Grid>
