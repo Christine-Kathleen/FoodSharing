@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Xamarin.Essentials;
 using WebAPI.Authentication;
+using NetTopologySuite.Geometries;
+using Location = Xamarin.Essentials.Location;
+using System.Data.Entity.Spatial;
 
 namespace FoodSharing.Models
 {
@@ -13,6 +16,9 @@ namespace FoodSharing.Models
         [Key]
         public int FoodId { get; set; }
 
+        public double FoodLocationLatitude { get; set; }
+        public double FoodLocationLongitude { get; set; }
+
         private Location userLoc = new Location(46.0667, 23.5833);
         public void SetUserLoc(Location location)
         {
@@ -20,14 +26,13 @@ namespace FoodSharing.Models
         }
         [Required(ErrorMessage = "Food Name is required")]
         public string Name { get; set; }
-        //public Location FoodLoc { get; set; }
-        //time posted!!
+        [Required(ErrorMessage = "The date and time is required")]
+        public DateTime TimePosted { get; set; }
         [Required(ErrorMessage = "Details are required")]
         public string Details { get; set; }
         public string ImageUrl { get; set; }
-        //TODO Distance Calculation has to be changed, as FoodLoc has to be the first parameter
         [Required]
-        public string Distance { get { return Math.Round(Location.CalculateDistance(userLoc, userLoc, DistanceUnits.Kilometers), 2).ToString() + "km"; } }
+        public string Distance { get { return Math.Round(Xamarin.Essentials.Location.CalculateDistance(new Location(FoodLocationLatitude, FoodLocationLongitude), userLoc, DistanceUnits.Kilometers), 2).ToString() + "km"; } }
         [Required(ErrorMessage = "The food type is required")]
         public TypeOfFood FoodType { get; set; }
         [Required]

@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
     <Compile Remove="Views\**" />
+    <Content Remove="Models\**" />
     <Content Remove="Views\**" />
+    <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Views\**" />
+    <None Remove="Models\**" />
     <None Remove="Views\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Models\User.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="NetTopologySuite" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
@@ -35,6 +36,10 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodSharing\FoodSharing.csproj" />
   </ItemGroup>
 
 
