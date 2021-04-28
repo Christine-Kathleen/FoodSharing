@@ -6,11 +6,15 @@ using Xamarin.Essentials;
 using NetTopologySuite.Geometries;
 using Location = Xamarin.Essentials.Location;
 using System.Data.Entity.Spatial;
+using Xamarin.Forms;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace FoodSharing.Models
 {
-    public class Food
+    public class Food:INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public Food()
         {
             this.TimePosted = DateTime.UtcNow;
@@ -45,6 +49,21 @@ namespace FoodSharing.Models
         public ApplicationUser User { get; set; }
         [Required]
         public string UserID { get; set; }
+
+
+
+        private ImageSource imageSource;
+
+        [NotMapped]
+        public ImageSource ImageSource
+        {
+            get { return imageSource; }
+            set
+            {
+                imageSource = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("ImageSource"));
+            }
+        }
     }
 
     public enum TypeOfFood

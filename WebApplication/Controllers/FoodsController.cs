@@ -115,7 +115,7 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 if (FoodExists(food.FoodId))
                 {

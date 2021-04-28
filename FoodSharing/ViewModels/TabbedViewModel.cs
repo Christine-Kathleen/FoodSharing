@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using FoodSharing.Models;
 using FoodSharing.Services;
 using System.Collections.Generic;
+using Azure.Storage.Blobs;
+using System.IO;
 
 namespace FoodSharing.ViewModels
 {
@@ -54,8 +56,35 @@ namespace FoodSharing.ViewModels
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
             List<Food> listFoods = await myFoodManager.GetTasksAsync();
+            string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
+            // Create a container client
+            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+            //      TakePhoto.
+
+            //The name of the container
+            string containerName = "foodpicsblobs";// + Guid.NewGuid().ToString();
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             foreach (var item in listFoods)
             {
+                //TODO to be removed , when no foods without imageurl!!!
+                if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+
+                    // Get a reference to a blob
+                    BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
+
+                    //var byteData = Encoding.UTF8.GetBytes(photo);
+                    //MemoryStream imagestream;
+                    //await blobClient.DownloadToAsync( MemoryStream image);
+                    //item.ImageSource = ImageSource.FromStream(() =>imagestream);
+
+                    /*MemoryStream downloadFileStream = new MemoryStream(1000000)*/;
+                    
+                        //await blobClient.DownloadToAsync(downloadFileStream);
+                        item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
+                    //downloadFileStream.Close();
+                    
+                }
                 Foods.Add(item);
             }
         }
