@@ -28,8 +28,35 @@ namespace FoodSharing.Services
                 };
         }
 
+
+        public async Task<ApplicationUser> GetUser(string username, string password)
+        {
+            ApplicationUser user = new ApplicationUser();
+           
+            dynamic jsonObject = new JObject();
+            jsonObject.Username = username;
+            jsonObject.Password = password;
+            try
+            {
+                var content = new StringContent(jsonObject.ToString(), Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                var responseMessage = await client.PostAsync(Constants.GetUserUrl, content);
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    string content2 = await responseMessage.Content.ReadAsStringAsync();
+                    user = System.Text.Json.JsonSerializer.Deserialize<ApplicationUser>(content2, serializerOptions);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+            }
+            return user;
+        }
+
         public async Task<AuthResponse> AuthWithCredentialsAsync(string username, string password)
         {
+           
             dynamic jsonObject = new JObject();
             jsonObject.Username = username;
             jsonObject.Password = password;

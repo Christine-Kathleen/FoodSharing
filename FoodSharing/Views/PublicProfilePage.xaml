@@ -37,7 +37,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Entry x:Name="chatTextInput" 
+            <!--<Entry x:Name="chatTextInput" 
                              Text="{Binding TextToSend}" 
                              Margin="1"  
                              TextColor="Black" 
@@ -84,7 +84,7 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+            </CollectionView>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

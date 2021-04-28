@@ -10,8 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;   
 using System.IdentityModel.Tokens.Jwt;  
 using System.Security.Claims;  
-using System.Text;  
-  
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using FoodSharing.Models;
+
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -27,6 +29,26 @@ namespace WebAPI.Controllers
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = configuration;
+        }
+
+        [HttpPost]
+        [Route("GetUser")]
+        [Authorize]
+        public async Task<ActionResult<ApplicationUser>> GetUser([FromBody] LoginModel model)
+        {
+            var user = await userManager.FindByNameAsync(model.Username);
+            if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
+            {
+                user.ConcurrencyStamp = "";
+                user.PasswordHash = "";
+                user.SecurityStamp = "";
+                return user;
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         [HttpPost]
@@ -63,6 +85,8 @@ namespace WebAPI.Controllers
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
+                   
+                    
                 });
             }
             return Unauthorized();

@@ -11,5 +11,7 @@ namespace FoodSharing.Services
         Task SaveFoodAsync(Food food, bool isNewItem);
 
         Task DeleteFoodAsync(int id);
+
+        Task<ApplicationUser> GetUser(string username, string password);
     }
 }

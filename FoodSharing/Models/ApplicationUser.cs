@@ -6,25 +6,40 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Xamarin.Essentials;
 using FoodSharing.Models;
+using FoodSharing.Services;
 
-namespace WebAPI.Authentication
+namespace FoodSharing.Models
 {
-    //public class ApplicationUser : IdentityUser
+
+
+    //public sealed class Singleton
     //{
-    //    //[Key]
-    //    //public override string Id { get; set; }
-    //    [ProtectedPersonalData]
-    //    public virtual string FirstName { get; set; }
+    //    private static ApplicationUser instance = null;
+    //    private static readonly object padlock = new object();
 
-    //    [ProtectedPersonalData]
-    //    public virtual string LastName { get; set; }
 
-    //    [ProtectedPersonalData]
-    //    public float RatingGrade { get; set; }
-    //    public List<Food> Foods { get; set; }
-    //    // public Location UserLoc { get; set; }
+    //    Singleton()
+    //    {
+    //    }
+
+    //    public static ApplicationUser Instance
+    //    {
+    //        get
+    //        {
+    //            lock (padlock)
+    //            {
+    //                if (instance == null)
+    //                {
+    //                    RestService userRestService = new RestService();
+    //                    var response = await userRestService.AuthWithCredentialsAsync(Username, Password);
+    //                    ApplicationUser user = await userRestService.GetUser(Username, Password);
+    //                    instance = new User();
+    //                }
+    //                return instance;
+    //            }
+    //        }
+    //    }
     //}
-
     public class ApplicationUser : IdentityUser
     {
         //[Key]
@@ -49,6 +64,7 @@ namespace WebAPI.Authentication
 
         public ICollection<Message> Senders { get; set; }
         public ICollection<Message> Receivers { get; set; }
-        // public Location UserLoc { get; set; }
+        public double UserLocLatitude { get; set; }
+        public double UserLocLongitude { get; set; }
     }
 }

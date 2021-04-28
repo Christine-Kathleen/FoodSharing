@@ -1,6 +1,8 @@
 ﻿using Android;
 using Android.Content.PM;
+using FoodSharing.Models;
 using FoodSharing.Pages;
+using FoodSharing.Services;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
@@ -19,10 +21,41 @@ namespace FoodSharing.ViewModels
         public ICommand HomeCommand { get; set; }
         public ICommand TakePicCommand { get; set; }
         public ICommand ImageTapped { get; set; }
+
+
+        private string foodDetails;
+        public string FoodDetails
+        {
+            get { return foodDetails; }
+            set
+            {
+                foodDetails = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("FoodDetails"));
+            }
+        }
+
+        private string foodName;
+        public string FoodName
+        {
+            get { return foodName; }
+            set
+            {
+                foodName = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("FoodName"));
+            }
+        }
+        private object typeSelection;
+        public object TypeSelection
+        {
+            get { return typeSelection; }
+            set
+            {
+                typeSelection = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("TypeSelection"));
+            }
+        }
         
         private ImageSource takePhoto;
-        
-
         public ImageSource TakePhoto
         {
             get { return takePhoto; }
@@ -42,11 +75,17 @@ namespace FoodSharing.ViewModels
             
         }
 
-        public void OnCreateProduct()
+        public async void OnCreateProduct()
         {
+            RestService restSevice = new RestService();
+            FoodManager myFoodManager = new FoodManager(restSevice);
+            TypeOfFood foodtype = TypeOfFood.FromStore;
+
+             await myFoodManager.SaveTaskAsync(new Food { Name = FoodName, Details = FoodDetails, FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),(string)TypeSelection), AnnouncementAvailability=Availability.Available });
             //TO DO ADD product to DB
             //must add location&Pic
             //TO DO take location from the user device
+            //TO DO alert
         }
 
         public async void OnHome()

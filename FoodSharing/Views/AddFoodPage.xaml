@@ -8,7 +8,7 @@
                 <BoxView HeightRequest="10"/>
             <Label Text="Give away anything you would eat yourself:" TextColor="Black" FontSize="Medium" Margin="20,0,20,0"/>
             <Frame BackgroundColor="Transparent" HasShadow="False">
-                <StackLayout Orientation="Vertical" Spacing="10">
+                <StackLayout Orientation="Vertical" Spacing="10" RadioButtonGroup.GroupName="FoodType" RadioButtonGroup.SelectedValue="{Binding TypeSelection}">
                     <Entry x:Name="Name" Text="{Binding FoodName }" Placeholder="Naming of the product"   
                            PlaceholderColor="Black" HeightRequest="40"     
                            TextColor="Black" 
@@ -33,10 +33,8 @@
                             </Keyboard>
                         </Entry.Keyboard>
                     </Entry>
-                    <RadioButton Content="FromStore" GroupName="Type">
-                    </RadioButton>
-                    <RadioButton Content="HomeMade" GroupName="Type">
-                    </RadioButton>
+                    <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodType"/>
+                    <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodType"/>
                     <Button Command="{Binding TakePicCommand}" Margin="10,10,120,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="Black" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
                 </StackLayout>

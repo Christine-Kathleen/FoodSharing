@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Xamarin.Essentials;
-using WebAPI.Authentication;
 using NetTopologySuite.Geometries;
 using Location = Xamarin.Essentials.Location;
 using System.Data.Entity.Spatial;
@@ -12,11 +11,16 @@ namespace FoodSharing.Models
 {
     public class Food
     {
+        public Food()
+        {
+            this.TimePosted = DateTime.UtcNow;
+        }
 
         [Key]
         public int FoodId { get; set; }
-
+        //[Required(ErrorMessage = "FoodLocationLatitude is required")]
         public double FoodLocationLatitude { get; set; }
+        //[Required(ErrorMessage = "FoodLocationLongitude is required")]
         public double FoodLocationLongitude { get; set; }
 
         private Location userLoc = new Location(46.0667, 23.5833);
@@ -37,7 +41,7 @@ namespace FoodSharing.Models
         public TypeOfFood FoodType { get; set; }
         [Required]
         public Availability AnnouncementAvailability { get; set; }
-        [Required]
+        //[Required]
         public ApplicationUser User { get; set; }
         [Required]
         public string UserID { get; set; }

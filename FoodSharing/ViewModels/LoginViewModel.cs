@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using FoodSharing.Services;
+using System.Runtime.CompilerServices;
 
 namespace FoodSharing.ViewModels
 {
@@ -21,6 +22,21 @@ namespace FoodSharing.ViewModels
         private Regex regexemail = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
         private string username = "cristina";
         private string password = "Password@123456";
+        bool isBusy = false;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                SetProperty(ref isBusy, value);
+                SetProperty(ref isBusy, value, nameof(IsNotBusy));
+            }
+
+        }
+        public bool IsNotBusy
+        {
+            get { return !IsBusy; }
+        }
         public string Username
         {
             get { return username; }
@@ -87,24 +103,26 @@ namespace FoodSharing.ViewModels
             //}
             //else
             //{
+                IsBusy = true;
                 RestService userRestService = new RestService();
                 var response = await userRestService.AuthWithCredentialsAsync(Username, Password);
-                //User user = await App.Database.GetUserAsync(email, UserHelper.CreateMD5(password));
-                //if (user == null)
-                //{
-                //    DisplayInvalidLoginPrompt();
+            ApplicationUser user = await userRestService.GetUser(Username, Password);
+            //User user = await App.Database.GetUserAsync(email, UserHelper.CreateMD5(password));
+            //if (user == null)
+            //{
+            //    DisplayInvalidLoginPrompt();
 
-                //else
-                //{
+            //else
+            //{
 
-                //var newPage = new MainPage(user);
-                //object p = await NavigationPage.PushAsync(newPage);
+            //var newPage = new MainPage(user);
+            //object p = await NavigationPage.PushAsync(newPage);
 
 
-                //User.Instance.Email = Email;
-                //User.Instance.Password = Password;
-                //User.Instance.UserLoc = new Location(46.2, 23.68);
-                await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+            //User.Instance.Email = Email;
+            //User.Instance.Password = Password;
+            //User.Instance.UserLoc = new Location(46.2, 23.68);
+            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                 //}
             //}
         }
@@ -112,6 +130,26 @@ namespace FoodSharing.ViewModels
         {
 
             await App.Current.MainPage.Navigation.PushAsync(new CreateUserPage());
+        }
+        protected bool SetProperty<T>(ref T backingStore, T value,
+           [CallerMemberName] string propertyName = "",
+           Action onChanged = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                return false;
+
+            backingStore = value;
+            onChanged?.Invoke();
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            var changed = PropertyChanged;
+            if (changed == null)
+                return;
+
+            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

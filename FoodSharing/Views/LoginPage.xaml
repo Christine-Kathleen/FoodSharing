@@ -10,6 +10,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
@@ -22,22 +23,22 @@
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Email"  
                            TextColor="White"
-                           ClearButtonVisibility="WhileEditing"/>
+                           ClearButtonVisibility="WhileEditing" IsEnabled="{Binding IsNotBusy}"/>
                         <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
                            PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  
                            TextColor="White"
-                           ClearButtonVisibility="WhileEditing"/>
+                           ClearButtonVisibility="WhileEditing" IsEnabled="{Binding IsNotBusy}"/>
                     </StackLayout>
                 </Frame>
                    </StackLayout>
-            <!--<ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Grid.Column="0" Grid.Row="1"/>-->
-            <Button Command="{Binding LoginCommand}" Text="Login" TextColor="White"  
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Grid.Column="0" Grid.Row="4"/>
+            <Button Command="{Binding LoginCommand}" Text="Login" TextColor="White" IsEnabled="{Binding IsNotBusy}" 
                     FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="2" 
                     BackgroundColor="#70AE98" CornerRadius="8" Margin="60,20,60,0"/>
             <Button Command="{Binding CreateUserCommand}" Grid.Column="0" Grid.Row="3" Text="Sign up now" VerticalOptions="Start"
                     BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="60,10,60,0" FontSize="Large" BackgroundColor="White"
-                    TextColor="Black" Opacity="0.70" CornerRadius="8" />
+                    TextColor="Black" Opacity="0.70" CornerRadius="8" IsEnabled="{Binding IsNotBusy}"/>
 
         </Grid>
     </ContentPage.Content>
