@@ -17,7 +17,6 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding ProfilePicture}" Grid.Column="0" Grid.Row="0"/>
             <Label Text="{Binding UserName}" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Large"/>
             <Label Text="Rattings" TextColor="Black" FontSize="Medium" Grid.Column="0" Grid.Row="2"  Margin="20,10,10,10"/>
             <Label Text="Comments section" TextColor="Black" FontSize="Medium" Grid.Column="0" Grid.Row="3" Margin="20,10,10,10"/>
@@ -31,13 +30,13 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0"
+                            <Label Grid.Column="1" Grid.Row="0"
                                 Text="{Binding Comment}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <!--<Entry x:Name="chatTextInput" 
+            <Entry x:Name="chatTextInput" 
                              Text="{Binding TextToSend}" 
                              Margin="1"  
                              TextColor="Black" 
@@ -47,8 +46,8 @@
                              Placeholder="Type your comment here"
                              Grid.Row="4"
                              Grid.Column="0"/>
-            <Button Text="Write a comment" Grid.Row="5"
-                                   Grid.ColumnSpan="0" FontSize="Medium" Command="{Binding SendMessageCommunicateCommand}" 
+            <Button Text="Post a comment" Grid.Row="5"
+                                   Grid.ColumnSpan="0" FontSize="Medium" Command="{Binding PostACommentCommand}" 
                                    HorizontalOptions="FillAndExpand" 
                                    BackgroundColor="#70AE98" CornerRadius="8" 
                                    Margin="90,10,90,30" TextColor="White"
@@ -84,7 +83,7 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>-->
+            </CollectionView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

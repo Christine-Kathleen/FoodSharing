@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using FoodSharing.Services;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 
 namespace FoodSharing.ViewModels
 {
@@ -107,22 +108,23 @@ namespace FoodSharing.ViewModels
                 RestService userRestService = new RestService();
                 var response = await userRestService.AuthWithCredentialsAsync(Username, Password);
             ApplicationUser user = await userRestService.GetUser(Username, Password);
-            //User user = await App.Database.GetUserAsync(email, UserHelper.CreateMD5(password));
-            //if (user == null)
-            //{
-            //    DisplayInvalidLoginPrompt();
+              Preferences.Set("User", JsonConvert.SerializeObject(user));
+                    //User user = await App.Database.GetUserAsync(email, UserHelper.CreateMD5(password));
+        ////if (user == null)
+        ////{
+        //    DisplayInvalidLoginPrompt();
 
-            //else
-            //{
+        //else
+        //{
 
-            //var newPage = new MainPage(user);
-            //object p = await NavigationPage.PushAsync(newPage);
+        //var newPage = new MainPage(user);
+        //object p = await NavigationPage.PushAsync(newPage);
 
 
-            //User.Instance.Email = Email;
-            //User.Instance.Password = Password;
-            //User.Instance.UserLoc = new Location(46.2, 23.68);
-            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+        //User.Instance.Email = Email;
+        //User.Instance.Password = Password;
+        //User.Instance.UserLoc = new Location(46.2, 23.68);
+        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                 //}
             //}
         }

@@ -105,7 +105,7 @@ namespace FoodSharing.Services
             return Foods;
         }
 
-        public async Task SaveFoodAsync(Food food, bool isNewItem = false)
+        public async Task SaveFoodAsync(Food food, bool isNewItem)
         {
             Uri uri = new Uri(string.Format(Constants.FoodUrl, string.Empty));
 
@@ -113,6 +113,8 @@ namespace FoodSharing.Services
             {
                 string json = JsonSerializer.Serialize<Food>(food, serializerOptions);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+
 
                 HttpResponseMessage response = null;
                 if (isNewItem)

@@ -3,6 +3,7 @@ using Android.Content.PM;
 using FoodSharing.Models;
 using FoodSharing.Pages;
 using FoodSharing.Services;
+using Newtonsoft.Json;
 using Plugin.Media;
 using System;
 using System.Collections.Generic;
@@ -77,15 +78,14 @@ namespace FoodSharing.ViewModels
 
         public async void OnCreateProduct()
         {
+            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
-            TypeOfFood foodtype = TypeOfFood.FromStore;
-
-             await myFoodManager.SaveTaskAsync(new Food { Name = FoodName, Details = FoodDetails, FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),(string)TypeSelection), AnnouncementAvailability=Availability.Available });
-            //TO DO ADD product to DB
+            await myFoodManager.SaveTaskAsync(new Food { Name = FoodName,  Details = FoodDetails, FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),(string)TypeSelection), AnnouncementAvailability=Availability.Available, UserID=user.Id, FoodLocationLatitude=user.UserLocLatitude, FoodLocationLongitude=user.UserLocLongitude });
             //must add location&Pic
             //TO DO take location from the user device
             //TO DO alert
+            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
         }
 
         public async void OnHome()

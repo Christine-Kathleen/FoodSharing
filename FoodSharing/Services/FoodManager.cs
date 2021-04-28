@@ -25,9 +25,13 @@ namespace FoodSharing.Services
             return restService.GetUser(username, password);
         }
 
-        public Task SaveTaskAsync(Food food, bool isNewItem = false)
+        public Task UpdateTaskAsync(Food food)
         {
-            return restService.SaveFoodAsync(food, isNewItem);
+            return restService.SaveFoodAsync(food, false);
+        }
+        public Task SaveTaskAsync(Food food)
+        {
+            return restService.SaveFoodAsync(food, true);
         }
 
         public Task DeleteTaskAsync(Food food)
