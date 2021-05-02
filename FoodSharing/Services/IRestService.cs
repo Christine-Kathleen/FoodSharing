@@ -13,5 +13,7 @@ namespace FoodSharing.Services
         Task DeleteFoodAsync(int id);
 
         Task<ApplicationUser> GetUser(string username, string password);
+        Task DeleteUserAsync(string id);
+        Task SaveUserAsync(ApplicationUser user, bool isNewUser);
     }
 }

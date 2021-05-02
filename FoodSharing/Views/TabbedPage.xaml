@@ -8,7 +8,7 @@
             android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="FoodSharing.Pages.TabbedPageTest" BarBackgroundColor="White">
     
-    <ContentPage Title="🏪 From Store">
+    <ContentPage Title="From Store" Icon="store.png">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -46,12 +46,12 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
-                                TextColor="White" BackgroundColor="#70AE98" 
+                                TextColor="White" BackgroundColor="#1E90FF" 
                                 WidthRequest="60" HeightRequest="60" BorderRadius="30" 
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
             </Grid>
         </ContentPage>
-        <ContentPage Title="🏠 Home Made">
+    <ContentPage Title="Home Made" Icon="home.png">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -73,7 +73,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
-                       Source="{Binding ImageUrl}"
+                       Source="{Binding ImageSource}"
                        Aspect="AspectFill"
                        HeightRequest="150"
                        WidthRequest="150" />
@@ -89,12 +89,12 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
-                                TextColor="White" BackgroundColor="#70AE98" 
+                                TextColor="White" BackgroundColor="#1E90FF" 
                                 WidthRequest="60" HeightRequest="60" BorderRadius="30" 
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
         </Grid>
     </ContentPage>
-    <ContentPage Shell.BackgroundColor="#70AE98" Title="💬 Communicate">
+    <ContentPage Shell.BackgroundColor="#70AE98" Title="Communicate" IconImageSource="email.png">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="450" />
@@ -142,7 +142,7 @@
             <Button Text="Send" Grid.Row="1"
                                    Grid.Column="1" FontSize="Large" Command="{Binding SendMessageCommunicateCommand}" 
                                    HorizontalOptions="FillAndExpand" 
-                                   BackgroundColor="#70AE98" CornerRadius="8" 
+                                   BackgroundColor="#1E90FF" CornerRadius="8" 
                                    Margin="0,20,20,20" TextColor="White"
                                    FontAttributes="Bold" />
         </Grid>

@@ -16,10 +16,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Text="Main Page" FontSize="20" TextColor="Black" BorderColor="Black" BorderWidth="2" BackgroundColor="White" Grid.Row="1" Grid.Column="0" Command="{Binding HomeCommand}" />
-        <Button Text="My Profile" FontSize="20" TextColor="Black" BorderColor="Black" BorderWidth="2" BackgroundColor="White" Grid.Row="2" Grid.Column="0" Command="{Binding MyProfileCommand}"/>
-        <Button Text="Account Settings" FontSize="20" TextColor="Black" BorderColor="Black" BorderWidth="2" BackgroundColor="White" Grid.Row="3" Grid.Column="0" Command="{Binding AccountSettingsCommand}" />
-        <Button Text="Logout" FontSize="20" TextColor="Black" BorderColor="Black" BorderWidth="2" BackgroundColor="White" Grid.Row="4" Grid.Column="0" Command="{Binding LogoutCommand}" />
-        <Button Text="Help Food Sharing grow" FontSize="20" HeightRequest="70" BackgroundColor="Black" VerticalOptions="End" TextColor="White"  Grid.Row="5" Grid.Column="0" Command="{Binding HelpGrowCommand}" Opacity="0.70"/>
+        <Button Text="Main Page" FontSize="20" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="1" Grid.Column="0" Command="{Binding HomeCommand}" />
+        <Button Text="My Profile" FontSize="20" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="2" Grid.Column="0" Command="{Binding MyProfileCommand}"/>
+        <Button Text="Account Settings" FontSize="20" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="3" Grid.Column="0" Command="{Binding AccountSettingsCommand}" />
+        <Button Text="Logout" FontSize="20" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="4" Grid.Column="0" Command="{Binding LogoutCommand}" />
+        <Button Text="Help Food Sharing grow" FontSize="20" HeightRequest="70" BackgroundColor="#70AE98" VerticalOptions="End" TextColor="Black"  Grid.Row="5" Grid.Column="0" Command="{Binding HelpGrowCommand}" Opacity="0.70"/>
     </Grid>
 </ContentPage>

@@ -1,9 +1,12 @@
 ﻿using FoodSharing.Models;
+using FoodSharing.Pages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace FoodSharing.ViewModels
 {
@@ -11,7 +14,9 @@ namespace FoodSharing.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private readonly Food donatedfood;
-        private string imageURL; 
+        private string imageURL;
+        public ICommand BackCommand { protected set; get; }
+        public ICommand SendMessageCommand { protected set; get; }
         public string ImageURL
         {
             get { return imageURL; }
@@ -81,15 +86,25 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("Distance"));
             }
         }
-
+        
         public SelectedFoodViewModel(Food _donatedfood)
         {
+            BackCommand = new Command(OnBackClicked);
+            SendMessageCommand = new Command(OnSendMessageClicked);
             donatedfood = _donatedfood;
             ImageURL = donatedfood.ImageUrl;
             FoodType = donatedfood.FoodType;
             Name = donatedfood.Name;
             Details = donatedfood.Details;
             Distance = donatedfood.Distance;
+        }
+        public async void OnBackClicked()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+        }
+        public async void OnSendMessageClicked()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
         }
     }
 }

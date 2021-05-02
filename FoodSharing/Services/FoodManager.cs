@@ -23,6 +23,10 @@ namespace FoodSharing.Services
         public Task<ApplicationUser> GetUser(string username, string password)
         {
             return restService.GetUser(username, password);
+        } 
+            public Task DeleteUserAsync(string id)
+        {
+            return restService.DeleteUserAsync(id);
         }
 
         public Task UpdateTaskAsync(Food food)

@@ -67,8 +67,8 @@ namespace FoodSharing.ViewModels
             foreach (var item in listFoods)
             {
                 //TODO to be removed , when no foods without imageurl!!!
-                if (!string.IsNullOrEmpty(item.ImageUrl))
-                {
+                //if (!string.IsNullOrEmpty(item.ImageUrl))
+                //{
 
                     // Get a reference to a blob
                     BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
@@ -84,7 +84,7 @@ namespace FoodSharing.ViewModels
                         item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
                     //downloadFileStream.Close();
                     
-                }
+                //}
                 Foods.Add(item);
             }
         }

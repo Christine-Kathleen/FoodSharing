@@ -53,6 +53,56 @@ namespace FoodSharing.Services
             }
             return user;
         }
+        public async Task SaveUserAsync(ApplicationUser user, bool isNewUser)
+        {
+            Uri uri = new Uri(string.Format(Constants.GetUserUrl, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize<ApplicationUser>(user, serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+
+                HttpResponseMessage response = null;
+                if (isNewUser)
+                {
+                    response = await client.PostAsync(uri, content);
+                }
+                else
+                {
+                    response = await client.PutAsync(uri, content);
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\food successfully saved.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+            }
+        }
+        public async Task DeleteUserAsync(string id)
+        {
+            Uri uri = new Uri(string.Format(Constants.GetUserUrl, id));
+
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\user successfully deleted.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+            }
+        }
 
         public async Task<AuthResponse> AuthWithCredentialsAsync(string username, string password)
         {

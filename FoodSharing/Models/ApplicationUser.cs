@@ -55,6 +55,7 @@ namespace FoodSharing.Models
         [ProtectedPersonalData]
         [Required]
         public virtual string LastName { get; set; }
+        public virtual string Description { get; set; }
         public float RatingGrade { get; set; }
 
         public ICollection<Food> Foods { get; set; }

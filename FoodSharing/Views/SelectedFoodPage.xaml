@@ -12,9 +12,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="290" />
+                <ColumnDefinition Width="270" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Grid.Row="0"
@@ -53,7 +54,10 @@
                        HorizontalOptions="FillAndExpand" 
                        BackgroundColor="#70AE98" CornerRadius="8" 
                        Margin="0,20,20,20" TextColor="White"
-                       Text="Send" FontAttributes="Bold" />
+                       Text="Send" FontAttributes="Bold"  ImageSource="send.png" />
+            <Button Command="{Binding BackCommand}" Grid.Column="0" Grid.Row="6" Text="Keep looking" VerticalOptions="Start"
+                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="30,30,30,30" FontSize="Medium" BackgroundColor="White"
+                    TextColor="Black" CornerRadius="8" IsEnabled="{Binding IsNotBusy}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

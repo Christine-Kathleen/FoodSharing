@@ -35,16 +35,16 @@
                     </Entry>
                     <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodType"/>
                     <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodType"/>
-                    <Button Command="{Binding TakePicCommand}" Margin="10,10,120,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="Black" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+                    <Button Command="{Binding TakePicCommand}" Margin="10,10,120,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
                 </StackLayout>
             </Frame>
-            <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White"  
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Margin="20,0,20,0"  
-                    Grid.Column="0" Grid.Row="5" BackgroundColor="Black"  CornerRadius="8" Opacity="0.70"/>
-            <Button Command="{Binding HomeCommand}" Text="Cancel" TextColor="Black"  
-                    FontAttributes="Bold" FontSize="Large" VerticalOptions="Start" Margin="20,0,20,0"
-                    Grid.Column="0" Grid.Row="6" BackgroundColor="White" BorderColor="Black" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+            <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White" 
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Margin="60,0,60,0"  
+                    Grid.Column="0" Grid.Row="5" BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70"/>
+            <Button Command="{Binding HomeCommand}" Text="Cancel" TextColor="#70AE98"  
+                    FontAttributes="Bold" FontSize="Large" VerticalOptions="Start" Margin="60,0,60,0"
+                    Grid.Column="0" Grid.Row="6" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
             </StackLayout>
     </ContentPage.Content>
 </ContentPage>
