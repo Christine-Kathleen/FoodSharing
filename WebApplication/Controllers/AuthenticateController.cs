@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using FoodSharing.Models;
+using FoodSharing.Services;
 
 namespace WebAPI.Controllers
 {
@@ -84,9 +85,7 @@ namespace WebAPI.Controllers
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                   
-                    
+                    expiration = token.ValidTo    
                 });
             }
             return Unauthorized();
@@ -145,6 +144,24 @@ namespace WebAPI.Controllers
             }
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+        }
+
+        [HttpPost]
+        [Route("DeleteUser")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUserModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var result = await userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User delete failed! Please check user id and try again." });
+
+            return Ok(new Response { Status = "Success", Message = "User deleted successfully!" });
         }
     }
 }

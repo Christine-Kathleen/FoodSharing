@@ -5,7 +5,6 @@ using System.Text;
 using Xamarin.Essentials;
 using NetTopologySuite.Geometries;
 using Location = Xamarin.Essentials.Location;
-using System.Data.Entity.Spatial;
 using Xamarin.Forms;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;

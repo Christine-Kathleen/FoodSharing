@@ -52,8 +52,7 @@ namespace FoodSharing.ViewModels
             UserManager myUserManager = new UserManager(restSevice);
             await myUserManager.DeleteUserAsync(user.Id);
             DisplayDeletedAccount();
-            LoginPage Page = new LoginPage();
-            Application.Current.MainPage = Page;
+            await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
 
         async public void OnPasswordChange()

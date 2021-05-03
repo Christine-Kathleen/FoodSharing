@@ -86,11 +86,16 @@ namespace FoodSharing.Services
         }
         public async Task DeleteUserAsync(string id)
         {
-            Uri uri = new Uri(string.Format(Constants.GetUserUrl, id));
+            Uri uri = new Uri(string.Format(Constants.DeleteUserUrl));
+            DeleteUserModel userModel = new DeleteUserModel();
+            userModel.UserId = id;
 
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync(uri);
+                string json = JsonSerializer.Serialize<DeleteUserModel>(userModel, serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                HttpResponseMessage response = await client.PostAsync(uri,content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -104,7 +109,7 @@ namespace FoodSharing.Services
             }
         }
 
-        public async Task<AuthResponse> AuthWithCredentialsAsync(string username, string password)
+        public async Task<bool> AuthWithCredentialsAsync(string username, string password)
         {
            
             dynamic jsonObject = new JObject();
@@ -122,11 +127,11 @@ namespace FoodSharing.Services
                 Preferences.Set("BearerToken", authResponse.Token);
                 //Preferences.Set("RefreshToken", authResponse.RefreshToken);
 
-                return authResponse;
+                return true;
             }
             else
             {
-                return new AuthResponse();
+                return false;
             }
         }
 
