@@ -19,5 +19,20 @@ namespace FoodSharing
         public static string RegisterUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/register" : "http://localhost:44318/api/authenticate/register";
         public static string GetUserUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/GetUser" : "http://localhost:44318/api/authenticate/GetUser";
         public static string DeleteUserUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/DeleteUser" : "http://localhost:44318/api/authenticate/DeleteUser";
+
+        public enum APIMessages
+        {
+            ErrorRegisterName,
+            ErrorRegisterEmail,
+            ErrorOnRegisterFailed,
+            Success,
+            ErrorOnDeletion
+        }
+
+        public enum Status
+        {
+            Error,
+            Success
+        }
     }
 }

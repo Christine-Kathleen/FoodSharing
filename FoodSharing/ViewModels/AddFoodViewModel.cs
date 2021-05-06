@@ -15,6 +15,7 @@ using Xamarin.Forms;
 using Azure.Storage;
 using Azure.Storage.Blobs;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace FoodSharing.ViewModels
 {
@@ -25,7 +26,6 @@ namespace FoodSharing.ViewModels
         public ICommand HomeCommand { get; set; }
         public ICommand TakePicCommand { get; set; }
         public ICommand ImageTapped { get; set; }
-
 
         private byte[] photo;
         private string foodDetails;
@@ -79,16 +79,28 @@ namespace FoodSharing.ViewModels
 
             
         }
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                SetProperty(ref isBusy, value);
+                SetProperty(ref isBusy, value, nameof(IsNotBusy));
+            }
 
+        }
+        public bool IsNotBusy
+        {
+            get { return !IsBusy; }
+        }
         public async void OnCreateProduct()
         {
+            IsBusy = true; 
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
             // Create a container client
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
-            //      TakePhoto.
-
-            //The name of the container
-            string containerName = "foodpicsblobs";// + Guid.NewGuid().ToString();
+            string containerName = "foodpicsblobs";
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             //if (containerClient == null)
             //{
@@ -110,9 +122,8 @@ namespace FoodSharing.ViewModels
             //must add location&Pic
             //TO DO take location from the user device
             //TO DO alert
-
-            //DefaultEndpointsProtocol =[http | https]; AccountName = myAccountName; AccountKey = myAccountKey
             await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+            IsBusy = false;
         }
 
         public async void OnHome()
@@ -125,7 +136,6 @@ namespace FoodSharing.ViewModels
 
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
-                //not really mvvm conform!!!!
                 await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
                 return;
             }
@@ -168,6 +178,26 @@ namespace FoodSharing.ViewModels
             //    // The app does not have permission ACCESS_FINE_LOCATION 
             //}
 
+        }
+        protected bool SetProperty<T>(ref T backingStore, T value,
+         [CallerMemberName] string propertyName = "",
+         Action onChanged = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                return false;
+
+            backingStore = value;
+            onChanged?.Invoke();
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            var changed = PropertyChanged;
+            if (changed == null)
+                return;
+
+            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

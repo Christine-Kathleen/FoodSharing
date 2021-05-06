@@ -1,5 +1,6 @@
 ﻿using FoodSharing.Models;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace FoodSharing.Services
@@ -15,5 +16,6 @@ namespace FoodSharing.Services
         Task<ApplicationUser> GetUser(string username, string password);
         Task DeleteUserAsync(string id);
         Task SaveUserAsync(ApplicationUser user, bool isNewUser);
+        Task<Response> RegisterUserAsync(RegisterModel model);
     }
 }

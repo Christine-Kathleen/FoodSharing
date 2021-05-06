@@ -53,6 +53,30 @@ namespace FoodSharing.Services
             }
             return user;
         }
+        public async Task<Response> RegisterUserAsync(RegisterModel model)
+        {
+            Uri uri = new Uri(string.Format(Constants.RegisterUrl, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize<RegisterModel>(model, serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = null;
+                response = await client.PostAsync(uri, content);
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\user successfully created.");
+                }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
+            }
+        }
         public async Task SaveUserAsync(ApplicationUser user, bool isNewUser)
         {
             Uri uri = new Uri(string.Format(Constants.GetUserUrl, string.Empty));

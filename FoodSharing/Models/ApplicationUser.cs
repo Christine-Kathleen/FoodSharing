@@ -56,8 +56,6 @@ namespace FoodSharing.Models
         [Required]
         public virtual string LastName { get; set; }
         public virtual string Description { get; set; }
-        //public float RatingGrade { get; set; }
-
         public ICollection<Food> Foods { get; set; }
 
         public ICollection<Review> Revieweds { get; set; }

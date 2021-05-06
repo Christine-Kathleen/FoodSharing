@@ -13,32 +13,18 @@
                            PlaceholderColor="White" HeightRequest="40"     
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing">
-                             <Entry.Keyboard>
-                                 <Keyboard x:FactoryMethod="Create">
-                                     <x:Arguments>
-                                         <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
-                                      </x:Arguments>
-                                </Keyboard>
-                            </Entry.Keyboard>
-                        </Entry>
-                           <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder=" Last Name"   
+                    </Entry>
+                    <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder=" Last Name"   
                            PlaceholderColor="White" HeightRequest="40"   
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing">
-                           <Entry.Keyboard>
-                                 <Keyboard x:FactoryMethod="Create">
-                                     <x:Arguments>
-                                         <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
-                                     </x:Arguments>
-                                 </Keyboard>
-                            </Entry.Keyboard>
-                            </Entry>
+                    </Entry>
                     <Entry x:Name="Telephone" Text="{Binding Telephone}" Placeholder="Telephone"   
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Telephone" MaxLength="10" 
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing"/>
-                    <Entry x:Name="UserName" Text="{Binding UserName}" Placeholder="User Name"   
+                    <Entry x:Name="UserName" Text="{Binding Username}" Placeholder="User Name"   
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Text" MaxLength="20" 
                            TextColor="White"
@@ -53,7 +39,7 @@
                            IsPassword="True"  
                            TextColor="White"
                            ClearButtonVisibility="WhileEditing"/>
-                    <Entry x:Name="reenterPassword" Text="{Binding Password}" Placeholder="Reenter Password"   
+                    <Entry x:Name="reenterPassword" Text="{Binding CheckPassword}" Placeholder="Check Password"   
                            PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  
                            TextColor="White"
@@ -70,12 +56,13 @@
                     <ColumnDefinition Width="40" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <CheckBox IsChecked="False" Grid.Row="0" Grid.Column="0" Color="#CA7E8D" Margin="0,0,0,0" />
+                <CheckBox IsChecked="False" Grid.Row="0" Grid.Column="0" Color="Blue" Margin="0,0,0,0"  />
+                <!--CheckedChanged="{Binding CheckBoxCheckedChanged}"-->
                 <Label Text="I consent to having FoodSharing Inc collect my personal data" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" FontSize="Medium"/>
-                <Button Command="{Binding RegisterCommand}" Grid.Row="1" Grid.Column="1" Text="Create new user" IsEnabled="{Binding CreateEnabled}" TextColor="#70AE98"  
+                <Button Command="{Binding RegisterCommand}" Grid.Row="1" Grid.Column="1" Text="Create new user" TextColor="#70AE98"  
                     FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
-                    BackgroundColor="White"  CornerRadius="8" Opacity="0.70" Margin="0,30,60,0" />
-                <Button Command="{Binding ChangeToSignIn}" Grid.Row="2" Grid.Column="1" Margin="0,0,60,0" Text="Sign in now" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" TextColor="#70AE98" CornerRadius="8" Opacity="0.70"/>
+                    BackgroundColor="White"  CornerRadius="8" Opacity="0.70" Margin="0,30,60,0" IsEnabled="{Binding IsNotBusy}" />
+                <Button Command="{Binding ChangeToSignIn}" Grid.Row="2" Grid.Column="1" Margin="0,0,60,0" Text="Sign in now" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" TextColor="#70AE98" CornerRadius="8" Opacity="0.70" IsEnabled="{Binding IsNotBusy}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

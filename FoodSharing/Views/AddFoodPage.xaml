@@ -13,25 +13,11 @@
                            PlaceholderColor="Black" HeightRequest="40"     
                            TextColor="Black" 
                            ClearButtonVisibility="WhileEditing">
-                        <Entry.Keyboard>
-                            <Keyboard x:FactoryMethod="Create">
-                                <x:Arguments>
-                                    <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
-                                </x:Arguments>
-                            </Keyboard>
-                        </Entry.Keyboard>
                     </Entry>
                     <Entry x:Name="Details" Text="{Binding FoodDetails}" Placeholder="Details about the product"   
                            PlaceholderColor="Black" HeightRequest="40"   
                            TextColor="Black"
                            ClearButtonVisibility="WhileEditing">
-                        <Entry.Keyboard>
-                            <Keyboard x:FactoryMethod="Create">
-                                <x:Arguments>
-                                    <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
-                                </x:Arguments>
-                            </Keyboard>
-                        </Entry.Keyboard>
                     </Entry>
                     <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodType"/>
                     <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodType"/>
@@ -40,11 +26,12 @@
                 </StackLayout>
             </Frame>
             <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White" 
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Margin="60,0,60,0"  
-                    Grid.Column="0" Grid.Row="5" BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70"/>
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="80,0,80,0"  
+                    BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70" IsEnabled="{Binding IsNotBusy}" />
             <Button Command="{Binding HomeCommand}" Text="Cancel" TextColor="#70AE98"  
-                    FontAttributes="Bold" FontSize="Large" VerticalOptions="Start" Margin="60,0,60,0"
-                    Grid.Column="0" Grid.Row="6" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
-            </StackLayout>
+                    FontAttributes="Bold" FontSize="Medium" VerticalOptions="Start" Margin="80,0,80,0"
+                    BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
+                    IsEnabled="{Binding IsNotBusy}" />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

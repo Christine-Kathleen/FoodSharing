@@ -14,6 +14,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using FoodSharing.Models;
 using FoodSharing.Services;
+using FoodSharing;
+using static FoodSharing.Constants;
 
 namespace WebAPI.Controllers
 {
@@ -77,7 +79,7 @@ namespace WebAPI.Controllers
                 var token = new JwtSecurityToken(
                     issuer: _configuration["JWT:ValidIssuer"],
                     audience: _configuration["JWT:ValidAudience"],
-                    expires: DateTime.UtcNow.AddHours(3),
+                    expires: DateTime.UtcNow.AddDays(1),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
@@ -95,56 +97,62 @@ namespace WebAPI.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
-
+            var userNameExists = await userManager.FindByNameAsync(model.UserName);
+            var userEmailExists = await userManager.FindByEmailAsync(model.Email);
+            if (userNameExists != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status= Status.Error, Message = APIMessages.ErrorRegisterName });
+            }
+            if (userEmailExists != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response {  Status = Status.Error, Message = APIMessages.ErrorRegisterEmail });
+            }
             ApplicationUser user = new ApplicationUser()
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username,
+                UserName = model.UserName,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.Telephone
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnRegisterFailed });
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
-        [HttpPost]
-        [Route("register-admin")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
-        {
-            var userExists = await userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+        //[HttpPost]
+        //[Route("register-admin")]
+        //public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
+        //{
+        //    var userExists = await userManager.FindByNameAsync(model.UserName);
+        //    if (userExists != null)
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-            ApplicationUser user = new ApplicationUser()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
-            };
-            var result = await userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+        //    ApplicationUser user = new ApplicationUser()
+        //    {
+        //        Email = model.Email,
+        //        SecurityStamp = Guid.NewGuid().ToString(),
+        //        UserName = model.UserName
+        //    };
+        //    var result = await userManager.CreateAsync(user, model.Password);
+        //    if (!result.Succeeded)
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-            if (!await roleManager.RoleExistsAsync(UserRoles.User))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+        //    if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+        //        await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+        //    if (!await roleManager.RoleExistsAsync(UserRoles.User))
+        //        await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
-            if (await roleManager.RoleExistsAsync(UserRoles.Admin))
-            {
-                await userManager.AddToRoleAsync(user, UserRoles.Admin);
-            }
+        //    if (await roleManager.RoleExistsAsync(UserRoles.Admin))
+        //    {
+        //        await userManager.AddToRoleAsync(user, UserRoles.Admin);
+        //    }
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
-        }
+        //    return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+        //}
 
         [HttpPost]
         [Route("DeleteUser")]
@@ -159,9 +167,9 @@ namespace WebAPI.Controllers
             var result = await userManager.DeleteAsync(user);
 
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User delete failed! Please check user id and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnDeletion });
 
-            return Ok(new Response { Status = "Success", Message = "User deleted successfully!" });
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
     }
 }
