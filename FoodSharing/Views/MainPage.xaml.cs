@@ -1,5 +1,6 @@
 ﻿using FoodSharing.Models;
 using FoodSharing.ViewModels;
+using FoodSharing.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,7 @@ namespace FoodSharing.Pages
             var vm = new MainViewModel();
             this.BindingContext = vm;
             this.Flyout = new MasterPage();
-            this.Detail = new NavigationPage(new TabbedPageTest());
-            //var clr = Color.FromHex("#FAFAFA");
-            //this.BarBackgroundColor = clr;
+            this.Detail = new NavigationPage(new TabbedMainPage());
         }
-
     }
 }

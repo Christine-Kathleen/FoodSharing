@@ -8,18 +8,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FoodSharing.Pages
+namespace FoodSharing.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TabbedPageTest : TabbedPage
+    public partial class CommunicatePage : ContentPage
     {
-        public TabbedPageTest()
+        public CommunicatePage()
         {
             InitializeComponent();
-            var vm = new TabbedViewModel();
-            this.BindingContext = vm;
-            //var clr = Color.FromHex("#FAFAFB");
-            //this.BarBackgroundColor = clr;
+            BindingContext = new CommunicateViewModel();
         }
     }
 }

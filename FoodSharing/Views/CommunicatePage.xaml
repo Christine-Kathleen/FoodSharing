@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodSharing.Views.CommunicatePage">
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="450" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="290" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <CollectionView ItemsSource="{Binding Messages }">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ListView Grid.Row="0"
+                             Margin="0" 
+                             HasUnevenRows="True" 
+                             VerticalOptions="FillAndExpand" 
+                             SeparatorColor="Transparent" >
+                            </ListView>
+                            <BoxView HorizontalOptions="FillAndExpand"
+                             HeightRequest="1"
+                             BackgroundColor="LightGray"
+                             Grid.Row="1" Margin="0,0,10,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Entry x:Name="chatTextInput" 
+                             Text="{Binding TextToSend}" 
+                             Margin="1"  
+                             TextColor="Black" 
+                             Keyboard="Chat"  
+                             HorizontalOptions="FillAndExpand" 
+                             PlaceholderColor="LightGray"
+                             Placeholder="Type your message here"
+                             Grid.Row="1"
+                             Grid.Column="0"/>
+            <Button Text="Send" Grid.Row="1"
+                                   Grid.Column="1" FontSize="Large" Command="{Binding SendMessageCommunicateCommand}" 
+                                   HorizontalOptions="FillAndExpand" 
+                                   BackgroundColor="#1E90FF" CornerRadius="8" 
+                                   Margin="0,20,20,20" TextColor="White"
+                                   FontAttributes="Bold" />
+        </Grid>
+    </ContentPage>
