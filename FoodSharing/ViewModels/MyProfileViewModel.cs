@@ -94,27 +94,27 @@ namespace FoodSharing.ViewModels
             Description = user.Description;
             PublicProfileCommand = new Command(OnPublicProfile);
             UpdateProfileCommand = new Command(OnUpdateProfile);
-            GetFoods();
+            //GetFoods();
         }
-        public async void GetFoods()
-        {
-            RestService restSevice = new RestService();
-            FoodManager myFoodManager = new FoodManager(restSevice);
-            List<Food> listFoods = await myFoodManager.GetTasksAsync();
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
-            // Create a container client
-            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
-            //The name of the container
-            string containerName = "foodpicsblobs";
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            foreach (var item in listFoods)
-            {
-                // Get a reference to a blob
-                BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
-                item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
-                Foods.Add(item);
-            }
-        }
+        //public async void GetFoods()
+        //{
+        //    RestService restSevice = new RestService();
+        //    FoodManager myFoodManager = new FoodManager(restSevice);
+        //    List<Food> listFoods = await myFoodManager.GetTasksAsync();
+        //    string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
+        //    // Create a container client
+        //    BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+        //    //The name of the container
+        //    string containerName = "foodpicsblobs";
+        //    BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+        //    foreach (var item in listFoods)
+        //    {
+        //        // Get a reference to a blob
+        //        BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
+        //        item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
+        //        Foods.Add(item);
+        //    }
+        //}
         public async void OnSelectedFood()
         {
             if (selectedFood != null)

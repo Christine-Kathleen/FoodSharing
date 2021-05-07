@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Authentication;
+using static FoodSharing.Constants;
 
 namespace WebAPI.Controllers
 {
@@ -108,7 +109,7 @@ namespace WebAPI.Controllers
         // POST: api/Foods
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Food>> PostFood(Food food)
+        public async Task<IActionResult> PostFood(Food food)
         {
             _context.Foods.Add(food);
             try
@@ -119,15 +120,16 @@ namespace WebAPI.Controllers
             {
                 if (FoodExists(food.FoodId))
                 {
-                    return Conflict();
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorAlreadyExists });
+
                 }
                 else
                 {
-                    throw;
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnCreating });
+
                 }
             }
-
-            return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
         [HttpPatch]
         [Route("UpdateFood")]

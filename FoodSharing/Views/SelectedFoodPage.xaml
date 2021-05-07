@@ -15,7 +15,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="270" />
+                <ColumnDefinition Width="240" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Grid.Row="0"
@@ -49,7 +49,7 @@
                        VerticalOptions="End" />
             <Label Grid.Column="0" Grid.Row="4" TextColor="Black" Text="Message the user:" FontSize="Large" Margin="20,0,20,0" />
             <Editor Grid.Column="0" Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,20,20,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
-            <Button Grid.Column="1" Grid.Row="5" FontSize="Large" 
+            <Button Grid.Column="1" Grid.Row="5" FontSize="Medium" 
                        Command="{Binding SendMessageCommand}"
                        HorizontalOptions="FillAndExpand" 
                        BackgroundColor="#70AE98" CornerRadius="8" 

@@ -194,9 +194,6 @@ namespace FoodSharing.Services
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = null;
-                response = await client.PostAsync(uri, content);
-                string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
                 if (isNewItem)
                 {
                     response = await client.PostAsync(uri, content);
@@ -205,6 +202,8 @@ namespace FoodSharing.Services
                 {
                     response = await client.PutAsync(uri, content);
                 }
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {

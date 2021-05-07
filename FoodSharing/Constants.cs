@@ -33,7 +33,9 @@ namespace FoodSharing
             ErrorRegisterEmail,
             ErrorOnRegisterFailed,
             Success,
-            ErrorOnDeletion
+            ErrorOnDeletion,
+            ErrorOnCreating,
+            ErrorAlreadyExists
         }
 
         public enum Status

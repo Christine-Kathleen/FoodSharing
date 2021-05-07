@@ -4,8 +4,8 @@
              x:Class="FoodSharing.Pages.AddFoodPage"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="5" Spacing="10">
-                <BoxView HeightRequest="10"/>
+        <StackLayout Orientation="Vertical" Padding="5" Spacing="5">
+                <BoxView HeightRequest="5"/>
             <Label Text="Give away anything you would eat yourself:" TextColor="Black" FontSize="Medium" Margin="20,0,20,0"/>
             <Frame BackgroundColor="Transparent" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10" RadioButtonGroup.GroupName="FoodType" RadioButtonGroup.SelectedValue="{Binding TypeSelection}">

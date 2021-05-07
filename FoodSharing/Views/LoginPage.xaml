@@ -14,9 +14,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackLayout Orientation="Vertical" Padding="20" Spacing="40" Grid.Column="0" Grid.Row="0" Margin="0,130,0,20">
+            <StackLayout Orientation="Vertical" Padding="20" Spacing="40" Grid.Column="0" Grid.Row="0" Margin="0,20,0,20">
                 <BoxView HeightRequest="10"/>
                 <Frame BackgroundColor="#70AE98" HasShadow="False" CornerRadius="8" >
                     <StackLayout Orientation="Vertical" Spacing="10">
