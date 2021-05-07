@@ -17,6 +17,9 @@ namespace FoodSharing.Pages
         {
             var vm = new PublicProfileViewModel();
             this.BindingContext = vm;
+            vm.DisplayReviewAddedError += () => DisplayAlert("Error", "Fatal Error, could not update!", "OK");
+            vm.DisplayReviewAdded += () => DisplayAlert("Success", "Your review has been added!", "OK");
+
             InitializeComponent();
         }
     }

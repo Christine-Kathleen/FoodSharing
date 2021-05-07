@@ -122,7 +122,30 @@ namespace WebAPI.Controllers
 
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
+        [HttpPatch]
+        [Route("UpdateUserPassword")]
+        [Authorize]
+        public async Task<IActionResult> UpdatePassword([FromBody] ApplicationUser model)
+        {
+            var user = await userManager.FindByNameAsync(model.UserName);
+            if (user != null && await userManager.CheckPasswordAsync(user, model.PasswordHash))
+            {
 
+            }
+            return Unauthorized();
+        }
+        [HttpPatch]
+        [Route("UpdateUserProfile")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfile([FromBody] ApplicationUser model)
+        {
+            var user = await userManager.FindByNameAsync(model.UserName);
+            if(user != null)
+            {
+
+            }
+            return Unauthorized();
+        }
         //[HttpPost]
         //[Route("register-admin")]
         //public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)

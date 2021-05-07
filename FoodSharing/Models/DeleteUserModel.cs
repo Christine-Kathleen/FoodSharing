@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;  
-  
-namespace FoodSharing.Services
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
+namespace FoodSharing.Models
 {
     public class DeleteUserModel
     {
         [Required(ErrorMessage = "UserId is required")]
         public string UserId { get; set; }
-
     }
 }

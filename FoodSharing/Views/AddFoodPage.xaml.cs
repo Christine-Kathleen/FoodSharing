@@ -17,6 +17,10 @@ namespace FoodSharing.Pages
         {
             var vm = new AddFoodViewModel();
             this.BindingContext = vm;
+            vm.DisplayCompleteFields += () => DisplayAlert("Error", "All fields must be completed!", "OK");
+            vm.DisplayFatalError += () => DisplayAlert("Error", "Fatal Error!", "OK");
+            vm.DisplayFoodCreated += () => DisplayAlert("Success", "Food announcement was created!", "OK");
+
             InitializeComponent();
         }
     }

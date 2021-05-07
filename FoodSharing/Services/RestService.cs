@@ -184,7 +184,7 @@ namespace FoodSharing.Services
             return Foods;
         }
 
-        public async Task SaveFoodAsync(Food food, bool isNewItem)
+        public async Task<Response> SaveFoodAsync(Food food, bool isNewItem)
         {
             Uri uri = new Uri(string.Format(Constants.FoodUrl, string.Empty));
 
@@ -193,9 +193,10 @@ namespace FoodSharing.Services
                 string json = JsonSerializer.Serialize<Food>(food, serializerOptions);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
-
-
                 HttpResponseMessage response = null;
+                response = await client.PostAsync(uri, content);
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
                 if (isNewItem)
                 {
                     response = await client.PostAsync(uri, content);
@@ -209,20 +210,26 @@ namespace FoodSharing.Services
                 {
                     Debug.WriteLine(@"\food successfully saved.");
                 }
-
+                return response2;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
             }
         }
 
         public async Task DeleteFoodAsync(int id)
         {
-            Uri uri = new Uri(string.Format(Constants.FoodUrl, id));
+            Uri uri = new Uri(string.Format(Constants.DeleteFoodUrl, id));
+            DeleteFoodModel foodModel = new DeleteFoodModel();
+            foodModel.FoodId = id;
 
             try
             {
+                string json = JsonSerializer.Serialize<DeleteFoodModel>(foodModel, serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = await client.DeleteAsync(uri);
 
                 if (response.IsSuccessStatusCode)

@@ -9,7 +9,7 @@ namespace FoodSharing.Services
     {
         Task<List<Food>> RefreshDataAsync();
 
-        Task SaveFoodAsync(Food food, bool isNewItem);
+        Task<Response> SaveFoodAsync(Food food, bool isNewItem);
 
         Task DeleteFoodAsync(int id);
 

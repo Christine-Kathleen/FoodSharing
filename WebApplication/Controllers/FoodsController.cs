@@ -129,9 +129,33 @@ namespace WebAPI.Controllers
 
             return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
         }
+        [HttpPatch]
+        [Route("UpdateFood")]
+        public async Task<ActionResult<Food>> UpdateFood(Food food) //TO DO update
+        {
+            _context.Foods.Add(food);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (FoodExists(food.FoodId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+        }
 
         // DELETE: api/Foods/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("DeleteFood")]
         public async Task<IActionResult> DeleteFood(int id)
         {
             var food = await _context.Foods.FindAsync(id);

@@ -22,6 +22,9 @@ namespace FoodSharing.ViewModels
     public class AddFoodViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public Action DisplayCompleteFields;
+        public Action DisplayFoodCreated;
+        public Action DisplayFatalError;
         public ICommand CreateProductCommand { get; set; }
         public ICommand HomeCommand { get; set; }
         public ICommand TakePicCommand { get; set; }
@@ -96,34 +99,53 @@ namespace FoodSharing.ViewModels
         }
         public async void OnCreateProduct()
         {
-            IsBusy = true; 
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
-            // Create a container client
-            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
-            string containerName = "foodpicsblobs";
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            //if (containerClient == null)
-            //{
-            //    // Create the container and return a container client object
-            //    containerClient = await blobServiceClient.CreateBlobContainerAsync(containerName);
-            //}
-            containerClient.CreateIfNotExists();
-            string fileURL = Guid.NewGuid().ToString();
-            // Get a reference to a blob
-            BlobClient blobClient = containerClient.GetBlobClient(fileURL);
+            if (string.IsNullOrEmpty(FoodName) || string.IsNullOrEmpty(FoodDetails) || TypeSelection == null || TakePhoto == null)
+            {
+                DisplayCompleteFields();
+                IsBusy = false;
+            }
+            else
+            {
+                IsBusy = true;
+                string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
+               
+                // Create a container client
+                BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+                string containerName = "foodpicsblobs";
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                containerClient.CreateIfNotExists();
+                string fileURL = Guid.NewGuid().ToString();
 
-            //var byteData = Encoding.UTF8.GetBytes(photo);
-            await blobClient.UploadAsync(new MemoryStream(photo), true);
+                // Get a reference to a blob
+                BlobClient blobClient = containerClient.GetBlobClient(fileURL);
+                await blobClient.UploadAsync(new MemoryStream(photo), true);
 
-            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
-            RestService restSevice = new RestService();
-            FoodManager myFoodManager = new FoodManager(restSevice);
-            await myFoodManager.SaveTaskAsync(new Food { ImageUrl= fileURL, Name = FoodName,  Details = FoodDetails, FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),(string)TypeSelection), AnnouncementAvailability=Availability.Available, UserID=user.Id, FoodLocationLatitude=user.UserLocLatitude, FoodLocationLongitude=user.UserLocLongitude });
-            //must add location&Pic
-            //TO DO take location from the user device
-            //TO DO alert
-            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
-            IsBusy = false;
+                var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+                RestService restSevice = new RestService();
+                FoodManager myFoodManager = new FoodManager(restSevice);
+                Response response = await myFoodManager.SaveTaskAsync(new Food { ImageUrl = fileURL, Name = FoodName, Details = FoodDetails, FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood), (string)TypeSelection), AnnouncementAvailability = Availability.Available, UserID = user.Id, FoodLocationLatitude = user.UserLocLatitude, FoodLocationLongitude = user.UserLocLongitude });
+                switch (response.Status)
+                {
+                    case Constants.Status.Error:
+                        {
+                            DisplayFatalError();
+                            break;
+                        }
+                    case Constants.Status.Success:
+                        {
+                            DisplayFoodCreated();
+                            break;
+                        }
+                    default:
+                        {
+                            DisplayFatalError();
+                            break;
+                        }
+                }
+                //TO DO take location from the user device
+                await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+                IsBusy = false;
+            }
         }
 
         public async void OnHome()

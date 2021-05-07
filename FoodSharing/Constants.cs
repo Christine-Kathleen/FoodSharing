@@ -19,6 +19,13 @@ namespace FoodSharing
         public static string RegisterUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/register" : "http://localhost:44318/api/authenticate/register";
         public static string GetUserUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/GetUser" : "http://localhost:44318/api/authenticate/GetUser";
         public static string DeleteUserUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/DeleteUser" : "http://localhost:44318/api/authenticate/DeleteUser";
+        public static string DeleteFoodUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Foods/DeleteFood" : "http://localhost:44318/api/Foods/DeleteFood";
+        public static string UpdateFoodUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Foods/UpdateFood" : "http://localhost:44318/api/Foods/UpdateFood";
+        public static string UpdateUserProfileUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Foods/UpdateUserProfile" : "http://localhost:44318/api/Foods/UpdateUserProfile";
+        public static string UpdateUserPassUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Foods/UpdateUserPassword" : "http://localhost:44318/api/Foods/UpdateUserPassword";
+        public static string GetFoodUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Foods/GetFood" : "http://localhost:44318/api/Foods/GetFood";
+        public static string ReviewUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Reviews/ReviewUrl" : "http://localhost:44318/api/Reviews/ReviewUrl";
+        public static string MessageUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Messages/MessageUrl" : "http://localhost:44318/api/Messages/MessageUrl";
 
         public enum APIMessages
         {

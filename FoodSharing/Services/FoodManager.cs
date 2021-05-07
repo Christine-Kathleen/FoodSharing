@@ -24,16 +24,12 @@ namespace FoodSharing.Services
         {
             return restService.GetUser(username, password);
         } 
-            public Task DeleteUserAsync(string id)
-        {
-            return restService.DeleteUserAsync(id);
-        }
 
         public Task UpdateTaskAsync(Food food)
         {
             return restService.SaveFoodAsync(food, false);
         }
-        public Task SaveTaskAsync(Food food)
+        public Task<Response> SaveTaskAsync(Food food)
         {
             return restService.SaveFoodAsync(food, true);
         }

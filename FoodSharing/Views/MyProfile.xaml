@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Pages.MyProfile"
-             NavigationPage.HasNavigationBar="false">
+             NavigationPage.HasNavigationBar="false"
+             BackgroundImageSource="bgfoods.jpg">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -15,24 +16,28 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
-            <Label Text="About you" Margin="20,20,20,20" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="1"/>
+            <Label Text="About you" Margin="20,20,120,20" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="1" BackgroundColor="White"/>
             <Frame BackgroundColor="White" HasShadow="False" Grid.Column="0" Grid.Row="2">
                     <StackLayout Orientation="Vertical" Spacing="10">
+                    <Label Text="First Name:" TextColor="Black"/>
                     <Entry x:Name="FirstName" Text="{Binding FirstName}"
                            PlaceholderColor="Black" HeightRequest="40"     
                            TextColor="Black"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
+                    <Label Text="Last Name:" TextColor="Black"/>
                     <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder="{Binding LastName }"   
                            PlaceholderColor="Black" HeightRequest="40"   
                            TextColor="Black"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
+                    <Label Text="User Name:" TextColor="Black"/>
                     <Entry x:Name="UserName" Text="{Binding UserName}" Placeholder="User Name"   
                            PlaceholderColor="Black" HeightRequest="40"   
                            Keyboard="Text"  
                            TextColor="Black"
                            ClearButtonVisibility="WhileEditing"/>
+                    <Label Text="Describe yourself:" TextColor="Black"/>
                     <Entry x:Name="Description" Text="{Binding Description}" Placeholder="Add a profile description"   
                            PlaceholderColor="Black" HeightRequest="40"   
                            Keyboard="Text"  
@@ -40,13 +45,13 @@
                            ClearButtonVisibility="WhileEditing"/>
                 </StackLayout>
                 </Frame>
-                <Button Command="{Binding UpdateProfileCommand}" Text="Update your profile" TextColor="White"  
+                <Button Command="{Binding UpdateProfileCommand}" Text="Update your profile" TextColor="Black"  
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="80,0,80,0"  
-                    Grid.Column="0" Grid.Row="3" BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70"/>
-                <Button Command="{Binding PublicProfileCommand}" Text="View public profile" TextColor="Black"  
-                    FontAttributes="Bold" FontSize="Medium" VerticalOptions="Start" Margin="80,0,80,0" Background="#70AE98"
-                    Grid.Column="0" Grid.Row="4" BackgroundColor="White" CornerRadius="8" Opacity="0.70"/>
-            <CollectionView ItemsSource="{Binding GiveAways }" Grid.Column="0" Grid.Row="5"
+                    Grid.Column="0" Grid.Row="3" BackgroundColor="White" BorderWidth="2" BorderColor="#70AE98" CornerRadius="8"/>
+            <Button Command="{Binding PublicProfileCommand}" Text="View public profile" TextColor="Black"  
+                    FontAttributes="Bold" FontSize="Medium" VerticalOptions="Start" Margin="80,0,80,0" BackgroundColor="White"
+                    Grid.Column="0" Grid.Row="4" BorderWidth="2" BorderColor="#70AE98" CornerRadius="8"/>
+            <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="5"
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
                 <CollectionView.ItemTemplate>
@@ -60,10 +65,10 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
-                       Source="{Binding ImageUrl}"
+                       Source="{Binding ImageSource}"
                        Aspect="AspectFill"
-                       HeightRequest="200"
-                       WidthRequest="200" />
+                       HeightRequest="150"
+                       WidthRequest="150" />
                             <Label Grid.Column="1"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />

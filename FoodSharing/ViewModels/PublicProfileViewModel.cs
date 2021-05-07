@@ -14,6 +14,8 @@ namespace FoodSharing.ViewModels
     public class PublicProfileViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public Action DisplayReviewAddedError;
+        public Action DisplayReviewAdded;
         private string firstName;
         public string FirstName
         {

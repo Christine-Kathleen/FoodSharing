@@ -64,10 +64,10 @@ namespace FoodSharing.ViewModels
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             foreach (var item in listFoods)
             {
-                    // Get a reference to a blob
-                    BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
-                    item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
-                    Foods.Add(item);
+                // Get a reference to a blob
+                BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
+                item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
+                Foods.Add(item);
             }
         }
         public async void OnSelectedFood()

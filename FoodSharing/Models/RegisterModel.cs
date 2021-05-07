@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;  
   
-namespace FoodSharing.Services
+namespace FoodSharing.Models
 {
     public class RegisterModel
     {
