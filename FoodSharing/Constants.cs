@@ -35,7 +35,10 @@ namespace FoodSharing
             Success,
             ErrorOnDeletion,
             ErrorOnCreating,
-            ErrorAlreadyExists
+            ErrorAlreadyExists,
+            ErrorOnPasswordChange, 
+            ErrorOnPasswordCheck,
+
         }
 
         public enum Status

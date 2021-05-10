@@ -36,5 +36,9 @@ namespace FoodSharing.Services
         {
             return restService.RegisterUserAsync(model);
         }
+        public Task<Response> UpdatePassword(UpdatePasswordModel model)
+        {
+            return restService.UpdatePasswordAsync(model);
+        }
     }
 }

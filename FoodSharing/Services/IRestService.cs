@@ -15,6 +15,7 @@ namespace FoodSharing.Services
 
         Task<ApplicationUser> GetUser(string username, string password);
         Task DeleteUserAsync(string id);
+        Task<Response> UpdatePasswordAsync(UpdatePasswordModel model);
         Task SaveUserAsync(ApplicationUser user, bool isNewUser);
         Task<Response> RegisterUserAsync(RegisterModel model);
     }

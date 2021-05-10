@@ -86,12 +86,6 @@ namespace FoodSharing.ViewModels
         public ICommand CreateUserCommand { protected set; get; }
         public LoginViewModel()
         {
-            //create fake user to enter app easy
-            //ID = 1;
-            //Email = "belep@elek.hu";
-            //Password = "semmi";
-
-
             LoginCommand = new Command(OnLoginClicked);
             CreateUserCommand = new Command(OnCreateUserClicked);
         }

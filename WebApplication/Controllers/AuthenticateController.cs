@@ -125,22 +125,31 @@ namespace WebAPI.Controllers
         [HttpPatch]
         [Route("UpdateUserPassword")]
         [Authorize]
-        public async Task<IActionResult> UpdatePassword([FromBody] ApplicationUser model)
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordModel model)
         {
-            var user = await userManager.FindByNameAsync(model.UserName);
-            if (user != null && await userManager.CheckPasswordAsync(user, model.PasswordHash))
+            var user = await userManager.FindByNameAsync(model.Username);
+            if (user == null)
             {
-
+                return NotFound();
             }
-            return Unauthorized();
+            else if(await userManager.CheckPasswordAsync(user, model.Password))
+            {
+                var result = await userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
+
+                if (!result.Succeeded)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnPasswordChange });
+
+                return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnPasswordCheck });
         }
         [HttpPatch]
         [Route("UpdateUserProfile")]
         [Authorize]
         public async Task<IActionResult> UpdateProfile([FromBody] ApplicationUser model)
         {
-            var user = await userManager.FindByNameAsync(model.UserName);
-            if(user != null)
+            var user = await userManager.FindByIdAsync(model.Id);
+            if (user != null)
             {
 
             }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -17,7 +18,27 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public Action DisplayDeletedAccount;
         public Action DisplayNoPassword;
+        public Action DisplaySamePassword;
+        public Action DisplayFatalError;
+        public Action DisplayFailedChange;
+        public Action DisplayApplicationError;
+        public Action DisplayWrongPasswordEntered;
         public Action DisplayPasswordChanged;
+        public Action DisplayCompletePasswordField;
+        public Action DisplayCompleteNewPasswordField;
+        public Action DisplayPasswordHasNoNumber;
+        public Action DisplayPasswordHasNoMinLength;
+        public Action DisplayPasswordHasNoLowerCase;
+        public Action DisplayPasswordHasNoUpperCase;
+        public Action DisplayPasswordHasNoNonalphanumeric;
+        public Action DisplayPasswordHasNoOneUniqueCharacter;
+        private Regex regexTelephoneNr = new Regex(@"^07\d{8}$");
+        private Regex regexPasswordHasNumber = new Regex("[0-9]+");
+        private Regex regexPasswordHasMinLength = new Regex("^.{6,}$");
+        private Regex regexPasswordHasLowerCase = new Regex("[a-z]");
+        private Regex regexPasswordHasUpperCase = new Regex("[A-Z]");
+        private Regex regexPasswordHasNonalphanumeric = new Regex(@"\W");
+        private Regex regexPasswordHasOneUniqueCharacter = new Regex(@"(.)(?<!\1.+)(?!.*\1)");
         private string newPassword;
         public string NewPassword
         {
@@ -26,6 +47,16 @@ namespace FoodSharing.ViewModels
             {
                 newPassword = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("NewPassword"));
+            }
+        }
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set
+            {
+                password = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
 
@@ -57,20 +88,97 @@ namespace FoodSharing.ViewModels
 
         async public void OnPasswordChange()
         {
-            if (!string.IsNullOrEmpty(NewPassword))
+            if (string.IsNullOrEmpty(NewPassword))
             {
-                var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
-                RestService restSevice = new RestService();
-                UserManager myUserManager = new UserManager(restSevice);
-                //TODO update password
-                await myUserManager.UpdateUserAsync(user);
-                DisplayPasswordChanged();
+                DisplayCompleteNewPasswordField();
+            }
+            else if (string.IsNullOrEmpty(Password))
+            {
+                DisplayCompletePasswordField();
+            }
+            else if (NewPassword != Password)
+            {
+                DisplaySamePassword();
+            }
+            else if (!regexPasswordHasNumber.IsMatch(password))
+            {
+                DisplayPasswordHasNoNumber();
+                return;
+            }
+            else if (!regexPasswordHasMinLength.IsMatch(password))
+            {
+                DisplayPasswordHasNoMinLength();
+                return;
+            }
+            else if (!regexPasswordHasLowerCase.IsMatch(password))
+            {
+                DisplayPasswordHasNoLowerCase();
+                return;
+            }
+            else if (!regexPasswordHasUpperCase.IsMatch(password))
+            {
+                DisplayPasswordHasNoUpperCase();
+                return;
+            }
+            else if (!regexPasswordHasNonalphanumeric.IsMatch(password))
+            {
+                DisplayPasswordHasNoNonalphanumeric();
+                return;
+            }
+            else if (!regexPasswordHasOneUniqueCharacter.IsMatch(password))
+            {
+                DisplayPasswordHasNoOneUniqueCharacter();
+                return;
             }
             else
             {
-                DisplayNoPassword();
+                var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+                if (user != null)
+                {
+                    UpdatePasswordModel model = new UpdatePasswordModel();
+                    model.Username = user.UserName;
+                    model.Password = Password;
+                    model.NewPassword = NewPassword;
+                    RestService restSevice = new RestService();
+                    UserManager myUserManager = new UserManager(restSevice);
+                    Response response = await myUserManager.UpdatePassword(model);
+                    switch (response.Status)
+                    {
+                        case Constants.Status.Error:
+                            {
+                                switch (response.Message)
+                                {
+                                    case Constants.APIMessages.ErrorOnPasswordCheck:
+                                        {
+                                            DisplayWrongPasswordEntered();
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            DisplayFatalError();
+                                            break;
+                                        }
+                                }
+                            }
+                            break;
+                        case Constants.Status.Success:
+                            {
+                                DisplayPasswordChanged();
+                                break;
+                            }
+                        default:
+                            {
+                                DisplayFatalError();
+                                break;
+                            }
+                    }
+                    DisplayPasswordChanged();
+                }
+                else
+                {
+                    DisplayApplicationError();
+                }
             }
         }
-
     }
 }

@@ -99,7 +99,7 @@ namespace FoodSharing.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine(@"\food successfully saved.");
+                    Debug.WriteLine(@"\user successfully saved.");
                 }
 
             }
@@ -108,6 +108,34 @@ namespace FoodSharing.Services
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
             }
         }
+        public async Task<Response> UpdatePasswordAsync(UpdatePasswordModel model)
+        {
+            Uri uri = new Uri(string.Format(Constants.UpdateUserPassUrl, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize<UpdatePasswordModel>(model, serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+
+                HttpResponseMessage response = null;
+                response = await client.PatchAsync(uri, content);
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\user password successfully saved.");
+                }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
+            }
+        }
+         
         public async Task DeleteUserAsync(string id)
         {
             Uri uri = new Uri(string.Format(Constants.DeleteUserUrl));

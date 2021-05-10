@@ -30,7 +30,7 @@ namespace FoodSharing.Pages
             vm.DisplayPasswordHasNoUpperCase += () => DisplayAlert("Error", "The password requires a uppercase character!", "OK");
             vm.DisplayPasswordHasNoNonalphanumeric += () => DisplayAlert("Error", "The password requires a non-alphanumeric character!", "OK");
             vm.DisplayPasswordHasNoOneUniqueCharacter += () => DisplayAlert("Error", "The password requires at least one distinct character!", "OK");
-            vm.DisplayCompleteFields += () => DisplayAlert("Error", "All fields must be completed", "OK");
+            vm.DisplayCompleteFields += () => DisplayAlert("Error", "All fields must be completed!", "OK");
             vm.DisplayPhoneNrErr += () => DisplayAlert("Error", "The phone number length must be of 10! Ex: 0754345221.", "OK");
 
 
