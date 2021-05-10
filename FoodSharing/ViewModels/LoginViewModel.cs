@@ -19,6 +19,7 @@ namespace FoodSharing.ViewModels
         public Action DisplayNoPassword;
         public Action DisplayFailedLogin;
         public Action DisplayInvalidEmail;
+        public Action DisplayCompleteFields;
         public Action DisplayApplicationError;
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -97,16 +98,10 @@ namespace FoodSharing.ViewModels
 
         public async void OnLoginClicked()
         {
-            //if (!regexemail.IsMatch(email.ToUpper()))
-            //{
-            //    DisplayInvalidEmail();
-            //}
-            //else if (string.IsNullOrEmpty(password))
-            //{
-            //    DisplayNoPassword();
-            //}
-            //else
-            //{
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+            {
+                DisplayCompleteFields();
+            }
             IsBusy = true;
             RestService userRestService = new RestService();
             if (await userRestService.AuthWithCredentialsAsync(Username, Password))

@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="Models\**" />
+    <Compile Remove="Services\**" />
     <Compile Remove="Views\**" />
     <Content Remove="Models\**" />
+    <Content Remove="Services\**" />
     <Content Remove="Views\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Services\**" />
     <EmbeddedResource Remove="Views\**" />
     <None Remove="Models\**" />
+    <None Remove="Services\**" />
     <None Remove="Views\**" />
   </ItemGroup>
 
@@ -35,10 +39,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

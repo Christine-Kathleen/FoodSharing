@@ -4,6 +4,7 @@
              x:Class="FoodSharing.Pages.MyProfile"
              NavigationPage.HasNavigationBar="false"
              BackgroundImageSource="bgfoods.jpg">
+    <!--ScrollView/ ListView-->
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

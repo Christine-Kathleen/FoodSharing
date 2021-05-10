@@ -202,7 +202,6 @@ namespace FoodSharing.ViewModels
             {
                 RestService restSevice = new RestService();
                 UserManager myUserManager = new UserManager(restSevice);
-                //TO DO ask LOCATION
                 Response response = await myUserManager.RegisterUserAsync(new RegisterModel { Email = Email, FirstName = FirstName, LastName = LastName, UserName = Username, Telephone = Telephone, Password = Password });
                 switch (response.Status)
                 {
