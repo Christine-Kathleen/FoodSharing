@@ -5,7 +5,8 @@
              NavigationPage.HasNavigationBar="false"
              BackgroundImageSource="bgfoods.jpg">
     <!--ScrollView/ ListView-->
-    <ContentPage.Content>
+    <ScrollView>
+    <StackLayout>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -13,49 +14,50 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
-            </Grid.ColumnDefinitions>
-            <Label Text="About you" Margin="20,20,120,20" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="1" BackgroundColor="White"/>
-            <Frame BackgroundColor="White" HasShadow="False" Grid.Column="0" Grid.Row="2">
-                    <StackLayout Orientation="Vertical" Spacing="10">
-                    <Label Text="First Name:" TextColor="Black"/>
-                    <Entry x:Name="FirstName" Text="{Binding FirstName}"
-                           PlaceholderColor="Black" HeightRequest="40"     
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Text="About you" Margin="90,20,90,10" HorizontalTextAlignment="Center" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="1" FontAttributes="Bold" BackgroundColor="White"/>
+            <Frame BackgroundColor="Transparent"  HasShadow="False" Grid.Column="0" Grid.Row="2">
+                <StackLayout Orientation="Vertical" Spacing="5" BackgroundColor="White">
+                    <Label Text="First Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                    <Label Text="{Binding FirstName}"        
                            TextColor="Black"
-                           ClearButtonVisibility="WhileEditing">
-                    </Entry>
-                    <Label Text="Last Name:" TextColor="Black"/>
-                    <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder="{Binding LastName }"   
-                           PlaceholderColor="Black" HeightRequest="40"   
+                           FontSize="Large" HorizontalTextAlignment="Center">
+                    </Label>
+                    <Label Text="Last Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                    <Label Text="{Binding LastName}"        
                            TextColor="Black"
-                           ClearButtonVisibility="WhileEditing">
-                    </Entry>
-                    <Label Text="User Name:" TextColor="Black"/>
-                    <Entry x:Name="UserName" Text="{Binding UserName}" Placeholder="User Name"   
-                           PlaceholderColor="Black" HeightRequest="40"   
-                           Keyboard="Text"  
+                           FontSize="Large" HorizontalTextAlignment="Center"/>
+                    <Label Text="User Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                    <Label Text="{Binding UserName}"        
                            TextColor="Black"
-                           ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="Describe yourself:" TextColor="Black"/>
+                           FontSize="Large" HorizontalTextAlignment="Center"/>
+                    <Label Text="Describe yourself:" TextColor="Black" FontAttributes="Bold" FontSize="Medium" Margin="0,20,0,0"/>
                     <Entry x:Name="Description" Text="{Binding Description}" Placeholder="Add a profile description"   
-                           PlaceholderColor="Black" HeightRequest="40"   
+                           PlaceholderColor="Black" HeightRequest="60"   
                            Keyboard="Text"  
                            TextColor="Black"
-                           ClearButtonVisibility="WhileEditing"/>
+                           ClearButtonVisibility="WhileEditing" MaxLength="500"/>
                 </StackLayout>
                 </Frame>
-                <Button Command="{Binding UpdateProfileCommand}" Text="Update your profile" TextColor="Black"  
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="80,0,80,0"  
+                <Button Command="{Binding UpdateProfileCommand}" Text="Update profile" TextColor="Black"  
+                    FontAttributes="Bold" FontSize="17" HorizontalOptions="Start" Margin="20,0,30,0"  VerticalOptions="Start" 
                     Grid.Column="0" Grid.Row="3" BackgroundColor="White" BorderWidth="2" BorderColor="#70AE98" CornerRadius="8"/>
-            <Button Command="{Binding PublicProfileCommand}" Text="View public profile" TextColor="Black"  
-                    FontAttributes="Bold" FontSize="Medium" VerticalOptions="Start" Margin="80,0,80,0" BackgroundColor="White"
+            <Button Command="{Binding PublicProfileCommand}" Text="Public profile" TextColor="Black"  
+                    FontAttributes="Bold" FontSize="17" VerticalOptions="End" HorizontalOptions="End" Margin="20,0,20,0" BackgroundColor="White"
+                    Grid.Column="0" Grid.Row="3" BorderWidth="2" BorderColor="#70AE98" CornerRadius="8"/>
+                <Button Command="{Binding BackCommand}" Text="Back to main page" TextColor="Black"  
+                    FontAttributes="Bold" FontSize="17" VerticalOptions="Center" HorizontalOptions="Center" Margin="20,0,20,0" BackgroundColor="White"
                     Grid.Column="0" Grid.Row="4" BorderWidth="2" BorderColor="#70AE98" CornerRadius="8"/>
-            <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="5"
+                <Label Text="Your announcements:" Grid.Column="0" Grid.Row="5" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" FontSize="Large" Margin="20,10,100,20"/>
+                <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="6"
                             SelectionMode="Single"
-                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" >
-                <CollectionView.ItemTemplate>
+                            SelectedItem="{Binding SelectedFood}" Margin="20,0,20,0">
+                    <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10" BackgroundColor="White">
                             <Grid.RowDefinitions>
@@ -82,5 +84,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-    </ContentPage.Content>
+    </StackLayout>
+    </ScrollView>
 </ContentPage>

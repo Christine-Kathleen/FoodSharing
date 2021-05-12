@@ -22,12 +22,12 @@
                     <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
                            PlaceholderColor="#70AE98" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="White"/>
+                           TextColor="Black"/>
                     <Label Text="Enter the new password here:" Padding="10,30,10,30" TextColor="Black" FontSize="25"/>
                     <Entry x:Name="NewPassword" Text="{Binding NewPassword}" Placeholder="NEW Password"   
                            PlaceholderColor="#70AE98" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="White"/>
+                           TextColor="Black"/>
                 </StackLayout>
                 <Button Command="{Binding PasswordChangeCommand}" Opacity="0.70" FontAttributes="Bold" CornerRadius="8"  Margin="70,0,70,0" FontSize="Medium" Grid.Column="0" Grid.Row="1" Text="Change Password" BackgroundColor="#70AE98" TextColor="White" Padding="10,10,10,10" />
                 <Button Command="{Binding DeleteAccountCommand}" Opacity="0.70" FontAttributes="Bold" CornerRadius="8"  Margin="70,0,70,0" FontSize="Medium" Grid.Column="0" Grid.Row="2" Text="Delete Account" BackgroundColor="#70AE98" TextColor="White" Padding="10,10,10,10" />

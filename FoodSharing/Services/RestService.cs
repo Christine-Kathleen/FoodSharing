@@ -20,19 +20,19 @@ namespace FoodSharing.Services
         public string BearerToken => Preferences.Get("BearerToken", string.Empty);
         public RestService()
         {
-                client = new HttpClient();
-                serializerOptions = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                };
+            client = new HttpClient();
+            serializerOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            };
         }
 
 
         public async Task<ApplicationUser> GetUser(string username, string password)
         {
             ApplicationUser user = new ApplicationUser();
-           
+
             dynamic jsonObject = new JObject();
             jsonObject.Username = username;
             jsonObject.Password = password;
@@ -135,8 +135,8 @@ namespace FoodSharing.Services
                 return null;
             }
         }
-         
-        public async Task DeleteUserAsync(string id)
+
+        public async Task<Response> DeleteUserAsync(string id)
         {
             Uri uri = new Uri(string.Format(Constants.DeleteUserUrl));
             DeleteUserModel userModel = new DeleteUserModel();
@@ -147,23 +147,26 @@ namespace FoodSharing.Services
                 string json = JsonSerializer.Serialize<DeleteUserModel>(userModel, serializerOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
-                HttpResponseMessage response = await client.PostAsync(uri,content);
+                HttpResponseMessage response = await client.PostAsync(uri, content);
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine(@"\user successfully deleted.");
                 }
-
+                return response2;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
             }
         }
 
         public async Task<bool> AuthWithCredentialsAsync(string username, string password)
         {
-           
+
             dynamic jsonObject = new JObject();
             jsonObject.Username = username;
             jsonObject.Password = password;
@@ -246,7 +249,7 @@ namespace FoodSharing.Services
             }
         }
 
-        public async Task DeleteFoodAsync(int id)
+        public async Task<Response> DeleteFoodAsync(int id)
         {
             Uri uri = new Uri(string.Format(Constants.DeleteFoodUrl, id));
             DeleteFoodModel foodModel = new DeleteFoodModel();
@@ -257,18 +260,163 @@ namespace FoodSharing.Services
                 string json = JsonSerializer.Serialize<DeleteFoodModel>(foodModel, serializerOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
-                HttpResponseMessage response = await client.DeleteAsync(uri);
+                HttpResponseMessage response = await client.PostAsync(uri, content);
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine(@"\food successfully deleted.");
                 }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
+            }
+        }
+        public List<Review> Reviews { get; set; }
 
+        public async Task<List<Review>> RefreshReviewDataAsync()
+        {
+            Reviews = new List<Review>();
+
+            Uri uri = new Uri(string.Format(Constants.ReviewUrl, string.Empty));
+            try
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    Reviews = System.Text.Json.JsonSerializer.Deserialize<List<Review>>(content, serializerOptions);
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
             }
+
+            return Reviews;
         }
-    }
+        public async Task<Response> SaveReviewAsync(Review review, bool isNewItem)
+        {
+            Uri uri = new Uri(string.Format(Constants.ReviewUrl, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize<Review>(review, serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                HttpResponseMessage response = null;
+                if (isNewItem)
+                {
+                    response = await client.PostAsync(uri, content);
+                }
+                else
+                {
+                    response = await client.PutAsync(uri, content);
+                }
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\review successfully saved.");
+                }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
+            }
+        }
+        public List<Message> Messages { get; set; }
+
+        public async Task<List<Message>> RefreshMessageDataAsync()
+        {
+            Messages = new List<Message>();
+
+            Uri uri = new Uri(string.Format(Constants.MessageUrl, string.Empty));
+            try
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                HttpResponseMessage response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    Messages = System.Text.Json.JsonSerializer.Deserialize<List<Message>>(content, serializerOptions);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+            }
+
+            return Messages;
+        }
+
+        public async Task<Response> SaveMessageAsync(Message message, bool isNewItem)
+        {
+            Uri uri = new Uri(string.Format(Constants.MessageUrl, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize<Message>(message, serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                HttpResponseMessage response = null;
+                if (isNewItem)
+                {
+                    response = await client.PostAsync(uri, content);
+                }
+                else
+                {
+                    response = await client.PutAsync(uri, content);
+                }
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\message successfully saved.");
+                }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
+            }
+        }
+        public async Task<Response> DeleteMessageAsync(int id)
+        {
+            Uri uri = new Uri(string.Format(Constants.DeleteFoodUrl, id));
+            DeleteFoodModel foodModel = new DeleteFoodModel();
+            foodModel.FoodId = id;
+
+            try
+            {
+                string json = JsonSerializer.Serialize<DeleteFoodModel>(foodModel, serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                HttpResponseMessage response = await client.PostAsync(uri, content);
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\food successfully deleted.");
+                }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
+            }
+        }
+    }    
 }

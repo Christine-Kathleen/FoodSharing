@@ -41,6 +41,6 @@
             <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
                                 TextColor="White" BackgroundColor="#1E90FF" 
                                 WidthRequest="60" HeightRequest="60" BorderRadius="30" 
-                                VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
+                                VerticalOptions="End" HorizontalOptions="Start" Grid.Column="0" Grid.Row="0"></Button>
         </Grid>
     </ContentPage>

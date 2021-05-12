@@ -19,6 +19,7 @@ namespace FoodSharing.ViewModels
         public Action DisplayDeletedAccount;
         public Action DisplayNoPassword;
         public Action DisplaySamePassword;
+        public Action DisplayErrorOnDeletion;
         public Action DisplayFatalError;
         public Action DisplayFailedChange;
         public Action DisplayApplicationError;
@@ -81,9 +82,38 @@ namespace FoodSharing.ViewModels
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             RestService restSevice = new RestService();
             UserManager myUserManager = new UserManager(restSevice);
-            await myUserManager.DeleteUserAsync(user.Id);
-            DisplayDeletedAccount();
-            await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
+            Response response = await myUserManager.DeleteUserAsync(user.Id);
+            switch (response.Status)
+            {
+                case Constants.Status.Error:
+                    {
+                        switch (response.Message)
+                        {
+                            case Constants.APIMessages.ErrorOnDeletion:
+                                {
+                                    DisplayErrorOnDeletion();
+                                    break;
+                                }
+                            default:
+                                {
+                                    DisplayFatalError();
+                                    break;
+                                }
+                        }
+                    }
+                    break;
+                case Constants.Status.Success:
+                    {
+                        DisplayDeletedAccount();
+                        await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
+                        break;
+                    }
+                default:
+                    {
+                        DisplayFatalError();
+                        break;
+                    }
+            }
         }
 
         async public void OnPasswordChange()
@@ -96,36 +126,36 @@ namespace FoodSharing.ViewModels
             {
                 DisplayCompletePasswordField();
             }
-            else if (NewPassword != Password)
+            else if (NewPassword == Password)
             {
                 DisplaySamePassword();
             }
-            else if (!regexPasswordHasNumber.IsMatch(password))
+            else if (!regexPasswordHasNumber.IsMatch(newPassword))
             {
                 DisplayPasswordHasNoNumber();
                 return;
             }
-            else if (!regexPasswordHasMinLength.IsMatch(password))
+            else if (!regexPasswordHasMinLength.IsMatch(newPassword))
             {
                 DisplayPasswordHasNoMinLength();
                 return;
             }
-            else if (!regexPasswordHasLowerCase.IsMatch(password))
+            else if (!regexPasswordHasLowerCase.IsMatch(newPassword))
             {
                 DisplayPasswordHasNoLowerCase();
                 return;
             }
-            else if (!regexPasswordHasUpperCase.IsMatch(password))
+            else if (!regexPasswordHasUpperCase.IsMatch(newPassword))
             {
                 DisplayPasswordHasNoUpperCase();
                 return;
             }
-            else if (!regexPasswordHasNonalphanumeric.IsMatch(password))
+            else if (!regexPasswordHasNonalphanumeric.IsMatch(newPassword))
             {
                 DisplayPasswordHasNoNonalphanumeric();
                 return;
             }
-            else if (!regexPasswordHasOneUniqueCharacter.IsMatch(password))
+            else if (!regexPasswordHasOneUniqueCharacter.IsMatch(newPassword))
             {
                 DisplayPasswordHasNoOneUniqueCharacter();
                 return;
@@ -172,7 +202,6 @@ namespace FoodSharing.ViewModels
                                 break;
                             }
                     }
-                    DisplayPasswordChanged();
                 }
                 else
                 {

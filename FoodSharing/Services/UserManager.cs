@@ -19,7 +19,7 @@ namespace FoodSharing.Services
         {
             return restService.GetUser(username, password);
         }
-        public Task DeleteUserAsync(string id)
+        public Task<Response> DeleteUserAsync(string id)
         {
             return restService.DeleteUserAsync(id);
         }

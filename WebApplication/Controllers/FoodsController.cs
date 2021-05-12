@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
             //AddTestData();
         }
 
-        public  async void AddTestData()
+        public async void AddTestData()
         {
             var food = new Food();
             food.Name = "Cake";
@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
         {
-            return await _context.Foods.ToListAsync();
+            return await _context.Foods.OrderBy(x=>x.TimePosted).ToListAsync();
         }
 
         // GET: api/Foods/5
@@ -78,6 +78,7 @@ namespace WebAPI.Controllers
         // PUT: api/Foods/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutFood(int id, Food food)
         {
             if (id != food.FoodId)
@@ -91,24 +92,18 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
-                if (!FoodExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnUpdate });
             }
 
-            return NoContent();
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
         // POST: api/Foods
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostFood(Food food)
         {
             _context.Foods.Add(food);
@@ -131,33 +126,31 @@ namespace WebAPI.Controllers
             }
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
-        [HttpPatch]
-        [Route("UpdateFood")]
-        public async Task<ActionResult<Food>> UpdateFood(Food food) //TO DO update
-        {
-            _context.Foods.Add(food);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (FoodExists(food.FoodId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
-        }
+        //[HttpPatch]
+        //[Route("UpdateFood")]
+        //[Authorize]
+        //public async Task<ActionResult<Food>> UpdateFood(Food food)
+        //{
+        //    _context.Foods.Add(food);
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnDeletion });
+        //    }
+
+        //    return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
+
+        //    return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+        //}
 
         // DELETE: api/Foods/5
-        [HttpDelete]
+        [HttpPost]
         [Route("DeleteFood")]
+        [Authorize]
         public async Task<IActionResult> DeleteFood(int id)
         {
             var food = await _context.Foods.FindAsync(id);
@@ -167,9 +160,17 @@ namespace WebAPI.Controllers
             }
 
             _context.Foods.Remove(food);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnDeletion });
+            }
+
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
         private bool FoodExists(int id)

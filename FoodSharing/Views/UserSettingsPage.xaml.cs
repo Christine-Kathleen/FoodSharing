@@ -35,6 +35,7 @@ namespace FoodSharing.Pages
             vm.DisplayApplicationError += () => DisplayAlert("Error", "Application error, try again!", "OK");
             vm.DisplayFailedChange += () => DisplayAlert("Error", "Failed to change password!", "OK");
             vm.DisplayWrongPasswordEntered += () => DisplayAlert("Error", "You entered a wrong password!", "OK");
+            vm.DisplayErrorOnDeletion += () => DisplayAlert("Error", "Error on deletion. PLease try again!", "OK");
             InitializeComponent();
 
         }

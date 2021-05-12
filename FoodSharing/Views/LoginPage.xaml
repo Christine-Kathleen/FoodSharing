@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="350" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -16,8 +16,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackLayout Orientation="Vertical" Padding="20" Spacing="40" Grid.Column="0" Grid.Row="0" Margin="0,20,0,20">
-                <BoxView HeightRequest="10"/>
+            <StackLayout Orientation="Vertical" Padding="0" Spacing="140" Grid.Column="0" Grid.Row="0" Margin="20,20,20,20">
+                <BoxView HeightRequest="20"/>
                 <Frame BackgroundColor="#70AE98" HasShadow="False" CornerRadius="8" >
                     <StackLayout Orientation="Vertical" Spacing="10">
                         <Entry x:Name="Username" Text="{Binding Username}" Placeholder="Username"   
@@ -33,12 +33,12 @@
                     </StackLayout>
                 </Frame>
                    </StackLayout>
-            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Grid.Column="0" Grid.Row="4"/>
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Grid.Column="0" Grid.Row="3"/>
             <Button Command="{Binding LoginCommand}" Text="Login" TextColor="White" IsEnabled="{Binding IsNotBusy}" 
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="2" 
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1" 
                     BackgroundColor="#70AE98" CornerRadius="8" Margin="60,20,60,0"/>
-            <Button Command="{Binding CreateUserCommand}" Grid.Column="0" Grid.Row="3" Text="Sign up now" VerticalOptions="Start"
-                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="60,10,60,0" FontSize="Large" BackgroundColor="White"
+            <Button Command="{Binding CreateUserCommand}" Grid.Column="0" Grid.Row="2" Text="Sign up now" VerticalOptions="Start"
+                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="60,10,60,10" FontSize="Large" BackgroundColor="White"
                     TextColor="Black" CornerRadius="8" IsEnabled="{Binding IsNotBusy}"/>
 
         </Grid>

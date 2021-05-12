@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FoodSharing.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Authentication;
+using static FoodSharing.Constants;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MessagesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -76,6 +79,7 @@ namespace WebAPI.Controllers
         // POST: api/Messages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Message>> PostMessage(Message message)
         {
             _context.Messages.Add(message);
@@ -87,19 +91,22 @@ namespace WebAPI.Controllers
             {
                 if (MessageExists(message.MessageId))
                 {
-                    return Conflict();
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorAlreadyExists });
+
                 }
                 else
                 {
-                    throw;
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnCreating });
+
                 }
             }
-
-            return CreatedAtAction("GetMessage", new { id = message.MessageId }, message);
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
         // DELETE: api/Messages/5
-        [HttpDelete("{id}")]
+        [HttpPost]
+        [Route("DeleteMessage")]
+        [Authorize]
         public async Task<IActionResult> DeleteMessage(int id)
         {
             var message = await _context.Messages.FindAsync(id);
@@ -109,9 +116,16 @@ namespace WebAPI.Controllers
             }
 
             _context.Messages.Remove(message);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnDeletion });
+            }
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
         private bool MessageExists(int id)

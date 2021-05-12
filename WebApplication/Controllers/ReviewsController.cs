@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FoodSharing.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Authentication;
+using static FoodSharing.Constants;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReviewsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -76,16 +79,36 @@ namespace WebAPI.Controllers
         // POST: api/Reviews
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Review>> PostReview(Review review)
         {
             _context.Reviews.Add(review);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (ReviewExists(review.ReviewId))
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorAlreadyExists });
 
-            return CreatedAtAction("GetReview", new { id = review.ReviewId }, review);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnCreating });
+
+                }
+            }
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
+
+            //return CreatedAtAction("GetReview", new { id = review.ReviewId }, review);
         }
 
         // DELETE: api/Reviews/5
-        [HttpDelete("{id}")]
+        [HttpPost]
+        [Route("DeleteReview")]
+        [Authorize]
         public async Task<IActionResult> DeleteReview(int id)
         {
             var review = await _context.Reviews.FindAsync(id);
