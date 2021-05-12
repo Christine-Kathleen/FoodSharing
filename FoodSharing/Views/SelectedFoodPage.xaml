@@ -39,7 +39,7 @@
                        FontAttributes="Bold" />
             <Button Grid.Column="0" Grid.Row="3" FontSize="Large" 
                        Command="{Binding UserClickedCommand}"
-                       BackgroundColor="Transparent" TextColor="Black"
+                       BackgroundColor="#70AE98" TextColor="Black"
                        Text="{Binding UserName}" Margin="20,20,20,20"
                        FontAttributes="Bold" />
             <Label Grid.Column="1" Grid.Row="2"
@@ -49,7 +49,7 @@
                        VerticalOptions="End" />
             <Label Grid.Column="0" Grid.Row="4" TextColor="Black" Text="Message the user:" FontSize="Large" Margin="20,0,20,0" />
             <Editor Grid.Column="0" Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,20,20,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
-            <Button Grid.Column="1" Grid.Row="5" FontSize="Medium" 
+            <Button Grid.Column="1" Grid.Row="5" FontSize="16" 
                        Command="{Binding SendMessageCommand}"
                        HorizontalOptions="FillAndExpand" 
                        BackgroundColor="#70AE98" CornerRadius="8" 

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -27,8 +28,6 @@ namespace FoodSharing.ViewModels
         public Action DisplayUpdatedFood;
         public ICommand SelectedChangedFood { get; set; }
         public ObservableCollection<Food> Foods { get; set; }
-        public ICommand PublicProfileCommand { protected set; get; }
-        public ICommand BackCommand { protected set; get; }
         public ICommand UpdateProfileCommand { protected set; get; }
         Food selectedFood;
         public Food SelectedFood
@@ -88,6 +87,21 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("Description"));
             }
         }
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                SetProperty(ref isBusy, value);
+                SetProperty(ref isBusy, value, nameof(IsNotBusy));
+            }
+
+        }
+        public bool IsNotBusy
+        {
+            get { return !IsBusy; }
+        }
         public MyProfileViewModel() 
         {
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
@@ -97,9 +111,7 @@ namespace FoodSharing.ViewModels
             Description = user.Description;
             Foods = new ObservableCollection<Food>();
             SelectedChangedFood = new Command(OnSelectedFood);
-            PublicProfileCommand = new Command(OnPublicProfile);
             UpdateProfileCommand = new Command(OnUpdateProfile);
-            BackCommand = new Command(OnBackToMainPage);
             GetFoods();
         }
         public async void GetFoods()
@@ -164,10 +176,6 @@ namespace FoodSharing.ViewModels
         //    }
         //}
 
-        public async void OnBackToMainPage()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
-        }
         public async void OnDeleteClicked()
         {
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
@@ -215,13 +223,31 @@ namespace FoodSharing.ViewModels
                 SelectedFood = null;
             }
         }
-        public async void OnPublicProfile()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage());
-        }
         public async void OnUpdateProfile()
         {
-           //TO DO update
+            //TO DO update
+            IsBusy = true;
+        }
+
+        protected bool SetProperty<T>(ref T backingStore, T value,
+         [CallerMemberName] string propertyName = "",
+         Action onChanged = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                return false;
+
+            backingStore = value;
+            onChanged?.Invoke();
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            var changed = PropertyChanged;
+            if (changed == null)
+                return;
+
+            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

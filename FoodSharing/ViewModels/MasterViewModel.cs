@@ -18,6 +18,8 @@ namespace FoodSharing.ViewModels
         public ICommand AccountSettingsCommand { protected set; get; }
         public ICommand HelpGrowCommand { protected set; get; }
         public ICommand LogoutCommand { protected set; get; }
+        public ICommand PrivateProfileCommand { protected set; get; }
+        public ICommand PublicProfileCommand { protected set; get; }
 
         private string password;
         public string Password
@@ -42,10 +44,11 @@ namespace FoodSharing.ViewModels
         public MasterViewModel()
         {
             HomeCommand = new Command(OnHome);
-            MyProfileCommand = new Command(OnMyProfile);
             AccountSettingsCommand = new Command(OnAccountSettings);
             HelpGrowCommand = new Command(OnHelpGrow);
             LogoutCommand = new Command(OnLogout);
+            PrivateProfileCommand = new Command(OnPrivateProfile);
+            PublicProfileCommand = new Command(OnPublicProfile);
 
         }
 
@@ -53,9 +56,9 @@ namespace FoodSharing.ViewModels
         {
             await App.Current.MainPage.Navigation.PushAsync(new MainPage());
         }
-        public async void OnMyProfile()
+        public async void OnPublicProfile()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new MyProfile());
+            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage());
         }
 
         public async void OnAccountSettings()
@@ -73,6 +76,10 @@ namespace FoodSharing.ViewModels
             Preferences.Remove("User");
             Preferences.Remove("BearerToken");
             await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
+        }
+        public async void OnPrivateProfile()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new MyProfile());
         }
 
     }

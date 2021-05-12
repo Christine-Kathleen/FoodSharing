@@ -1,10 +1,108 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodSharing.Pages.PublicProfilePage">
+             x:Class="FoodSharing.Pages.PublicProfilePage"
+             BackgroundImageSource="bgfoods.jpg" NavigationPage.IconColor="Black">
     <ScrollView>
         <StackLayout>
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Text="About you" Opacity="0.9" Margin="20,0,220,0" HorizontalTextAlignment="Start" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" BackgroundColor="White"/>
+                <Frame BackgroundColor="Transparent"  HasShadow="False" Grid.Column="0" Grid.Row="1">
+                    <StackLayout Orientation="Vertical" Spacing="5" BackgroundColor="White" Opacity="0.9">
+                        <Label Text="First Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding FirstName}"        
+                           TextColor="Black"
+                           FontSize="Large" HorizontalTextAlignment="Center">
+                        </Label>
+                        <Label Text="Last Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding LastName}"        
+                           TextColor="Black"
+                           FontSize="Large" HorizontalTextAlignment="Center"/>
+                        <Label Text="User Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="{Binding UserName}"        
+                           TextColor="Black"
+                           FontSize="Large" HorizontalTextAlignment="Center"/>
+                        <Label Text="Description:" TextColor="Black" FontAttributes="Bold" FontSize="Medium" Margin="0,0,0,0"/>
+                        <Label Text="{Binding Description}"        
+                           TextColor="Black"
+                           FontSize="Large" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Label Text="Reviews:" Opacity="0.9" Grid.Column="0" Grid.Row="2" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" FontSize="Large" Margin="20,10,200,20"/>
+                <CollectionView ItemsSource="{Binding Reviews }" Grid.Column="0" Grid.Row="5" Margin="20,0,20,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" Grid.Row="0"
+                                Text="{Binding Review}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Entry x:Name="chatTextInput" 
+                             Text="{Binding TextToSend}" 
+                             TextColor="Black" BackgroundColor="White"
+                             Keyboard="Chat" 
+                             HorizontalOptions="FillAndExpand" 
+                             PlaceholderColor="LightGray"
+                             Placeholder="Type your review here"
+                             Grid.Row="3" 
+                             Grid.Column="0" Margin="20,0,150,0"/>
+                <Button Text="Post" Grid.Row="3" ImageSource="send.png"
+                                   Grid.Column="0" FontSize="Medium" Command="{Binding PostReviewCommand}" 
+                                   HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsNotBusy}"
+                                   BackgroundColor="#70AE98" CornerRadius="8" 
+                                   Margin="240,0,20,00" TextColor="White"
+                                   FontAttributes="Bold" />
+                <Label Text="Donations:" Opacity="0.9" Grid.Column="0" Grid.Row="4" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" FontSize="Large" Margin="20,10,200,20"/>
+                <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="5"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" Margin="20,0,20,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" BackgroundColor="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0"
+                       Source="{Binding ImageSource}"
+                       Aspect="AspectFill"
+                       HeightRequest="150"
+                       WidthRequest="150" />
+                                <Label Grid.Column="1"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold" />
+                                <Label Grid.Column="1"
+                       Text="{Binding Distance}"
+                       FontAttributes="Italic"
+                       VerticalOptions="End" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+            <!--<Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -83,7 +181,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </Grid>
+        </Grid>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

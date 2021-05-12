@@ -17,10 +17,13 @@ namespace FoodSharing.Pages
         {
             var vm = new PublicProfileViewModel();
             this.BindingContext = vm;
-            vm.DisplayReviewAddedError += () => DisplayAlert("Error", "Fatal Error, could not update!", "OK");
+            vm.DisplayReviewError += () => DisplayAlert("Error", "Could not add review!", "OK");
+            vm.DisplayCompleteFields += () => DisplayAlert("Error", "Empty review!", "OK");
             vm.DisplayReviewAdded += () => DisplayAlert("Success", "Your review has been added!", "OK");
 
             InitializeComponent();
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = Color.FromRgb(112, 174, 152);
         }
     }
 }

@@ -17,7 +17,9 @@
                         <Grid Padding="10" BackgroundColor="White">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
@@ -30,11 +32,11 @@
                             <Label Grid.Column="1"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
-                            <Label Grid.Column="1"
+                        <Label Grid.Column="1"
                        Text="{Binding Distance}"
                        FontAttributes="Italic"
                        VerticalOptions="End" />
-                        </Grid>
+                    </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

@@ -18,6 +18,7 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private readonly Food donatedfood;
         //public ObservableCollection<Food> Foods { get; set; }
+        public ICommand UserClickedCommand { get; set; }
         public ICommand BackCommand { protected set; get; }
         public ICommand SendMessageCommand { protected set; get; }
 
@@ -96,14 +97,17 @@ namespace FoodSharing.ViewModels
         {
             BackCommand = new Command(OnBackClicked);
             SendMessageCommand = new Command(OnSendMessageClicked);
+            UserClickedCommand = new Command(OnUserNameClicked);
             donatedfood = _donatedfood;
             ImageURL = donatedfood.ImageUrl;
             FoodType = donatedfood.FoodType;
             Name = donatedfood.Name;
             Details = donatedfood.Details;
-            Distance = donatedfood.Distance;
-            //UserName = donatedfood.User.UserName;
             GetFood();
+        }
+        public async void OnUserNameClicked()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage());
         }
         public async void GetFood()
         {

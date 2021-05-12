@@ -43,6 +43,7 @@ namespace FoodSharing.ViewModels
             Foods = new ObservableCollection<Food>();
             GetFoods(FoodType);
         }
+
         public async void GetFoods(TypeOfFood foodtype)
         {
             RestService restSevice = new RestService();

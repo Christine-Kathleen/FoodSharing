@@ -28,6 +28,8 @@ namespace FoodSharing.Pages
             vm.DisplayErrorOnUpdate += () => DisplayAlert("Error", "Could not update!", "OK");
 
             InitializeComponent();
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = Color.FromRgb(112, 174, 152);
         }
     }
 }

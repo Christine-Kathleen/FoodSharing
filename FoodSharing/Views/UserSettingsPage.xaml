@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Frame BackgroundColor="#70AE98" Padding="24" CornerRadius="0">
-                <Label Text="⚙️ Account Settings" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+                <Label Text="⚙️ Account Settings" HorizontalTextAlignment="Center" TextColor="White" FontSize="30"/>
             </Frame>
             <Grid>
                 <Grid.RowDefinitions>
