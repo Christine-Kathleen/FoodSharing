@@ -103,6 +103,7 @@ namespace FoodSharing.ViewModels
             FoodType = donatedfood.FoodType;
             Name = donatedfood.Name;
             Details = donatedfood.Details;
+            UserName = donatedfood.User.UserName;
             GetFood();
         }
         public async void OnUserNameClicked()

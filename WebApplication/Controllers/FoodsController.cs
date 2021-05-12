@@ -59,7 +59,10 @@ namespace WebAPI.Controllers
         //[Authorize]
         public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
         {
-            //return await _context.Foods.Include(x => x.User).ToListAsync();
+            return  _context.Foods.OrderByDescending(x=>x.TimePosted).
+         Join(_context.Users, u => u.UserID, uir => uir.Id,
+         (u, uir) => new { u, uir }).Select(m => new Food { User = new ApplicationUser() { UserName=  m.uir.UserName,PasswordHash="",ConcurrencyStamp="",SecurityStamp="", PhoneNumber=m.uir.PhoneNumber,Email=m.uir.Email, UserLocLatitude=m.uir.UserLocLatitude, UserLocLongitude=m.uir.UserLocLongitude },FoodType=m.u.FoodType,AnnouncementAvailability=m.u.AnnouncementAvailability, Details=m.u.Details, FoodLocationLatitude=m.u.FoodLocationLatitude, FoodLocationLongitude=m.u.FoodLocationLongitude, ImageSource=m.u.ImageSource, ImageUrl=m.u.ImageUrl, Name=m.u.Name, TimePosted=m.u.TimePosted, UserID=m.u.UserID, FoodId=m.u.FoodId }).ToList();
+           // return await _context.Foods.Include(x => x.User).ToListAsync();
             //var dbdatastored= from entry in Food join ApplicationUser in this.Use
             //_context.Foods.Join()
             //return await (from Food in _context.Foods join ApplicationUser in _context.Users on Food.UserID equals ApplicationUser.Id into tmp from m in tmp.DefaultIfEmpty()
@@ -84,7 +87,7 @@ namespace WebAPI.Controllers
             //await _context.Users.ToListAsync();
             //_context.Foods.
             //List<Food> foodlist=
-            return await _context.Foods.OrderByDescending(x=>x.TimePosted).ToListAsync();
+           // return await _context.Foods.OrderByDescending(x=>x.TimePosted).ToListAsync();
             //foreach (var item in foodlist)
             //{
             //    item.User=_context.Users.find
