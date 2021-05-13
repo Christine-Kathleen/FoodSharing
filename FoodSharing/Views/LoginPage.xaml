@@ -13,10 +13,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackLayout Orientation="Vertical" Padding="0" Spacing="140" Grid.Column="0" Grid.Row="0" Margin="20,20,20,20">
+            <StackLayout Orientation="Vertical" Padding="0" Spacing="140" Grid.Row="0" Margin="60,20,60,20">
                 <BoxView HeightRequest="20"/>
                 <Frame BackgroundColor="#70AE98" HasShadow="False" CornerRadius="8" >
                     <StackLayout Orientation="Vertical" Spacing="10">
@@ -33,12 +30,12 @@
                     </StackLayout>
                 </Frame>
                    </StackLayout>
-            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Grid.Column="0" Grid.Row="3"/>
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"  Grid.Row="3"/>
             <Button Command="{Binding LoginCommand}" Text="Login" TextColor="White" IsEnabled="{Binding IsNotBusy}" 
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1" 
-                    BackgroundColor="#70AE98" CornerRadius="8" Margin="60,20,60,0"/>
-            <Button Command="{Binding CreateUserCommand}" Grid.Column="0" Grid.Row="2" Text="Sign up now" VerticalOptions="Start"
-                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="60,10,60,10" FontSize="Large" BackgroundColor="White"
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Row="1" 
+                    BackgroundColor="#70AE98" CornerRadius="8" Margin="100,20,100,0"/>
+            <Button Command="{Binding CreateUserCommand}" Grid.Row="2" Text="Sign up now" VerticalOptions="Start"
+                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="100,10,100,10" FontSize="Large" BackgroundColor="White"
                     TextColor="Black" CornerRadius="8" IsEnabled="{Binding IsNotBusy}"/>
 
         </Grid>

@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodSharing.Pages.HelpGrowPage"
-             NavigationPage.HasNavigationBar="false">
-    <ContentPage.Content>
+             x:Class="FoodSharing.Pages.HelpGrowPage">
+    <ScrollView>
         <StackLayout>
-            <Label FontSize="30" FontAttributes="Bold" Text="Help FoodSharing grow by " Margin="30,50,20,0" TextColor="Black"/>
-            <Label FontSize="30" FontAttributes="Bold" Text="donating money" Margin="80,0,0,20" TextColor="Black"/>
+            <Label FontSize="25" FontAttributes="Bold" Text="Help FoodSharing grow by " HorizontalOptions="Center" Margin="20,50,20,0" TextColor="Black"/>
+            <Label FontSize="25" FontAttributes="Bold" Text="donating money" HorizontalOptions="Center" Margin="20,0,0,20" TextColor="Black"/>
             <Label Text="Bank account number:" FontSize="Large" Margin="40,40,10,10" TextColor="Black" />
-            <Label Text="RO49AAAA1B31007593840000" FontSize="Large" Margin="40,10,20,20" TextColor="Black"/>
-            <Label Text="Thank you! ❤ " FontAttributes="Bold" FontSize="Large" Margin="120,50,10,10" TextColor="Black"/>
-            <Label Text="Contact us at:" FontSize="Large" Margin="40,60,10,10" TextColor="Black"/>
+            <Label Text="RO49AAAA1B31007593840000" FontSize="18" Margin="40,10,20,20" TextColor="Black"/>
+            <Label Text="Thank you! ❤ " FontAttributes="Bold" FontSize="Large" HorizontalOptions="Center" Margin="20,20,20,10" TextColor="Black"/>
+            <Label Text="Contact us at:" FontSize="Large" Margin="40,20,10,10" TextColor="Black"/>
             <Label Text="• Tel. 0754405276" FontSize="Large" TextColor="Black" Margin="40,10,10,10"/>
             <Label Text="• Email food_sharing@gmail.com" FontSize="Large" TextColor="Black" Margin="40,10,10,10"/>
         </StackLayout>
-    </ContentPage.Content>
+        </ScrollView>
 </ContentPage>

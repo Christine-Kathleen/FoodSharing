@@ -47,8 +47,9 @@ namespace WebAPI.Controllers
                SendTime = m.u.SendTime,
                ReviewId = m.u.ReviewId,
                ReviewerUserId = m.u.ReviewerUserId
-           })
-           .Join(_context.Users, u => u.ReviewerUserId, uir => uir.Id,
+           }
+           )
+           .Join(_context.Users, u => u.ReviewedUserId, uir => uir.Id,
            (u, uir) => new { u, uir }).Select(m => new Review
            {
                ReviewedId = new ApplicationUser()
@@ -66,7 +67,9 @@ namespace WebAPI.Controllers
                SendTime = m.u.SendTime,
                ReviewId = m.u.ReviewId,
                ReviewedUserId = m.u.ReviewedUserId
-           }).ToListAsync();
+           }
+           )
+           .ToListAsync();
         }
 
         // GET: api/Reviews/5

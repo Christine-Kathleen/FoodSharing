@@ -28,8 +28,52 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         {
-            return await _context.Messages.ToListAsync();
+            return await _context.Messages.OrderBy(x => x.SendTime).
+          Join(_context.Users, u => u.SenderUserId, uir => uir.Id,
+          (u, uir) => new { u, uir }).Select(m => new Message
+          {
+              SenderId = new ApplicationUser()
+              {
+                  UserName = m.uir.UserName,
+                  PasswordHash = "",
+                  ConcurrencyStamp = "",
+                  SecurityStamp = "",
+                  PhoneNumber = m.uir.PhoneNumber,
+                  Email = m.uir.Email,
+                  UserLocLatitude = m.uir.UserLocLatitude,
+                  UserLocLongitude = m.uir.UserLocLongitude
+              },
+              Content = m.u.Content,
+              MessageId = m.u.MessageId,
+              SendTime = m.u.SendTime,
+              State = m.u.State, 
+              SenderUserId = m.u.SenderUserId
+          }
+          )
+          .Join(_context.Users, u => u.ReceiverUserId, uir => uir.Id,
+          (u, uir) => new { u, uir }).Select(m => new Message
+          {
+              ReceiverId = new ApplicationUser()
+              {
+                  UserName = m.uir.UserName,
+                  PasswordHash = "",
+                  ConcurrencyStamp = "",
+                  SecurityStamp = "",
+                  PhoneNumber = m.uir.PhoneNumber,
+                  Email = m.uir.Email,
+                  UserLocLatitude = m.uir.UserLocLatitude,
+                  UserLocLongitude = m.uir.UserLocLongitude
+              },
+              Content = m.u.Content,
+              MessageId = m.u.MessageId,
+              SendTime = m.u.SendTime,
+              State = m.u.State,
+              ReceiverUserId = m.u.ReceiverUserId
+          }
+          )
+          .ToListAsync();
         }
+
 
         // GET: api/Messages/5
         [HttpGet("{id}")]

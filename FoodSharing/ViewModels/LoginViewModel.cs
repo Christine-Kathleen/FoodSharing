@@ -25,7 +25,7 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private Regex regexemail = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
         private string username = "cristina";
-        private string password = "Password@12345";
+        private string password = "Password@1234";
         bool isBusy = false;
         public bool IsBusy
         {

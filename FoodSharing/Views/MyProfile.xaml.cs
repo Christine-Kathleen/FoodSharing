@@ -26,6 +26,7 @@ namespace FoodSharing.Pages
             vm.DisplayUpdatedFood += () => DisplayAlert("Success", "Your profile has been updated!", "OK");
             vm.DisplayFatalError += () => DisplayAlert("Error", "Fatal Error!", "OK");
             vm.DisplayErrorOnUpdate += () => DisplayAlert("Error", "Could not update!", "OK");
+            vm.DisplayApplicationError += () => DisplayAlert("Error", "Fatal application error!", "OK");
 
             InitializeComponent();
             var navigationPage = Application.Current.MainPage as NavigationPage;

@@ -166,7 +166,7 @@ namespace FoodSharing.ViewModels
                 if (user != null)
                 {
                     UpdatePasswordModel model = new UpdatePasswordModel();
-                    model.Username = user.UserName;
+                    model.UserId = user.Id;
                     model.Password = Password;
                     model.NewPassword = NewPassword;
                     RestService restSevice = new RestService();

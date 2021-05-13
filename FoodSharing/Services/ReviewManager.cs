@@ -16,7 +16,7 @@ namespace FoodSharing.Services
             restService = service;
         }
         public List<Review> Reviews { get; set; }
-        public Task<List<Review>> GetTasksAsync()
+        public Task<List<Review>> GetReviewsAsync()
         {
             return restService.RefreshReviewDataAsync();
         }
@@ -24,7 +24,7 @@ namespace FoodSharing.Services
         {
             return restService.GetUser(username, password);
         }
-        public Task<Response> SaveTaskAsync(Review review)
+        public Task<Response> SaveReviewAsync(Review review)
         {
             return restService.SaveReviewAsync(review, true);
         }

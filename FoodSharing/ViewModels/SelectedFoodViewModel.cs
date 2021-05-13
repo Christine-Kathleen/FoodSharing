@@ -106,7 +106,7 @@ namespace FoodSharing.ViewModels
         }
         public async void OnUserNameClicked()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage());
+            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage()); //TO DO who s profile???
         }
        
         public async void OnBackClicked()

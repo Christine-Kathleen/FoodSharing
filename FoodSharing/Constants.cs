@@ -22,7 +22,6 @@ namespace FoodSharing
         public static string DeleteFoodUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Foods/DeleteFood" : "http://localhost:44318/api/Foods/DeleteFood";
         public static string UpdateUserProfileUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/UpdateUserProfile" : "http://localhost:44318/api/Foods/UpdateUserProfile";
         public static string UpdateUserPassUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/authenticate/UpdateUserPassword" : "http://localhost:44318/api/authenticate/UpdateUserPassword";
-        //public static string GetFoodUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Foods/GetFood" : "http://localhost:44318/api/Foods/GetFood";
         public static string ReviewUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Reviews/{0}" : "http://localhost:44318/api/Reviews/{0}";
         public static string MessageUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Messages/{0}" : "http://localhost:44318/api/Messages/{0}";
 

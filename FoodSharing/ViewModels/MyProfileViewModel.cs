@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace FoodSharing.ViewModels
 {
-  
+
     public class MyProfileViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -26,6 +26,7 @@ namespace FoodSharing.ViewModels
         public Action DisplayErrorOnUpdate;
         public Action DisplayFatalError;
         public Action DisplayUpdatedFood;
+        public Action DisplayApplicationError;
         public ICommand SelectedChangedFood { get; set; }
         public ObservableCollection<Food> Foods { get; set; }
         public ICommand UpdateProfileCommand { protected set; get; }
@@ -102,7 +103,7 @@ namespace FoodSharing.ViewModels
         {
             get { return !IsBusy; }
         }
-        public MyProfileViewModel() 
+        public MyProfileViewModel()
         {
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             FirstName = user.FirstName;
@@ -118,7 +119,7 @@ namespace FoodSharing.ViewModels
         {
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
-            List<Food> listFoods = await myFoodManager.GetTasksAsync();
+            List<Food> listFoods = await myFoodManager.GetFoodssAsync();
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
             // Create a container client
@@ -181,7 +182,7 @@ namespace FoodSharing.ViewModels
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
-            Response response = await myFoodManager.DeleteTaskAsync(selectedFood);
+            Response response = await myFoodManager.DeleteFoodAsync(selectedFood);
             switch (response.Status)
             {
                 case Constants.Status.Error:
@@ -225,7 +226,39 @@ namespace FoodSharing.ViewModels
         }
         public async void OnUpdateProfile()
         {
-            //TO DO update
+            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+            if (user != null)
+            {
+                UpdateUserModel model = new UpdateUserModel();
+                model.UserId = user.Id;
+                model.Description = user.Description;
+                RestService restSevice = new RestService();
+                UserManager myUserManager = new UserManager(restSevice);
+                Response response = await myUserManager.UpdateUserAsync(model);
+                switch (response.Status)
+                {
+                    case Constants.Status.Error:
+                        {
+
+                            DisplayFatalError();
+                            break;
+                        }
+                    case Constants.Status.Success:
+                        {
+                            DisplayProfileUpdateMade();
+                            break;
+                        }
+                    default:
+                        {
+                            DisplayFatalError();
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                DisplayApplicationError();
+            }
             IsBusy = true;
         }
 

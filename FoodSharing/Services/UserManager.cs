@@ -24,9 +24,9 @@ namespace FoodSharing.Services
             return restService.DeleteUserAsync(id);
         }
 
-        public Task UpdateUserAsync(ApplicationUser user)
+        public Task<Response> UpdateUserAsync(UpdateUserModel model)
         {
-            return restService.SaveUserAsync(user, false);
+            return restService.UpdateUserAsync(model);
         }
         public Task SaveUserAsync(ApplicationUser user)
         {

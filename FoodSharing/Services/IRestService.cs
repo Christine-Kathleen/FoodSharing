@@ -7,13 +7,14 @@ namespace FoodSharing.Services
 {
     public interface IRestService
     {
-        Task<List<Food>> RefreshDataAsync();
+        Task<List<Food>> RefreshFoodDataAsync();
         Task<Response> SaveFoodAsync(Food food, bool isNewItem);
         Task<Response> DeleteFoodAsync(int id);
 
         Task<ApplicationUser> GetUser(string username, string password);
         Task<Response> DeleteUserAsync(string id);
         Task<Response> UpdatePasswordAsync(UpdatePasswordModel model);
+        Task<Response> UpdateUserAsync(UpdateUserModel model);
         Task SaveUserAsync(ApplicationUser user, bool isNewUser);
         Task<Response> RegisterUserAsync(RegisterModel model);
 

@@ -22,6 +22,7 @@ namespace FoodSharing.ViewModels
         public Action DisplayReviewAdded;
         public Action DisplayFatalError;
         public Action DisplayCompleteFields;
+        public ObservableCollection<Review> Reviews { get; set; }
         public ICommand SelectedChangedFood { get; set; }
         public ICommand PostReviewCommand { get; set; }
         public ObservableCollection<Food> Foods { get; set; }
@@ -122,6 +123,7 @@ namespace FoodSharing.ViewModels
             SelectedChangedFood = new Command(OnSelectedFood);
             PostReviewCommand = new Command(OnPostReview);
             GetFoods();
+            GetReviews();
         }
         public async void OnSelectedFood()
         {
@@ -145,7 +147,7 @@ namespace FoodSharing.ViewModels
                 var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
                 RestService restSevice = new RestService();
                 ReviewManager myReviewManager = new ReviewManager(restSevice);
-                Response response = await myReviewManager.SaveTaskAsync(new Review { ReviewContent = Review, ReviewerId = user });
+                Response response = await myReviewManager.SaveReviewAsync(new Review { ReviewContent = Review, ReviewerId = user });
                 switch (response.Status)
                 {
                     case Constants.Status.Error:
@@ -167,11 +169,25 @@ namespace FoodSharing.ViewModels
                 IsBusy = false;
             }
         }
+        public async void GetReviews()
+        {
+            RestService restSevice = new RestService();
+            ReviewManager myReviewManager = new ReviewManager(restSevice);
+            List<Review> listReviewss = await myReviewManager.GetReviewsAsync();
+            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+            foreach (var item in listReviewss)
+            {
+                if (user.Id == item.ReviewedUserId) //TO DO who s review
+                { 
+                    Reviews.Add(item);
+                }
+            }
+        }
         public async void GetFoods()
         {
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
-            List<Food> listFoods = await myFoodManager.GetTasksAsync();
+            List<Food> listFoods = await myFoodManager.GetFoodssAsync();
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
             // Create a container client

@@ -127,7 +127,7 @@ namespace WebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordModel model)
         {
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByIdAsync(model.UserId);
             if (user == null)
             {
                 return NotFound();
@@ -149,11 +149,16 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> UpdateProfile([FromBody] ApplicationUser model)
         {
             var user = await userManager.FindByIdAsync(model.Id);
-            if (user != null)
+            if (user == null)
             {
-
+                return NotFound();
             }
-            return Unauthorized();
+            var result = await userManager.UpdateAsync(model);
+
+                if (!result.Succeeded)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnUpdate });
+
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
         [HttpPost]

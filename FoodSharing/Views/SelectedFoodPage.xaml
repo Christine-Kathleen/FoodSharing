@@ -30,7 +30,7 @@
                        Text="{Binding Details}" Margin="20,20,20,0" AutoSize="TextChanges"
                        TextColor="Black" FontSize="Large"/>
                 <Label Grid.Row="4" BackgroundColor="#70AE98"
-                       TextColor="Black" FontSize="Large"
+                       TextColor="Black" FontSize="Large" HorizontalOptions="Start"
                        Text="{Binding FoodLoc}" Margin="20,20,20,0"
                        FontAttributes="Bold" />
                 <Button Grid.Row="5" FontSize="Medium" Margin="220,12,20,20" HorizontalOptions="Start"
@@ -43,12 +43,12 @@
                        TextColor="Black" FontSize="Large"
                        FontAttributes="Italic" />
             <Label Grid.Row="5" TextColor="Black" Text="Message the user:" FontSize="Large" Margin="20,20,20,20" />
-            <Editor Grid.Row="7"  Keyboard="Chat" MaxLength="500" Margin="20,0,120,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
+            <Editor Grid.Row="7"  Keyboard="Chat" MaxLength="500" Margin="20,0,140,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
             <Button Grid.Row="7" FontSize="15"
                        Command="{Binding SendMessageCommand}"
                        HorizontalOptions="FillAndExpand" 
                        BackgroundColor="#70AE98" CornerRadius="8" 
-                       Margin="250,0,20,20" TextColor="White"
+                       Margin="280,0,20,20" TextColor="White"
                        Text="Send" FontAttributes="Bold"  ImageSource="send.png" />
             
         </Grid>

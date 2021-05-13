@@ -135,6 +135,33 @@ namespace FoodSharing.Services
                 return null;
             }
         }
+        public async Task<Response> UpdateUserAsync(UpdateUserModel model)
+        {
+            Uri uri = new Uri(string.Format(Constants.UpdateUserProfileUrl, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize<UpdateUserModel>(model, serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+
+                HttpResponseMessage response = null;
+                response = await client.PatchAsync(uri, content);
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\user password successfully saved.");
+                }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return null;
+            }
+        }
 
         public async Task<Response> DeleteUserAsync(string id)
         {
@@ -192,7 +219,7 @@ namespace FoodSharing.Services
 
         public List<Food> Foods { get; set; }
 
-        public async Task<List<Food>> RefreshDataAsync()
+        public async Task<List<Food>> RefreshFoodDataAsync()
         {
             Foods = new List<Food>();
 

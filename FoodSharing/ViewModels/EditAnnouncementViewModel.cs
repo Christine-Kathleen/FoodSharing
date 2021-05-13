@@ -4,7 +4,11 @@ using System.Text;
 
 namespace FoodSharing.ViewModels
 {
-    public class EditAnnouncementViewModel
+    public class EditAnnouncementViewModel : AddFoodViewModel
     {
+        public EditAnnouncementViewModel() : base()
+        {
+
+        }
     }
 }

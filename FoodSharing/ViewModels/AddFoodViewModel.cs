@@ -123,7 +123,7 @@ namespace FoodSharing.ViewModels
                 var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
                 RestService restSevice = new RestService();
                 FoodManager myFoodManager = new FoodManager(restSevice);
-                Response response = await myFoodManager.SaveTaskAsync(new Food {
+                Response response = await myFoodManager.SaveFoodAsync(new Food {
                     ImageUrl = fileURL,
                     Name = FoodName,
                     Details = FoodDetails,

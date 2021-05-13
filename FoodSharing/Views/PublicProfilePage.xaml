@@ -17,7 +17,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Text="About user" Opacity="0.9" Margin="20,0,210,0" HorizontalTextAlignment="Start" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" BackgroundColor="White"/>
+                <Label Text="About user" Opacity="0.9" Margin="20,0,240,0" HorizontalTextAlignment="Start" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" BackgroundColor="White"/>
                 <Frame BackgroundColor="Transparent"  HasShadow="False" Grid.Column="0" Grid.Row="1">
                     <StackLayout Orientation="Vertical" Spacing="5" BackgroundColor="White" Opacity="0.9">
                         <Label Text="First Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
@@ -39,10 +39,10 @@
                            FontSize="Large" HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
-                <Label Text="Reviews:" Opacity="0.9" Grid.Column="0" Grid.Row="2" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" FontSize="Large" Margin="20,10,200,20"/>
+                <Label Text="Reviews:" Opacity="0.9" Grid.Column="0" Grid.Row="2" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" FontSize="Large" Margin="20,0,300,20"/>
                 <CollectionView ItemsSource="{Binding Reviews }" Grid.Column="0" Grid.Row="5" Margin="20,0,20,0">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate>  
                             <Grid Padding="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -64,10 +64,10 @@
                              PlaceholderColor="LightGray"
                              Placeholder="Type your review here"
                              Grid.Row="3" 
-                             Grid.Column="0" Margin="20,0,150,0"/>
+                             Grid.Column="0" Margin="20,0,130,0"/>
                 <Button Text="Post" Grid.Row="3" ImageSource="send.png"
                                    Grid.Column="0" FontSize="Medium" Command="{Binding PostReviewCommand}" 
-                                   HorizontalOptions="FillAndExpand" IsEnabled="{Binding IsNotBusy}"
+                                   HorizontalOptions="End" IsEnabled="{Binding IsNotBusy}"
                                    BackgroundColor="#70AE98" CornerRadius="8" 
                                    Margin="240,0,20,00" TextColor="White"
                                    FontAttributes="Bold" />
