@@ -20,6 +20,8 @@ namespace FoodSharing.Pages
             var vm = new SelectedFoodViewModel(donatedfood);
             this.BindingContext = vm;
             InitializeComponent();
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = Color.FromRgb(112, 174, 152);
         }
     }
 }

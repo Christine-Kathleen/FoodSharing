@@ -17,7 +17,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Text="About you" Opacity="0.9" Margin="20,0,220,0" HorizontalTextAlignment="Start" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" BackgroundColor="White"/>
+                <Label Text="About user" Opacity="0.9" Margin="20,0,210,0" HorizontalTextAlignment="Start" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" BackgroundColor="White"/>
                 <Frame BackgroundColor="Transparent"  HasShadow="False" Grid.Column="0" Grid.Row="1">
                     <StackLayout Orientation="Vertical" Spacing="5" BackgroundColor="White" Opacity="0.9">
                         <Label Text="First Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>

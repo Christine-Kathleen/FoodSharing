@@ -123,7 +123,16 @@ namespace FoodSharing.ViewModels
                 var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
                 RestService restSevice = new RestService();
                 FoodManager myFoodManager = new FoodManager(restSevice);
-                Response response = await myFoodManager.SaveTaskAsync(new Food { ImageUrl = fileURL, Name = FoodName, Details = FoodDetails, FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood), (string)TypeSelection), AnnouncementAvailability = Availability.Available, UserID = user.Id, FoodLocationLatitude = user.UserLocLatitude, FoodLocationLongitude = user.UserLocLongitude });
+                Response response = await myFoodManager.SaveTaskAsync(new Food {
+                    ImageUrl = fileURL,
+                    Name = FoodName,
+                    Details = FoodDetails,
+                    FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),
+                    (string)TypeSelection),
+                    AnnouncementAvailability = Availability.Available,
+                    UserID = user.Id,
+                    FoodLocationLatitude = user.UserLocLatitude,
+                    FoodLocationLongitude = user.UserLocLongitude });
                 switch (response.Status)
                 {
                     case Constants.Status.Error:
@@ -134,6 +143,7 @@ namespace FoodSharing.ViewModels
                     case Constants.Status.Success:
                         {
                             DisplayFoodCreated();
+                            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                             break;
                         }
                     default:
@@ -142,8 +152,7 @@ namespace FoodSharing.ViewModels
                             break;
                         }
                 }
-                //TO DO take location from the user device
-                await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+                //TO DO take location from the user device   
                 IsBusy = false;
             }
         }

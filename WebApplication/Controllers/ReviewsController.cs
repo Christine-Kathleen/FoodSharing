@@ -28,7 +28,45 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
         {
-            return await _context.Reviews.ToListAsync();
+            return await _context.Reviews.OrderBy(x => x.SendTime).
+           Join(_context.Users, u => u.ReviewerUserId, uir => uir.Id,
+           (u, uir) => new { u, uir }).Select(m => new Review
+           {
+               ReviewerId = new ApplicationUser()
+               {
+                   UserName = m.uir.UserName,
+                   PasswordHash = "",
+                   ConcurrencyStamp = "",
+                   SecurityStamp = "",
+                   PhoneNumber = m.uir.PhoneNumber,
+                   Email = m.uir.Email,
+                   UserLocLatitude = m.uir.UserLocLatitude,
+                   UserLocLongitude = m.uir.UserLocLongitude
+               },
+               ReviewContent = m.u.ReviewContent,
+               SendTime = m.u.SendTime,
+               ReviewId = m.u.ReviewId,
+               ReviewerUserId = m.u.ReviewerUserId
+           })
+           .Join(_context.Users, u => u.ReviewerUserId, uir => uir.Id,
+           (u, uir) => new { u, uir }).Select(m => new Review
+           {
+               ReviewedId = new ApplicationUser()
+               {
+                   UserName = m.uir.UserName,
+                   PasswordHash = "",
+                   ConcurrencyStamp = "",
+                   SecurityStamp = "",
+                   PhoneNumber = m.uir.PhoneNumber,
+                   Email = m.uir.Email,
+                   UserLocLatitude = m.uir.UserLocLatitude,
+                   UserLocLongitude = m.uir.UserLocLongitude
+               },
+               ReviewContent = m.u.ReviewContent,
+               SendTime = m.u.SendTime,
+               ReviewId = m.u.ReviewId,
+               ReviewedUserId = m.u.ReviewedUserId
+           }).ToListAsync();
         }
 
         // GET: api/Reviews/5

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodSharing.Pages.SelectedFoodPage"
-             NavigationPage.HasNavigationBar="false">
-    <ContentPage.Content>
+             x:Class="FoodSharing.Pages.SelectedFoodPage" BackgroundColor="White" NavigationPage.IconColor="Black">
+    <ScrollView>
+        <StackLayout>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -14,50 +14,44 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Grid.Row="0"
-                       Source="{Binding ImageUrl}"
+            <Image Grid.Row="0" Margin="20,20,20,0"
+                       Source="{Binding ImageSource}"
                        Aspect="AspectFill"
                        HeightRequest="200"
                        WidthRequest="200" />
-            <Label Grid.Column="1" Grid.Row="1"
-                       Text="{Binding FoodType}"
-                       TextColor="Black" FontSize="Medium"/>
-            <Label Grid.Column="0" Grid.Row="1"
-                       Text="{Binding Name}" Margin="10,10,10,10"
+            <Label Grid.Row="2"  Margin="20,20,20,0"
+                       Text="{Binding FoodType}" HorizontalOptions="Center"
+                       TextColor="Black" FontSize="15"/>
+                <Label Grid.Row="1" Margin="20,20,20,0" HorizontalOptions="Center"
+                       Text="{Binding Name}" Opacity="0.9"
                        TextColor="Black" FontSize="Large"
                        FontAttributes="Bold" />
-            <Label Grid.Column="0" Grid.Row="2"
-                       Text="{Binding Details}" Margin="10,10,10,10"
+                <Editor Grid.Row="3" HorizontalOptions="Center" IsReadOnly="True" IsEnabled="False"
+                       Text="{Binding Details}" Margin="20,20,20,0" AutoSize="TextChanges"
                        TextColor="Black" FontSize="Large"/>
-            <Label Grid.Column="0" Grid.Row="2"
+                <Label Grid.Row="4" BackgroundColor="#70AE98"
                        TextColor="Black" FontSize="Large"
-                       Text="{Binding FoodLoc}"
+                       Text="{Binding FoodLoc}" Margin="20,20,20,0"
                        FontAttributes="Bold" />
-            <Button Grid.Column="0" Grid.Row="3" FontSize="Large" 
-                       Command="{Binding UserClickedCommand}"
-                       BackgroundColor="#70AE98" TextColor="Black"
-                       Text="{Binding UserName}" Margin="20,20,20,20"
+                <Button Grid.Row="5" FontSize="Medium" Margin="220,12,20,20" HorizontalOptions="Start"
+                       Command="{Binding UserClickedCommand}" TextTransform="None"
+                       BackgroundColor="White" TextColor="Black"
+                       Text="{Binding UserName}" CornerRadius="8"
                        FontAttributes="Bold" />
-            <Label Grid.Column="1" Grid.Row="2"
-                       Text="{Binding Distance}"
+            <Label Grid.Row="4" Margin="120,20,20,20"
+                       Text="{Binding Distance}" BackgroundColor="Black"
                        TextColor="Black" FontSize="Large"
-                       FontAttributes="Italic"
-                       VerticalOptions="End" />
-            <Label Grid.Column="0" Grid.Row="4" TextColor="Black" Text="Message the user:" FontSize="Large" Margin="20,0,20,0" />
-            <Editor Grid.Column="0" Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,20,20,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
-            <Button Grid.Column="1" Grid.Row="5" FontSize="16" 
+                       FontAttributes="Italic" />
+            <Label Grid.Row="5" TextColor="Black" Text="Message the user:" FontSize="Large" Margin="20,20,20,20" />
+            <Editor Grid.Row="7"  Keyboard="Chat" MaxLength="500" Margin="20,0,120,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
+            <Button Grid.Row="7" FontSize="15"
                        Command="{Binding SendMessageCommand}"
                        HorizontalOptions="FillAndExpand" 
                        BackgroundColor="#70AE98" CornerRadius="8" 
-                       Margin="0,20,20,20" TextColor="White"
+                       Margin="250,0,20,20" TextColor="White"
                        Text="Send" FontAttributes="Bold"  ImageSource="send.png" />
-            <Button Command="{Binding BackCommand}" Grid.Column="0" Grid.Row="6" Text="Keep looking" VerticalOptions="Start"
-                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="30,30,30,30" FontSize="Medium" BackgroundColor="White"
-                    TextColor="Black" CornerRadius="8" IsEnabled="{Binding IsNotBusy}"/>
+            
         </Grid>
-    </ContentPage.Content>
+    </StackLayout>
+    </ScrollView>
 </ContentPage>

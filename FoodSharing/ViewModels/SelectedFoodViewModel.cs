@@ -17,19 +17,18 @@ namespace FoodSharing.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private readonly Food donatedfood;
-        //public ObservableCollection<Food> Foods { get; set; }
         public ICommand UserClickedCommand { get; set; }
         public ICommand BackCommand { protected set; get; }
         public ICommand SendMessageCommand { protected set; get; }
 
-        private string imageURL;
-        public string ImageURL
+        private ImageSource imageSource;
+        public ImageSource ImageSource
         {
-            get { return imageURL; }
+            get { return imageSource; }
             private set
             {
-                imageURL = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("ImageURL"));
+                imageSource = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("ImageSource"));
             }
         }
         private TypeOfFood foodType;
@@ -99,36 +98,17 @@ namespace FoodSharing.ViewModels
             SendMessageCommand = new Command(OnSendMessageClicked);
             UserClickedCommand = new Command(OnUserNameClicked);
             donatedfood = _donatedfood;
-            ImageURL = donatedfood.ImageUrl;
+            ImageSource = donatedfood.ImageSource;
             FoodType = donatedfood.FoodType;
             Name = donatedfood.Name;
             Details = donatedfood.Details;
             UserName = donatedfood.User.UserName;
-            GetFood();
         }
         public async void OnUserNameClicked()
         {
             await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage());
         }
-        public async void GetFood()
-        {
-            //RestService restSevice = new RestService();
-            //FoodManager myFoodManager = new FoodManager(restSevice);
-            //List<Food> listFoods = await myFoodManager.GetTasksAsync();
-            //string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
-            //// Create a container client
-            //BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
-            ////The name of the container
-            //string containerName = "foodpicsblobs";
-            //BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            //foreach (var item in listFoods)
-            //{
-            //    // Get a reference to a blob
-            //    BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
-            //    item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
-            //    Foods.Add(item);
-            //}
-        }
+       
         public async void OnBackClicked()
         {
             await App.Current.MainPage.Navigation.PushAsync(new MainPage());

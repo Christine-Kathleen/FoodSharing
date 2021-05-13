@@ -44,8 +44,6 @@ namespace FoodSharing.Models
         public TypeOfFood FoodType { get; set; }
         [Required]
         public Availability AnnouncementAvailability { get; set; }
-        //[Required]
-        [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
         [Required]
         public string UserID { get; set; }

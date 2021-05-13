@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
 
     public class FoodsController : ControllerBase
     {
@@ -56,42 +56,33 @@ namespace WebAPI.Controllers
 
         // GET: api/Foods
         [HttpGet]
-        //[Authorize]
         public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
         {
-            return  _context.Foods.OrderByDescending(x=>x.TimePosted).
-         Join(_context.Users, u => u.UserID, uir => uir.Id,
-         (u, uir) => new { u, uir }).Select(m => new Food { User = new ApplicationUser() { UserName=  m.uir.UserName,PasswordHash="",ConcurrencyStamp="",SecurityStamp="", PhoneNumber=m.uir.PhoneNumber,Email=m.uir.Email, UserLocLatitude=m.uir.UserLocLatitude, UserLocLongitude=m.uir.UserLocLongitude },FoodType=m.u.FoodType,AnnouncementAvailability=m.u.AnnouncementAvailability, Details=m.u.Details, FoodLocationLatitude=m.u.FoodLocationLatitude, FoodLocationLongitude=m.u.FoodLocationLongitude, ImageSource=m.u.ImageSource, ImageUrl=m.u.ImageUrl, Name=m.u.Name, TimePosted=m.u.TimePosted, UserID=m.u.UserID, FoodId=m.u.FoodId }).ToList();
-           // return await _context.Foods.Include(x => x.User).ToListAsync();
-            //var dbdatastored= from entry in Food join ApplicationUser in this.Use
-            //_context.Foods.Join()
-            //return await (from Food in _context.Foods join ApplicationUser in _context.Users on Food.UserID equals ApplicationUser.Id into tmp from m in tmp.DefaultIfEmpty()
-            //              select new Food
-            //              {
-            //                  AnnouncementAvailability=tmp.AnnouncementAvailability,
-
-            //              }
-            //              )
-           //return await _context.Foods.Include("Food.User").ToListAsync();
-            //using (var context = new ApplicationDbContext())
-            //{
-            //    var studentName = ctx.Students.SqlQuery("Select studentid, studentname, standardId from Student where studentname='Bill'")
-            //    var foods = context.Foods.att
-            //                        .Where(s => s.FirstName == "Bill")
-            //                        .FirstOrDefault<Student>();
-
-            //    context.Entry(ApplicationUser).Reference(s => s.).Load(); // loads StudentAddress
-            //    context.Entry(student).Collection(s => s.StudentCourses).Load(); // loads Courses collection 
-            //}
-
-            //await _context.Users.ToListAsync();
-            //_context.Foods.
-            //List<Food> foodlist=
-           // return await _context.Foods.OrderByDescending(x=>x.TimePosted).ToListAsync();
-            //foreach (var item in foodlist)
-            //{
-            //    item.User=_context.Users.find
-            //}
+            return await _context.Foods.OrderByDescending(x=>x.TimePosted).
+            Join(_context.Users, u => u.UserID, uir => uir.Id,
+            (u, uir) => new { u, uir }).Select(m => new Food 
+            { User = new ApplicationUser() { 
+                UserName=  m.uir.UserName,
+                PasswordHash="",
+                ConcurrencyStamp="",
+                SecurityStamp="",
+                PhoneNumber=m.uir.PhoneNumber,
+                Email=m.uir.Email,
+                UserLocLatitude=m.uir.UserLocLatitude,
+                UserLocLongitude=m.uir.UserLocLongitude
+            },
+                FoodType=m.u.FoodType,
+                AnnouncementAvailability=m.u.AnnouncementAvailability,
+                Details=m.u.Details,
+                FoodLocationLatitude=m.u.FoodLocationLatitude,
+                FoodLocationLongitude=m.u.FoodLocationLongitude,
+                ImageSource=m.u.ImageSource,
+                ImageUrl=m.u.ImageUrl,
+                Name=m.u.Name,
+                TimePosted=m.u.TimePosted,
+                UserID=m.u.UserID,
+                FoodId=m.u.FoodId 
+            }).ToListAsync();
         }
 
         // GET: api/Foods/5
@@ -111,7 +102,6 @@ namespace WebAPI.Controllers
         // PUT: api/Foods/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<IActionResult> PutFood(int id, Food food)
         {
             if (id != food.FoodId)
@@ -136,7 +126,6 @@ namespace WebAPI.Controllers
         // POST: api/Foods
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> PostFood(Food food)
         {
             _context.Foods.Add(food);
@@ -183,7 +172,6 @@ namespace WebAPI.Controllers
         // DELETE: api/Foods/5
         [HttpPost]
         [Route("DeleteFood")]
-        [Authorize]
         public async Task<IActionResult> DeleteFood(int id)
         {
             var food = await _context.Foods.FindAsync(id);
