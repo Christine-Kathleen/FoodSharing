@@ -15,7 +15,7 @@ namespace FoodSharing.Services
             restService = service;
         }
         public List<Food> Foods { get; set; }
-        public Task<List<Food>> GetFoodssAsync()
+        public Task<List<Food>> GetFoodsAsync()
         {
             return restService.RefreshFoodDataAsync();
         }

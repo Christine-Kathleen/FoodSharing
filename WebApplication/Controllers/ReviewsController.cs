@@ -49,26 +49,6 @@ namespace WebAPI.Controllers
                ReviewerUserId = m.u.ReviewerUserId
            }
            )
-           .Join(_context.Users, u => u.ReviewedUserId, uir => uir.Id,
-           (u, uir) => new { u, uir }).Select(m => new Review
-           {
-               ReviewedId = new ApplicationUser()
-               {
-                   UserName = m.uir.UserName,
-                   PasswordHash = "",
-                   ConcurrencyStamp = "",
-                   SecurityStamp = "",
-                   PhoneNumber = m.uir.PhoneNumber,
-                   Email = m.uir.Email,
-                   UserLocLatitude = m.uir.UserLocLatitude,
-                   UserLocLongitude = m.uir.UserLocLongitude
-               },
-               ReviewContent = m.u.ReviewContent,
-               SendTime = m.u.SendTime,
-               ReviewId = m.u.ReviewId,
-               ReviewedUserId = m.u.ReviewedUserId
-           }
-           )
            .ToListAsync();
         }
 
@@ -142,8 +122,6 @@ namespace WebAPI.Controllers
                 }
             }
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
-
-            //return CreatedAtAction("GetReview", new { id = review.ReviewId }, review);
         }
 
         // DELETE: api/Reviews/5

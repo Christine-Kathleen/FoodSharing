@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Pages.AddFoodPage"
              NavigationPage.HasNavigationBar="false">
-    <ContentPage.Content>
+    <ScrollView>
         <StackLayout Orientation="Vertical" Padding="5" Spacing="5">
                 <BoxView HeightRequest="5"/>
-            <Label Text="Give away anything you would eat yourself:" TextColor="Black" FontSize="Medium" Margin="20,0,20,0"/>
+            <Label Text="Give away anything you would eat yourself:" TextColor="Black" FontSize="Large" Margin="20,0,20,0"/>
             <Frame BackgroundColor="Transparent" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10" RadioButtonGroup.GroupName="FoodType" RadioButtonGroup.SelectedValue="{Binding TypeSelection}">
                     <Entry x:Name="Name" Text="{Binding FoodName }" Placeholder="Naming of the product"   
@@ -21,17 +21,17 @@
                     </Entry>
                     <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodType"/>
                     <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodType"/>
-                    <Button Command="{Binding TakePicCommand}" HorizontalOptions="Center" Margin="10,10,120,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+                    <Button Command="{Binding TakePicCommand}" HorizontalOptions="Center" Margin="70,0,70,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
                 </StackLayout>
             </Frame>
-            <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White" 
+            <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White" TextTransform="None" 
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="80,0,80,0"  
                     BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70" IsEnabled="{Binding IsNotBusy}" />
-            <Button Command="{Binding HomeCommand}" Text="Cancel" TextColor="#70AE98"  
+            <Button Command="{Binding HomeCommand}" Text="Cancel" TextColor="#70AE98" TextTransform="None" 
                     FontAttributes="Bold" FontSize="Medium" VerticalOptions="Start" Margin="80,0,80,0"
                     BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
                     IsEnabled="{Binding IsNotBusy}" />
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

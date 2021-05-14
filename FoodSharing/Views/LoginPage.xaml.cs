@@ -21,7 +21,7 @@ namespace FoodSharing.Pages
             vm.DisplayInvalidEmail += () => DisplayAlert("Error", "This email address format is invalid!", "OK");
             vm.DisplayNoPassword += () => DisplayAlert("Error", "Password cannot be empty!", "OK");
             vm.DisplayFailedLogin += () => DisplayAlert("Error", "Login failed, please check your username and password!", "OK");
-            vm.DisplayApplicationError += () => DisplayAlert("Error", "Fatal application error!", "OK");
+            vm.DisplayApplicationError += () => DisplayAlert("Error", "Fatal application error, contact the administrator!", "OK");
             vm.DisplayCompleteFields += () => DisplayAlert("Error", "All fields must be completed!", "OK");
             InitializeComponent();
 

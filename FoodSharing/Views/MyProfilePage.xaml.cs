@@ -20,13 +20,9 @@ namespace FoodSharing.Pages
             vm.DisplayProfileUpdateMade += () => DisplayAlert("Success", "Your profile has been updated!", "OK");
             vm.DisplayProfileUpdateError += () => DisplayAlert("Error", "Fatal Error, could not update!", "OK");
 
-            vm.DisplayFoodDeleted += () => DisplayAlert("Success", "Your announcement has been deleted!", "OK");
-            vm.DisplayFoodDeletedError += () => DisplayAlert("Error", "Could not delete!", "OK");
-
-            vm.DisplayUpdatedFood += () => DisplayAlert("Success", "Your profile has been updated!", "OK");
             vm.DisplayFatalError += () => DisplayAlert("Error", "Fatal Error!", "OK");
             vm.DisplayErrorOnUpdate += () => DisplayAlert("Error", "Could not update!", "OK");
-            vm.DisplayApplicationError += () => DisplayAlert("Error", "Fatal application error!", "OK");
+            vm.DisplayApplicationError += () => DisplayAlert("Error", "Fatal application error, contact the administrator!", "OK");
 
             InitializeComponent();
             var navigationPage = Application.Current.MainPage as NavigationPage;

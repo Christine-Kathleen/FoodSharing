@@ -2,6 +2,7 @@
 using FoodSharing.Models;
 using FoodSharing.Pages;
 using FoodSharing.Services;
+using FoodSharing.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,8 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public Action DisplayProfileUpdateMade;
         public Action DisplayProfileUpdateError;
-        public Action DisplayFoodDeleted;
-        public Action DisplayFoodDeletedError;
         public Action DisplayErrorOnUpdate;
         public Action DisplayFatalError;
-        public Action DisplayUpdatedFood;
         public Action DisplayApplicationError;
         public ICommand SelectedChangedFood { get; set; }
         public ObservableCollection<Food> Foods { get; set; }
@@ -119,7 +117,7 @@ namespace FoodSharing.ViewModels
         {
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
-            List<Food> listFoods = await myFoodManager.GetFoodssAsync();
+            List<Food> listFoods = await myFoodManager.GetFoodsAsync();
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
             // Create a container client
@@ -138,89 +136,11 @@ namespace FoodSharing.ViewModels
                 }
             }
         }
-        //public async void OnMoreClicked()
-        //{
-        //    var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
-        //    RestService restSevice = new RestService();
-        //    FoodManager myFoodManager = new FoodManager(restSevice);
-        //    Response response = await myFoodManager.UpdateTaskAsync(SelectedFood);
-        //    switch (response.Status)
-        //    {
-        //        case Constants.Status.Error:
-        //            {
-        //                switch (response.Message)
-        //                {
-        //                    case Constants.APIMessages.ErrorOnDeletion:
-        //                        {
-        //                            DisplayErrorOnUpdate();
-        //                            break;
-        //                        }
-        //                    default:
-        //                        {
-        //                            DisplayFatalError();
-        //                            break;
-        //                        }
-        //                }
-        //            }
-        //            break;
-        //        case Constants.Status.Success:
-        //            {
-        //                DisplayUpdatedFood();
-        //                await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
-        //                break;
-        //            }
-        //        default:
-        //            {
-        //                DisplayFatalError();
-        //                break;
-        //            }
-        //    }
-        //}
-
-        public async void OnDeleteClicked()
-        {
-            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
-            RestService restSevice = new RestService();
-            FoodManager myFoodManager = new FoodManager(restSevice);
-            Response response = await myFoodManager.DeleteFoodAsync(selectedFood);
-            switch (response.Status)
-            {
-                case Constants.Status.Error:
-                    {
-                        switch (response.Message)
-                        {
-                            case Constants.APIMessages.ErrorOnDeletion:
-                                {
-                                    DisplayFoodDeletedError();
-                                    break;
-                                }
-                            default:
-                                {
-                                    DisplayFatalError();
-                                    break;
-                                }
-                        }
-                    }
-                    break;
-                case Constants.Status.Success:
-                    {
-                        DisplayFoodDeleted();
-                        //TO DO refresh?
-                        await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
-                        break;
-                    }
-                default:
-                    {
-                        DisplayFatalError();
-                        break;
-                    }
-            }
-        }
         public async void OnSelectedFood()
         {
             if (selectedFood != null)
             {
-                await App.Current.MainPage.Navigation.PushAsync(new SelectedFoodPage((Food)selectedFood));
+                await App.Current.MainPage.Navigation.PushAsync(new EditAnnouncementPage((Food)selectedFood));
                 SelectedFood = null;
             }
         }

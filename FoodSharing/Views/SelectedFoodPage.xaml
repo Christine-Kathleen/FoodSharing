@@ -48,7 +48,7 @@
                        Command="{Binding SendMessageCommand}"
                        HorizontalOptions="FillAndExpand" 
                        BackgroundColor="#70AE98" CornerRadius="8" 
-                       Margin="280,0,20,20" TextColor="White"
+                       Margin="250,0,20,20" TextColor="White"
                        Text="Send" FontAttributes="Bold"  ImageSource="send.png" />
             
         </Grid>

@@ -32,7 +32,7 @@ namespace FoodSharing.Pages
             vm.DisplayPasswordHasNoOneUniqueCharacter += () => DisplayAlert("Error", "The password requires at least one distinct character!", "OK");
             vm.DisplayCompletePasswordField += () => DisplayAlert("Error", "You must enter your current password!", "OK");
             vm.DisplayCompleteNewPasswordField += () => DisplayAlert("Error", "You must enter a new password!", "OK");
-            vm.DisplayApplicationError += () => DisplayAlert("Error", "Application error, try again!", "OK");
+            vm.DisplayApplicationError += () => DisplayAlert("Error", "Application error, contact the administrator!", "OK");
             vm.DisplayFailedChange += () => DisplayAlert("Error", "Failed to change password!", "OK");
             vm.DisplayWrongPasswordEntered += () => DisplayAlert("Error", "You entered a wrong password!", "OK");
             vm.DisplayErrorOnDeletion += () => DisplayAlert("Error", "Error on deletion. PLease try again!", "OK");

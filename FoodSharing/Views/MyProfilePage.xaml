@@ -50,29 +50,32 @@
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" Margin="20,0,20,0">
                     <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10" BackgroundColor="White">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0"
+                        <DataTemplate>
+                            <Grid Padding="10" BackgroundColor="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" 
                        Source="{Binding ImageSource}"
                        Aspect="AspectFill"
                        HeightRequest="150"
-                       WidthRequest="150"/>
-                            <Label Grid.Column="1"
+                       WidthRequest="150" />
+                                <Label Grid.Column="1" TextColor="Black" 
+                       VerticalTextAlignment="Center" 
+                       Margin="10,-60,20,0" FontSize="Large"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
-                            <Label Grid.Column="1"
-                       Text="{Binding Distance}"
-                       FontAttributes="Italic"
-                       VerticalOptions="End" />
-                        </Grid>
-                    </DataTemplate>
+                                <Label Grid.Column="1" TextColor="Black"
+                       VerticalTextAlignment="Center"
+                       Margin="10,0,20,0" FontSize="Medium"
+                       Text="{Binding FoodType}"
+                       FontAttributes="Italic"/>
+                            </Grid>
+                        </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
