@@ -5,10 +5,10 @@
              BackgroundColor="White"
              NavigationPage.HasNavigationBar="false" BackgroundImageSource="bgfoods.jpg">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="0" Spacing="0" Margin="20,20,20,0">
+        <StackLayout Orientation="Vertical" Padding="0" Spacing="0" Margin="20,20,20,0" >
             <BoxView HeightRequest="0"/>
-            <Frame BackgroundColor="White" HasShadow="False" >
-                <StackLayout Orientation="Vertical" Spacing="0" >
+            <Frame BackgroundColor="White" HasShadow="False" Opacity="0.9" >
+                <StackLayout Orientation="Vertical" Spacing="0"  >
                     <Label Text="First Name:"/>
                     <Entry x:Name="FirstName" Text="{Binding FirstName}" Placeholder="Enter FirstName"   
                            PlaceholderColor="White" HeightRequest="40"     

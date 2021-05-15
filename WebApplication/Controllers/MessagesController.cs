@@ -25,106 +25,68 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/Messages
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages(string userId)
         {
-            return await _context.Messages.OrderBy(x => x.SendTime).
-          Join(_context.Users, u => u.SenderUserId, uir => uir.Id,
-          (u, uir) => new { u, uir }).Select(m => new Message
+            return await _context.Messages.OrderByDescending(x => x.SendTime).Where(x => x.ReceiverUserId == userId || x.SenderUserId == userId).
+          Join(_context.Users,
+                msg => msg.ReceiverUserId,
+                user => user.Id,
+                (msg, user) => new
+                {
+                    ReceiverId = new ApplicationUser()
+                    {
+                        UserName = user.UserName,
+                        PasswordHash = "",
+                        ConcurrencyStamp = "",
+                        SecurityStamp = "",
+                        PhoneNumber = user.PhoneNumber,
+                        Email = user.Email,
+                        UserLocLatitude = user.UserLocLatitude,
+                        UserLocLongitude = user.UserLocLongitude,
+                        Id = user.Id
+                    },
+                    Content = msg.Content,
+                    MessageId = msg.MessageId,
+                    SendTime = msg.SendTime,
+                    State = msg.State,
+                    SenderUserId = msg.SenderUserId,
+                    ReceiverUserId = msg.ReceiverUserId
+                }).Join(_context.Users, msg => msg.SenderUserId, uir2 => uir2.Id,
+          (u, uir2) => new { u, uir2 }).Select(m => new Message
           {
               SenderId = new ApplicationUser()
               {
-                  UserName = m.uir.UserName,
+                  UserName = m.uir2.UserName,
                   PasswordHash = "",
                   ConcurrencyStamp = "",
                   SecurityStamp = "",
-                  PhoneNumber = m.uir.PhoneNumber,
-                  Email = m.uir.Email,
-                  UserLocLatitude = m.uir.UserLocLatitude,
-                  UserLocLongitude = m.uir.UserLocLongitude
+                  PhoneNumber = m.uir2.PhoneNumber,
+                  Email = m.uir2.Email,
+                  UserLocLatitude = m.uir2.UserLocLatitude,
+                  UserLocLongitude = m.uir2.UserLocLongitude,
+                  Id = m.uir2.Id
               },
-              Content = m.u.Content,
-              MessageId = m.u.MessageId,
-              SendTime = m.u.SendTime,
-              State = m.u.State, 
-              SenderUserId = m.u.SenderUserId
-          }
-          )
-          .Join(_context.Users, u => u.ReceiverUserId, uir => uir.Id,
-          (u, uir) => new { u, uir }).Select(m => new Message
-          {
-              ReceiverId = new ApplicationUser()
-              {
-                  UserName = m.uir.UserName,
-                  PasswordHash = "",
-                  ConcurrencyStamp = "",
-                  SecurityStamp = "",
-                  PhoneNumber = m.uir.PhoneNumber,
-                  Email = m.uir.Email,
-                  UserLocLatitude = m.uir.UserLocLatitude,
-                  UserLocLongitude = m.uir.UserLocLongitude
-              },
+              ReceiverId = m.u.ReceiverId,
               Content = m.u.Content,
               MessageId = m.u.MessageId,
               SendTime = m.u.SendTime,
               State = m.u.State,
+              SenderUserId = m.u.SenderUserId,
               ReceiverUserId = m.u.ReceiverUserId
           }
-          )
-          .ToListAsync();
+          ).ToListAsync();
         }
 
 
-        // GET: api/Messages/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Message>> GetMessage(int id)
-        {
-            var message = await _context.Messages.FindAsync(id);
 
-            if (message == null)
-            {
-                return NotFound();
-            }
 
-            return message;
-        }
-
-        // PUT: api/Messages/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessage(int id, Message message)
-        {
-            if (id != message.MessageId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(message).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MessageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/Messages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
-        public async Task<ActionResult<Message>> PostMessage(Message message)
+
+        public async Task<ActionResult> PostMessage(Message message)
         {
             _context.Messages.Add(message);
             try
@@ -150,7 +112,7 @@ namespace WebAPI.Controllers
         // DELETE: api/Messages/5
         [HttpPost]
         [Route("DeleteMessage")]
-        [Authorize]
+
         public async Task<IActionResult> DeleteMessage(int id)
         {
             var message = await _context.Messages.FindAsync(id);

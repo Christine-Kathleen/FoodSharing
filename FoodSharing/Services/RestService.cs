@@ -305,11 +305,11 @@ namespace FoodSharing.Services
                 return null;
             }
         }
-        public List<Review> Reviews { get; set; }
+       // public List<Review> Reviews { get; set; }
 
         public async Task<List<Review>> RefreshReviewDataAsync(string ReviewedUserId)
         {
-            Reviews = new List<Review>();
+            List<Review>  Reviews = new List<Review>();
 
             Uri uri = new Uri(string.Format(Constants.ReviewUrl, ReviewedUserId));
             try
@@ -363,13 +363,13 @@ namespace FoodSharing.Services
                 return null;
             }
         }
-        public List<Message> Messages { get; set; }
+        //public List<Message> Messages { get; set; }
 
-        public async Task<List<Message>> RefreshMessageDataAsync()
+        public async Task<List<Message>> RefreshMessageDataAsync(string UserId)
         {
-            Messages = new List<Message>();
+            List<Message>  Messages = new List<Message>();
 
-            Uri uri = new Uri(string.Format(Constants.MessageUrl, string.Empty));
+            Uri uri = new Uri(string.Format(Constants.MessageUrl, UserId));
             try
             {
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
@@ -377,7 +377,10 @@ namespace FoodSharing.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    Messages = System.Text.Json.JsonSerializer.Deserialize<List<Message>>(content, serializerOptions);
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        Messages = System.Text.Json.JsonSerializer.Deserialize<List<Message>>(content, serializerOptions);
+                    }
                 }
             }
             catch (Exception ex)

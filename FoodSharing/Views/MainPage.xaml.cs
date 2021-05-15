@@ -21,6 +21,7 @@ namespace FoodSharing.Pages
             this.BindingContext = vm;
             this.Flyout = new MasterPage();
             this.Detail = new NavigationPage(new TabbedMainPage());
+            ((NavigationPage)this.Detail).BarBackgroundColor = Color.Red;
         }
     }
 }

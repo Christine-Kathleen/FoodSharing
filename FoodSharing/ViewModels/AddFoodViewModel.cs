@@ -16,6 +16,8 @@ using Azure.Storage;
 using Azure.Storage.Blobs;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace FoodSharing.ViewModels
 {
@@ -73,12 +75,15 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("TakePhoto"));
             }
         }
+        private Task<Location> GetLoc;
         public AddFoodViewModel()
         {
             CreateProductCommand = new Command(OnCreateProduct);
             HomeCommand = new Command(OnHome);
             TakePicCommand = new Command(OnTakePic);
             ImageTapped = new Command(OnImageTapped);
+            GetLoc = GetCurrentLocation();
+            
 
             
         }
@@ -99,6 +104,14 @@ namespace FoodSharing.ViewModels
         }
         public async void OnCreateProduct()
         {
+            Location loc=await GetLoc;
+            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+            if (loc.Latitude!=0&&loc.Longitude!=0)
+            {
+                user.UserLocLatitude = loc.Latitude;
+                user.UserLocLongitude = loc.Longitude;
+                Preferences.Set("User", JsonConvert.SerializeObject(user));
+            }
             if (string.IsNullOrEmpty(FoodName) || string.IsNullOrEmpty(FoodDetails) || TypeSelection == null || TakePhoto == null)
             {
                 DisplayCompleteFields();
@@ -120,7 +133,7 @@ namespace FoodSharing.ViewModels
                 BlobClient blobClient = containerClient.GetBlobClient(fileURL);
                 await blobClient.UploadAsync(new MemoryStream(photo), true);
 
-                var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+
                 RestService restSevice = new RestService();
                 FoodManager myFoodManager = new FoodManager(restSevice);
                 Response response = await myFoodManager.SaveFoodAsync(new Food {
@@ -210,6 +223,48 @@ namespace FoodSharing.ViewModels
             //}
 
         }
+
+        CancellationTokenSource cts;
+
+        async Task<Location> GetCurrentLocation()
+        {
+            var location=new Location();
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                cts = new CancellationTokenSource();
+                location = await Geolocation.GetLocationAsync(request, cts.Token);
+
+                if (location != null)
+                {
+                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+            }
+            return location;
+        }
+
+        //protected override void OnDisappearing()
+        //{
+        //    if (cts != null && !cts.IsCancellationRequested)
+        //        cts.Cancel();
+        //    base.OnDisappearing();
+        //}
         protected bool SetProperty<T>(ref T backingStore, T value,
          [CallerMemberName] string propertyName = "",
          Action onChanged = null)

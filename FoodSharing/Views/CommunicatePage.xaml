@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FoodSharing.ViewModels" 
              x:Class="FoodSharing.Views.CommunicatePage">
     <Grid>
             <Grid.RowDefinitions>
@@ -22,7 +22,12 @@
                             <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                            <ListView Grid.Row="0"
+                        <Label Grid.Column="0" Grid.Row="0" TextColor="White"
+                           HorizontalTextAlignment="Start" 
+                           Margin="10,20,0,0" FontSize="Medium"
+                           Text="{Binding Content}"
+                           FontAttributes="Bold" />
+                        <!--<ListView Grid.Row="0"
                              Margin="0" 
                              HasUnevenRows="True" 
                              VerticalOptions="FillAndExpand" 
@@ -35,7 +40,7 @@
                         <BoxView HorizontalOptions="FillAndExpand"
                              HeightRequest="1" BindingContext="{Binding MessageReceived}"
                              BackgroundColor="White"
-                             Grid.Row="1" Margin="0,0,10,0"/>
+                             Grid.Row="1" Margin="0,0,10,0"/>-->
                     </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

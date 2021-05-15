@@ -22,7 +22,7 @@ namespace FoodSharing.Services
         Task<Response> SaveReviewAsync(Review review, bool isNewItem);
 
         Task<Response> SaveMessageAsync(Message message, bool isNewItem);
-        Task<List<Message>> RefreshMessageDataAsync();
+        Task<List<Message>> RefreshMessageDataAsync(string UserId);
         Task<Response> DeleteMessageAsync(int id);
     }
 }

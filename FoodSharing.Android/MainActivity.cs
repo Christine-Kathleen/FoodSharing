@@ -29,5 +29,6 @@ namespace FoodSharing.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
     }
 }

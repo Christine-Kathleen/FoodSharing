@@ -7,6 +7,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Essentials;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Threading;
+using System;
 
 namespace FoodSharing.ViewModels
 {
@@ -35,8 +40,21 @@ namespace FoodSharing.ViewModels
             }
         }
 
+        ApplicationUser user;
+
         public BaseFoodViewModel(TypeOfFood type)
         {
+            
+            Task<Location> t = GetCurrentLocation();
+
+            Task continuationTask = t.ContinueWith((GetCurrentLocation) => {
+                if (user != null && t.Result != null)
+                {
+                    user.UserLocLatitude = t.Result.Latitude;
+                    user.UserLocLongitude = t.Result.Longitude;
+                }
+            });
+            user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             FoodType = type;
             AddCommand = new Command(OnAdd);
             SelectedChangedFood = new Command(OnSelectedFood);
@@ -59,6 +77,7 @@ namespace FoodSharing.ViewModels
             {
                 if (item.FoodType != foodtype)
                     continue;
+                item.SetUserLoc(new Location(user.UserLocLatitude, user.UserLocLongitude));
                 // Get a reference to a blob
                 BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
                 item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
@@ -77,6 +96,41 @@ namespace FoodSharing.ViewModels
         public async void OnAdd()
         {
             await App.Current.MainPage.Navigation.PushAsync(new AddFoodPage());
+        }
+
+        CancellationTokenSource cts;
+
+        async Task<Location> GetCurrentLocation()
+        {
+            var location = new Location();
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                cts = new CancellationTokenSource();
+                location = await Geolocation.GetLocationAsync(request, cts.Token);
+
+                if (location != null)
+                {
+                   // Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+            }
+            return location;
         }
     }
 }

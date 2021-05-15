@@ -15,25 +15,20 @@ namespace FoodSharing.Services
             restService = service;
         }
         public List<Message> Messages { get; set; }
-        public Task<List<Message>> GetTasksAsync()
+        public Task<List<Message>> GetMessagesAsync(string userId)
         {
-            return restService.RefreshMessageDataAsync();
+            return restService.RefreshMessageDataAsync(userId);
         }
 
-        public Task<ApplicationUser> GetUser(string username, string password)
-        {
-            return restService.GetUser(username, password);
-        }
-
-        public Task<Response> SaveTaskAsync(Message message)
+        public Task<Response> SaveMessageAsync(Message message)
         {
             return restService.SaveMessageAsync(message, true);
         }
 
-        public Task<Response> DeleteTaskAsync(Message message)
-        {
-            return restService.DeleteMessageAsync(message.MessageId);
-        }
+        //public Task<Response> DeleteMessageAsync(Message message)
+        //{
+        //    return restService.DeleteMessageAsync(message.MessageId);
+        //}
     }
 }
 
