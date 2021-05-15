@@ -244,10 +244,12 @@ namespace FoodSharing.Services
 
         public async Task<Response> SaveFoodAsync(Food food, bool isNewItem)
         {
-            Uri uri = new Uri(string.Format(Constants.FoodUrl, string.Empty));
+            Uri uri = new Uri(string.Format(Constants.FoodUrl, isNewItem?string.Empty:food.FoodId.ToString()));
 
             try
             {
+                food.User = null;
+                food.ImageSource = null;
                 string json = JsonSerializer.Serialize<Food>(food, serializerOptions);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
@@ -278,16 +280,16 @@ namespace FoodSharing.Services
 
         public async Task<Response> DeleteFoodAsync(int id)
         {
-            Uri uri = new Uri(string.Format(Constants.DeleteFoodUrl, id));
-            DeleteFoodModel foodModel = new DeleteFoodModel();
-            foodModel.FoodId = id;
+            Uri uri = new Uri(string.Format(Constants.FoodUrl, id));
+            //DeleteFoodModel foodModel = new DeleteFoodModel();
+            //foodModel.FoodId = id;
 
             try
             {
-                string json = JsonSerializer.Serialize<DeleteFoodModel>(foodModel, serializerOptions);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                //string json = JsonSerializer.Serialize<DeleteFoodModel>(foodModel, serializerOptions);
+                //var content = new StringContent(json, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
-                HttpResponseMessage response = await client.PostAsync(uri, content);
+                HttpResponseMessage response = await client.DeleteAsync(uri);
                 string jsonresponse = await response.Content.ReadAsStringAsync();
                 Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
@@ -305,19 +307,20 @@ namespace FoodSharing.Services
         }
         public List<Review> Reviews { get; set; }
 
-        public async Task<List<Review>> RefreshReviewDataAsync()
+        public async Task<List<Review>> RefreshReviewDataAsync(string ReviewedUserId)
         {
             Reviews = new List<Review>();
 
-            Uri uri = new Uri(string.Format(Constants.ReviewUrl, string.Empty));
+            Uri uri = new Uri(string.Format(Constants.ReviewUrl, ReviewedUserId));
             try
             {
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = await client.GetAsync(uri);
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode && response.Content!=null)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    Reviews = System.Text.Json.JsonSerializer.Deserialize<List<Review>>(content, serializerOptions);
+                    if (!string.IsNullOrEmpty(content))
+                        Reviews = System.Text.Json.JsonSerializer.Deserialize<List<Review>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
@@ -329,7 +332,7 @@ namespace FoodSharing.Services
         }
         public async Task<Response> SaveReviewAsync(Review review, bool isNewItem)
         {
-            Uri uri = new Uri(string.Format(Constants.ReviewUrl, string.Empty));
+            Uri uri = new Uri(string.Format(Constants.ReviewUrl, isNewItem?string.Empty:review.ReviewId.ToString()));
 
             try
             {
@@ -420,7 +423,7 @@ namespace FoodSharing.Services
         }
         public async Task<Response> DeleteMessageAsync(int id)
         {
-            Uri uri = new Uri(string.Format(Constants.DeleteFoodUrl, id));
+            Uri uri = new Uri(string.Format(Constants.MessageUrl, id));
             DeleteFoodModel foodModel = new DeleteFoodModel();
             foodModel.FoodId = id;
 

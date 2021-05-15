@@ -7,7 +7,7 @@ namespace FoodSharing.Models
 {
     public class UpdateUserModel
     {
-        [Required(ErrorMessage = "Username is required")]
+        [Required(ErrorMessage = "UserId is required")]
         public string UserId { get; set; }
 
         [Required(ErrorMessage = "Description is required")]

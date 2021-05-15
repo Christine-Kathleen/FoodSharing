@@ -146,14 +146,15 @@ namespace WebAPI.Controllers
         [HttpPatch]
         [Route("UpdateUserProfile")]
         [Authorize]
-        public async Task<IActionResult> UpdateProfile([FromBody] ApplicationUser model)
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateUserModel model)
         {
-            var user = await userManager.FindByIdAsync(model.Id);
+            var user = await userManager.FindByIdAsync(model.UserId);
             if (user == null)
             {
                 return NotFound();
             }
-            var result = await userManager.UpdateAsync(model);
+            user.Description = model.Description;
+            var result = await userManager.UpdateAsync(user);
 
                 if (!result.Succeeded)
                     return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnUpdate });

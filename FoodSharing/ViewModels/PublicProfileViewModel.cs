@@ -79,7 +79,7 @@ namespace FoodSharing.ViewModels
         public string Review
         {
             get { return review; }
-            private set
+            set
             {
                 review = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Review"));
@@ -112,14 +112,16 @@ namespace FoodSharing.ViewModels
             get { return !IsBusy; }
         }
 
-        public PublicProfileViewModel()
+        private ApplicationUser reviewedUser;
+        public PublicProfileViewModel(ApplicationUser user)
         {
-            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+            reviewedUser = user;
             FirstName = user.FirstName;
             LastName = user.LastName;
             UserName = user.UserName;
             Description = user.Description;
             Foods = new ObservableCollection<Food>();
+            Reviews = new ObservableCollection<Review>();
             SelectedChangedFood = new Command(OnSelectedFood);
             PostReviewCommand = new Command(OnPostReview);
             GetFoods();
@@ -147,7 +149,7 @@ namespace FoodSharing.ViewModels
                 var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
                 RestService restSevice = new RestService();
                 ReviewManager myReviewManager = new ReviewManager(restSevice);
-                Response response = await myReviewManager.SaveReviewAsync(new Review { ReviewContent = Review, ReviewerId = user });
+                Response response = await myReviewManager.SaveReviewAsync(new Review { ReviewContent = Review, ReviewerUserId = user.Id, ReviewedUserId=reviewedUser.Id });
                 switch (response.Status)
                 {
                     case Constants.Status.Error:
@@ -158,6 +160,7 @@ namespace FoodSharing.ViewModels
                     case Constants.Status.Success:
                         {
                             DisplayReviewAdded();
+                            GetReviews();
                             break;
                         }
                     default:
@@ -173,14 +176,11 @@ namespace FoodSharing.ViewModels
         {
             RestService restSevice = new RestService();
             ReviewManager myReviewManager = new ReviewManager(restSevice);
-            List<Review> listReviewss = await myReviewManager.GetReviewsAsync();
-            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+            List<Review> listReviewss = await myReviewManager.GetReviewsAsync(reviewedUser.Id);
+            Reviews.Clear();
             foreach (var item in listReviewss)
-            {
-                if (user.Id == item.ReviewedUserId) //TO DO who s review
-                { 
+            { 
                     Reviews.Add(item);
-                }
             }
         }
         public async void GetFoods()

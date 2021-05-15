@@ -80,7 +80,7 @@ namespace FoodSharing.ViewModels
         public string Description
         {
             get { return description; }
-            private set
+            set
             {
                 description = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Description"));
@@ -151,7 +151,7 @@ namespace FoodSharing.ViewModels
             {
                 UpdateUserModel model = new UpdateUserModel();
                 model.UserId = user.Id;
-                model.Description = user.Description;
+                model.Description = Description;
                 RestService restSevice = new RestService();
                 UserManager myUserManager = new UserManager(restSevice);
                 Response response = await myUserManager.UpdateUserAsync(model);
@@ -165,6 +165,8 @@ namespace FoodSharing.ViewModels
                         }
                     case Constants.Status.Success:
                         {
+                            user.Description = Description;
+                            Preferences.Set("User", JsonConvert.SerializeObject(user));
                             DisplayProfileUpdateMade();
                             break;
                         }

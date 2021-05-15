@@ -34,13 +34,16 @@ namespace WebAPI.Controllers
             (u, uir) => new { u, uir }).Select(m => new Food 
             { User = new ApplicationUser() { 
                 UserName=  m.uir.UserName,
+                FirstName=m.uir.FirstName,
+                LastName=m.uir.LastName,
                 PasswordHash="",
                 ConcurrencyStamp="",
                 SecurityStamp="",
                 PhoneNumber=m.uir.PhoneNumber,
                 Email=m.uir.Email,
                 UserLocLatitude=m.uir.UserLocLatitude,
-                UserLocLongitude=m.uir.UserLocLongitude
+                UserLocLongitude=m.uir.UserLocLongitude,
+                Id=m.uir.Id
             },
                 FoodType=m.u.FoodType,
                 AnnouncementAvailability=m.u.AnnouncementAvailability,
@@ -141,8 +144,8 @@ namespace WebAPI.Controllers
         //}
 
         // DELETE: api/Foods/5
-        [HttpPost]
-        [Route("DeleteFood")]
+        [HttpDelete("{id}")]
+        //[Route("DeleteFood")]
         public async Task<IActionResult> DeleteFood(int id)
         {
             var food = await _context.Foods.FindAsync(id);

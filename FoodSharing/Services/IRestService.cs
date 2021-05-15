@@ -18,7 +18,7 @@ namespace FoodSharing.Services
         Task SaveUserAsync(ApplicationUser user, bool isNewUser);
         Task<Response> RegisterUserAsync(RegisterModel model);
 
-        Task<List<Review>> RefreshReviewDataAsync();
+        Task<List<Review>> RefreshReviewDataAsync(string ReviewedUserId);
         Task<Response> SaveReviewAsync(Review review, bool isNewItem);
 
         Task<Response> SaveMessageAsync(Message message, bool isNewItem);

@@ -18,7 +18,6 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private readonly Food donatedfood;
         public ICommand UserClickedCommand { get; set; }
-        public ICommand BackCommand { protected set; get; }
         public ICommand SendMessageCommand { protected set; get; }
 
         private ImageSource imageSource;
@@ -94,7 +93,6 @@ namespace FoodSharing.ViewModels
         
         public SelectedFoodViewModel(Food _donatedfood)
         {
-            BackCommand = new Command(OnBackClicked);
             SendMessageCommand = new Command(OnSendMessageClicked);
             UserClickedCommand = new Command(OnUserNameClicked);
             donatedfood = _donatedfood;
@@ -106,16 +104,11 @@ namespace FoodSharing.ViewModels
         }
         public async void OnUserNameClicked()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage()); //TO DO who s profile???
-        }
-       
-        public async void OnBackClicked()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage(donatedfood.User)); //TO DO who s profile???
         }
         public async void OnSendMessageClicked()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+           // await App.Current.MainPage.Navigation.PushAsync(new MainPage());
         }
     }
 }

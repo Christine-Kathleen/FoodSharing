@@ -1,10 +1,13 @@
-﻿using FoodSharing.Models;
+﻿using Azure.Storage.Blobs;
+using FoodSharing.Models;
 using FoodSharing.Pages;
 using FoodSharing.Services;
 using Newtonsoft.Json;
+using Plugin.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -14,11 +17,14 @@ namespace FoodSharing.ViewModels
 {
     public class EditAnnouncementViewModel : INotifyPropertyChanged
     {
+        private byte[] photo;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public ICommand UpdateProductCommand { get; set; }
         public ICommand DeleteProductCommand { get; set; }
         public ICommand CancelCommand { get; set; }
-        private readonly Food donatedfood;
+        //private readonly Food donatedfood;
+
+        public ICommand TakePicCommand { get; set; }
 
         public Action DisplayFoodDeleted;
         public Action DisplayFoodDeletedError;
@@ -27,21 +33,22 @@ namespace FoodSharing.ViewModels
         public Action DisplayApplicationError;
         public Action DisplayFatalError;
 
+        private bool IsImageChanged = false;
         private ImageSource imageSource;
         public ImageSource ImageSource
         {
             get { return imageSource; }
-            private set
+            set
             {
                 imageSource = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("ImageSource"));
             }
         }
-        private TypeOfFood foodType;
-        public TypeOfFood FoodType
+        private object foodType;
+        public object FoodType
         {
             get { return foodType; }
-            private set
+            set
             {
                 foodType = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("FoodType"));
@@ -51,7 +58,7 @@ namespace FoodSharing.ViewModels
         public string Name
         {
             get { return name; }
-            private set
+             set
             {
                 name = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Name"));
@@ -61,7 +68,7 @@ namespace FoodSharing.ViewModels
         public string Details
         {
             get { return details; }
-            private set
+             set
             {
                 details = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Details"));
@@ -71,7 +78,7 @@ namespace FoodSharing.ViewModels
         public Location FoodLoc
         {
             get { return foodLoc; }
-            private set
+             set
             {
                 foodLoc = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("FoodLoc"));
@@ -81,7 +88,7 @@ namespace FoodSharing.ViewModels
         public string UserName
         {
             get { return userName; }
-            private set
+            set
             {
                 userName = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("UserName"));
@@ -91,7 +98,7 @@ namespace FoodSharing.ViewModels
         public string Distance
         {
             get { return distance; }
-            private set
+             set
             {
                 distance = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Distance"));
@@ -119,19 +126,21 @@ namespace FoodSharing.ViewModels
             UpdateProductCommand = new Command(OnUpdateClicked);
             DeleteProductCommand = new Command(OnDeleteClicked);
             CancelCommand = new Command(OnCancelClicked);
-            donatedfood = _donatedfood;
-            ImageSource = donatedfood.ImageSource;
-            FoodType = donatedfood.FoodType;
-            Name = donatedfood.Name;
-            Details = donatedfood.Details;
-            UserName = donatedfood.User.UserName;
+            TakePicCommand = new Command(OnTakePic);
+
+            selectedFood = _donatedfood;
+            ImageSource = selectedFood.ImageSource;
+            FoodType = selectedFood.FoodType.ToString();
+            Name = selectedFood.Name;
+            Details = selectedFood.Details;
+            UserName = selectedFood.User.UserName;
         }
         public async void OnDeleteClicked()
         {
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
-            Response response = await myFoodManager.DeleteFoodAsync(selectedFood);
+            Response response = await myFoodManager.DeleteFoodAsync(selectedFood.FoodId);
             switch (response.Status)
             {
                 case Constants.Status.Error:
@@ -170,6 +179,24 @@ namespace FoodSharing.ViewModels
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
+            selectedFood.Details = Details;
+            selectedFood.FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),(string)FoodType);
+            selectedFood.Name = Name;
+            if (IsImageChanged)
+            {
+                string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
+
+                // Create a container client
+                BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+                string containerName = "foodpicsblobs";
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                containerClient.CreateIfNotExists();
+
+                // Get a reference to a blob
+                BlobClient blobClient = containerClient.GetBlobClient(selectedFood.ImageUrl);
+                await blobClient.UploadAsync(new MemoryStream(photo), true);
+            }
+                
             Response response = await myFoodManager.UpdateFoodAsync(SelectedFood);
             switch (response.Status)
             {
@@ -193,6 +220,7 @@ namespace FoodSharing.ViewModels
                 case Constants.Status.Success:
                     {
                         DisplayUpdatedFood();
+                        await App.Current.MainPage.Navigation.PushAsync(new MyProfile());
                         break;
                     }
                 default:
@@ -205,6 +233,38 @@ namespace FoodSharing.ViewModels
         public async void OnCancelClicked()
         {
             await App.Current.MainPage.Navigation.PushAsync(new MyProfile());
+        }
+
+        public async void OnTakePic()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
+                return;
+            }
+
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                Directory = "Sample",
+                Name = "test.jpg"
+            });
+
+            if (file == null)
+                return;
+
+            IsImageChanged = true;
+            //Save photo as a byte array to store later in azure
+            photo = new byte[file.GetStream().Length];
+            file.GetStream().Read(photo, 0, (int)file.GetStream().Length);
+            MemoryStream test = new MemoryStream(photo);
+            //file.GetStream().CopyTo(test);
+            ImageSource = ImageSource.FromStream(() => test);
+            //{
+            //  var stream = file.GetStream();
+            //    return stream;
+            //});
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FoodSharing.ViewModels" x:DataType="viewmodels:EditAnnouncementViewModel"
              x:Class="FoodSharing.Views.EditAnnouncementPage"  NavigationPage.IconColor="Black" BackgroundColor="White">
     <ScrollView>
         <StackLayout Orientation="Vertical" Padding="5" Spacing="5">
             <BoxView HeightRequest="5"/>
             <Label Text="Edit your announcement:" TextColor="Black" FontSize="Large" Margin="20,0,20,0"/>
             <Frame BackgroundColor="Transparent" HasShadow="False">
-                <StackLayout Orientation="Vertical" Spacing="10" RadioButtonGroup.GroupName="FoodType" RadioButtonGroup.SelectedValue="{Binding TypeSelection}">
+                <StackLayout Orientation="Vertical" Spacing="10" RadioButtonGroup.GroupName="FoodTypes" RadioButtonGroup.SelectedValue="{Binding FoodType}">
                     <Entry x:Name="Name" Text="{Binding Name }" Placeholder="Naming of the product"   
                            PlaceholderColor="Black" HeightRequest="40"     
                            TextColor="Black" 
@@ -18,10 +18,10 @@
                            TextColor="Black"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
-                    <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodType" />
-                    <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodType"/>
+                    <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodTypes" />
+                    <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodTypes"/>
                     <Button Command="{Binding TakePicCommand}" Margin="70,0,70,0" Text="Take a new picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
-                    <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
+                    <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding ImageSource}"/>
                 </StackLayout>
             </Frame>
             <Grid Padding="10" BackgroundColor="White">
@@ -30,16 +30,16 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Button Command="{Binding UpdateProductCommand}" Grid.Row="0" Text="Update" TextColor="White" TextTransform="None"
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="80,0,80,0"  
-                    BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70" IsEnabled="{Binding IsNotBusy}" />
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="100,0,100,0"  
+                    BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70"  />
                 <Button Command="{Binding DeleteProductCommand}" Grid.Row="1" Text="Delete" TextColor="Black"  
-                    FontAttributes="Bold" FontSize="Medium" Margin="30,10,170,0" TextTransform="None"
+                    FontAttributes="Bold" FontSize="Medium" Margin="100,0,100,0"  TextTransform="None"
                     BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
-                    IsEnabled="{Binding IsNotBusy}" />
-                <Button Command="{Binding CancelCommand}" Grid.Row="1" Text="Cancel" TextColor="#70AE98" TextTransform="None" 
-                    FontAttributes="Bold" FontSize="Medium" Margin="170,10,30,0"
+                    />
+                <Button Command="{Binding CancelCommand}" Grid.Row="2" Text="Cancel" TextColor="#70AE98" TextTransform="None" 
+                    FontAttributes="Bold" FontSize="Medium" Margin="100,0,100,0" 
                     BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
-                    IsEnabled="{Binding IsNotBusy}" />
+                     />
             </Grid>
         </StackLayout>
     </ScrollView>

@@ -46,7 +46,7 @@ namespace FoodSharing.Models
         //public override string Id { get; set; }
         public ApplicationUser()
         {
-            Foods = new List<Food>();
+            //Foods = new List<Food>();
         }
         [ProtectedPersonalData]
         [Required]

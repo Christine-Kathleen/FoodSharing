@@ -4,24 +4,24 @@
              x:Class="FoodSharing.Views.CommunicatePage">
     <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="450" />
+                <RowDefinition Height="490" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="290" />
+                <ColumnDefinition Width="270" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <CollectionView ItemsSource="{Binding Messages }">
+        <CollectionView ItemsSource="{Binding Messages }" BackgroundColor="#474545">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10">
+                        <Grid Padding="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
                             <ListView Grid.Row="0"
                              Margin="0" 
                              HasUnevenRows="True" 
@@ -29,28 +29,48 @@
                              SeparatorColor="Transparent" >
                             </ListView>
                             <BoxView HorizontalOptions="FillAndExpand"
-                             HeightRequest="1"
-                             BackgroundColor="LightGray"
+                             HeightRequest="1" BindingContext="{Binding MessageSent}"
+                             BackgroundColor="#1E90FF"
                              Grid.Row="1" Margin="0,0,10,0"/>
-                        </Grid>
+                        <BoxView HorizontalOptions="FillAndExpand"
+                             HeightRequest="1" BindingContext="{Binding MessageReceived}"
+                             BackgroundColor="White"
+                             Grid.Row="1" Margin="0,0,10,0"/>
+                    </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Entry x:Name="chatTextInput" 
-                             Text="{Binding TextToSend}" 
-                             Margin="1"  
-                             TextColor="Black" 
-                             Keyboard="Chat"  
-                             HorizontalOptions="FillAndExpand" 
-                             PlaceholderColor="LightGray"
-                             Placeholder="Type your message here"
-                             Grid.Row="1"
-                             Grid.Column="0"/>
-            <Button Text="Send" Grid.Row="1"
-                                   Grid.Column="1" FontSize="Large" Command="{Binding SendMessageCommunicateCommand}" 
-                                   HorizontalOptions="FillAndExpand" 
+        <Editor Grid.Row="1" Grid.Column="0" Placeholder="Type your message"
+                Keyboard="Chat" MaxLength="500" Text="{Binding TextToSend}"  
+                HorizontalOptions="FillAndExpand" PlaceholderColor="LightGray"
+                Margin="10,0,90,0" TextColor="Black" 
+                FontSize="Medium" AutoSize="Disabled" />
+        <Button Text="Send" Grid.Row="1"
+                                   Grid.Column="0" FontSize="Medium" Command="{Binding SendMessageCommunicateCommand}" 
+                                   HorizontalOptions="EndAndExpand" 
                                    BackgroundColor="#1E90FF" CornerRadius="8" 
-                                   Margin="0,20,20,20" TextColor="White"
+                                   Margin="0,0,0,8" TextColor="White"
                                    FontAttributes="Bold" />
-        </Grid>
+        <CollectionView ItemsSource="{Binding Users }" SelectionMode="Single" Grid.Row="0"  Grid.Column="1"
+                            SelectedItem="{Binding SelectedUser}" SelectionChangedCommand="{Binding SelectedChangedUser}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="0" BackgroundColor="LightGray">
+                            <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!--<badge:BadgeView Text="{Binding BadgeNumber}" BadgeColor="Red" VerticalOptions="Center" HorizontalOptions="End" />-->
+                        <Label Grid.Column="1" TextColor="Black"
+                           HorizontalTextAlignment="Start" 
+                           Margin="10,20,0,0" FontSize="Medium"
+                           Text="{Binding UserName}"
+                           FontAttributes="Bold" />
+                    </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+    </Grid>
     </ContentPage>

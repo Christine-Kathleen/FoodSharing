@@ -34,9 +34,9 @@ namespace FoodSharing.Services
             return restService.SaveFoodAsync(food, true);
         }
 
-        public Task<Response> DeleteFoodAsync(Food food)
+        public Task<Response> DeleteFoodAsync(int foodId)
         {
-            return restService.DeleteFoodAsync(food.FoodId);
+            return restService.DeleteFoodAsync(foodId);
         }
     }
 }

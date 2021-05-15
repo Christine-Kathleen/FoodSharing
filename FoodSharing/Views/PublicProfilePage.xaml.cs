@@ -1,4 +1,5 @@
-﻿using FoodSharing.ViewModels;
+﻿using FoodSharing.Models;
+using FoodSharing.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace FoodSharing.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PublicProfilePage : ContentPage
     {
-        public PublicProfilePage()
+        public PublicProfilePage(ApplicationUser user)
         {
-            var vm = new PublicProfileViewModel();
+            var vm = new PublicProfileViewModel(user);
             this.BindingContext = vm;
             vm.DisplayReviewError += () => DisplayAlert("Error", "Could not add review!", "OK");
             vm.DisplayCompleteFields += () => DisplayAlert("Error", "Empty review!", "OK");

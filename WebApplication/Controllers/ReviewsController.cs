@@ -24,11 +24,40 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Reviews
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        //// GET: api/Reviews
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        //{
+        //    return await _context.Reviews.OrderBy(x => x.SendTime).
+        //   Join(_context.Users, u => u.ReviewerUserId, uir => uir.Id,
+        //   (u, uir) => new { u, uir }).Select(m => new Review
+        //   {
+        //       ReviewerId = new ApplicationUser()
+        //       {
+        //           UserName = m.uir.UserName,
+        //           PasswordHash = "",
+        //           ConcurrencyStamp = "",
+        //           SecurityStamp = "",
+        //           PhoneNumber = m.uir.PhoneNumber,
+        //           Email = m.uir.Email,
+        //           UserLocLatitude = m.uir.UserLocLatitude,
+        //           UserLocLongitude = m.uir.UserLocLongitude
+        //       },
+        //       ReviewContent = m.u.ReviewContent,
+        //       SendTime = m.u.SendTime,
+        //       ReviewId = m.u.ReviewId,
+        //       ReviewerUserId = m.u.ReviewerUserId,
+        //       ReviewedUserId=m.u.ReviewedUserId
+        //   }
+        //   )
+        //   .ToListAsync();
+        //}
+
+        // GET: api/Reviews/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Review>>> GetReview(string id)
         {
-            return await _context.Reviews.OrderBy(x => x.SendTime).
+            var review =  await _context.Reviews.Where(x => x.ReviewedUserId == id).OrderBy(x => x.SendTime).
            Join(_context.Users, u => u.ReviewerUserId, uir => uir.Id,
            (u, uir) => new { u, uir }).Select(m => new Review
            {
@@ -41,28 +70,19 @@ namespace WebAPI.Controllers
                    PhoneNumber = m.uir.PhoneNumber,
                    Email = m.uir.Email,
                    UserLocLatitude = m.uir.UserLocLatitude,
-                   UserLocLongitude = m.uir.UserLocLongitude
+                   UserLocLongitude = m.uir.UserLocLongitude,
+                   FirstName=m.uir.FirstName,
+                   LastName=m.uir.LastName,
+                   Id=m.uir.Id
                },
                ReviewContent = m.u.ReviewContent,
                SendTime = m.u.SendTime,
                ReviewId = m.u.ReviewId,
-               ReviewerUserId = m.u.ReviewerUserId
+               ReviewerUserId = m.u.ReviewerUserId,
+               ReviewedUserId=m.u.ReviewedUserId
            }
            )
            .ToListAsync();
-        }
-
-        // GET: api/Reviews/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Review>> GetReview(int id)
-        {
-            var review = await _context.Reviews.FindAsync(id);
-
-            if (review == null)
-            {
-                return NotFound();
-            }
-
             return review;
         }
 
@@ -100,7 +120,6 @@ namespace WebAPI.Controllers
         // POST: api/Reviews
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<Review>> PostReview(Review review)
         {
             _context.Reviews.Add(review);
@@ -108,7 +127,7 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 if (ReviewExists(review.ReviewId))
                 {
@@ -127,7 +146,6 @@ namespace WebAPI.Controllers
         // DELETE: api/Reviews/5
         [HttpPost]
         [Route("DeleteReview")]
-        [Authorize]
         public async Task<IActionResult> DeleteReview(int id)
         {
             var review = await _context.Reviews.FindAsync(id);

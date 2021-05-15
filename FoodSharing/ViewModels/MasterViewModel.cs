@@ -1,5 +1,6 @@
 ﻿using FoodSharing.Models;
 using FoodSharing.Pages;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,7 +59,11 @@ namespace FoodSharing.ViewModels
         }
         public async void OnPublicProfile()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage());
+            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+            if (user is ApplicationUser)
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage(user));
+            }
         }
 
         public async void OnAccountSettings()

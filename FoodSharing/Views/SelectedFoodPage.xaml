@@ -19,37 +19,30 @@
                        Aspect="AspectFill"
                        HeightRequest="200"
                        WidthRequest="200" />
-            <Label Grid.Row="2"  Margin="20,20,20,0"
-                       Text="{Binding FoodType}" HorizontalOptions="Center"
-                       TextColor="Black" FontSize="15"/>
-                <Label Grid.Row="1" Margin="20,20,20,0" HorizontalOptions="Center"
+                <Label Grid.Row="1"  Margin="20,20,40,0" FontSize="Large"
+                       Text="{Binding FoodType}" HorizontalOptions="End"
+                       TextColor="Black" TextDecorations="Underline"/>
+                <Label Grid.Row="1" Margin="20,20,20,0" HorizontalOptions="Start"
                        Text="{Binding Name}" Opacity="0.9"
-                       TextColor="Black" FontSize="Large"
-                       FontAttributes="Bold" />
-                <Editor Grid.Row="3" HorizontalOptions="Center" IsReadOnly="True" IsEnabled="False"
-                       Text="{Binding Details}" Margin="20,20,20,0" AutoSize="TextChanges"
+                       TextColor="Black" FontSize="Large" />
+                <Label Grid.Row="2" HorizontalOptions="StartAndExpand" IsEnabled="False"
+                       Text="{Binding Details}" Margin="20,20,20,0"
                        TextColor="Black" FontSize="Large"/>
-                <Label Grid.Row="4" BackgroundColor="#70AE98"
-                       TextColor="Black" FontSize="Large" HorizontalOptions="Start"
-                       Text="{Binding FoodLoc}" Margin="20,20,20,0"
-                       FontAttributes="Bold" />
-                <Button Grid.Row="5" FontSize="Medium" Margin="220,12,20,20" HorizontalOptions="Start"
-                       Command="{Binding UserClickedCommand}" TextTransform="None"
-                       BackgroundColor="White" TextColor="Black"
-                       Text="{Binding UserName}" CornerRadius="8"
-                       FontAttributes="Bold" />
-            <Label Grid.Row="4" Margin="120,20,20,20"
+                <Label Grid.Row="3" Margin="20,20,20,20"
                        Text="{Binding Distance}" BackgroundColor="Black"
-                       TextColor="Black" FontSize="Large"
+                       TextColor="Black" FontSize="Medium"
                        FontAttributes="Italic" />
-            <Label Grid.Row="5" TextColor="Black" Text="Message the user:" FontSize="Large" Margin="20,20,20,20" />
-            <Editor Grid.Row="7"  Keyboard="Chat" MaxLength="500" Margin="20,0,140,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
-            <Button Grid.Row="7" FontSize="15"
+                <Button Grid.Row="4" FontSize="Large" Margin="100,10,20,20" HorizontalOptions="CenterAndExpand"
+                       Command="{Binding UserClickedCommand}" TextTransform="None" FontAttributes="Bold"
+                       BackgroundColor="White" TextColor="Black"
+                       Text="{Binding UserName}" CornerRadius="8"/>
+                <Label Grid.Row="4" TextColor="Black" Text="Message the user:" TextDecorations="Underline" HorizontalOptions="Start" FontSize="Large" Margin="20,20,20,20" />
+            <Editor Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,0,210,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
+            <Button Grid.Row="5" FontSize="15"
                        Command="{Binding SendMessageCommand}"
-                       HorizontalOptions="FillAndExpand" 
                        BackgroundColor="#70AE98" CornerRadius="8" 
-                       Margin="250,0,20,20" TextColor="White"
-                       Text="Send" FontAttributes="Bold"  ImageSource="send.png" />
+                       Margin="210,0,130,20" TextColor="White"
+                       FontAttributes="Bold"  ImageSource="send.png" />
             
         </Grid>
     </StackLayout>
