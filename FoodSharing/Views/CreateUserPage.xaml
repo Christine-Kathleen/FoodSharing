@@ -2,54 +2,53 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Pages.CreateUserPage"
-             BackgroundColor="White"
-             NavigationPage.HasNavigationBar="false" BackgroundImageSource="bgfoods.jpg">
+             NavigationPage.HasNavigationBar="false" BackgroundColor="#339989">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="0" Spacing="0" Margin="20,20,20,0" >
+        <StackLayout Orientation="Vertical" Padding="0" Spacing="0" Margin="20,20,20,10" >
             <BoxView HeightRequest="0"/>
-            <Frame BackgroundColor="White" HasShadow="False" Opacity="0.9" >
+            <Frame BackgroundColor="#FFFAFB" HasShadow="False" >
                 <StackLayout Orientation="Vertical" Spacing="0"  >
-                    <Label Text="First Name:"/>
+                    <Label Text="First Name:" TextColor="#2B2C28"/>
                     <Entry x:Name="FirstName" Text="{Binding FirstName}" Placeholder="Enter FirstName"   
-                           PlaceholderColor="White" HeightRequest="40"     
-                           TextColor="Black"
+                           PlaceholderColor="#131515" HeightRequest="40"     
+                           TextColor="#131515"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
-                    <Label Text="Last Name:"/>
+                    <Label Text="Last Name:" TextColor="#2B2C28"/>
                     <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder="Enter LastName"   
-                           PlaceholderColor="White" HeightRequest="40"   
-                           TextColor="Black"
+                           PlaceholderColor="#131515" HeightRequest="40"   
+                           TextColor="#131515"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
-                    <Label Text="Phone number:"/>
+                    <Label Text="Phone number:" TextColor="#2B2C28"/>
                     <Entry x:Name="Telephone" Text="{Binding Telephone}" Placeholder="Enter phone number"   
-                           PlaceholderColor="White" HeightRequest="40"   
+                           PlaceholderColor="#131515" HeightRequest="40"   
                            Keyboard="Telephone" MaxLength="10" 
-                           TextColor="Black"
+                           TextColor="#131515"
                            ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="UserName:"/>
+                    <Label Text="UserName:" TextColor="#2B2C28"/>
                     <Entry x:Name="UserName" Text="{Binding Username}" Placeholder="Enter username"   
-                           PlaceholderColor="White" HeightRequest="40"   
+                           PlaceholderColor="#131515" HeightRequest="40"   
                            Keyboard="Text" MaxLength="20" 
-                           TextColor="Black"
+                           TextColor="#131515"
                            ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="Email:"/>
+                    <Label Text="Email:" TextColor="#2B2C28"/>
                     <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Enter email"   
-                           PlaceholderColor="White" HeightRequest="40"   
+                           PlaceholderColor="#131515" HeightRequest="40"   
                            Keyboard="Email"  
-                           TextColor="Black"
+                           TextColor="#131515"
                            ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="Password:"/>
+                    <Label Text="Password:" TextColor="#2B2C28"/>
                     <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Enter password"   
-                           PlaceholderColor="White" HeightRequest="40" 
+                           PlaceholderColor="#131515" HeightRequest="40" 
                            IsPassword="True"  
-                           TextColor="Black"
+                           TextColor="#131515"
                            ClearButtonVisibility="WhileEditing"/>
-                    <Label Text="Reenter your password:"/>
+                    <Label Text="Reenter your password:" TextColor="#2B2C28"/>
                     <Entry x:Name="reenterPassword" Text="{Binding CheckPassword}" Placeholder="Check Password"   
-                           PlaceholderColor="White" HeightRequest="40"   
+                           PlaceholderColor="#131515" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="Black"
+                           TextColor="#131515"
                            ClearButtonVisibility="WhileEditing"/>
                 </StackLayout>
             </Frame>
@@ -62,14 +61,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <CheckBox IsChecked="False" Grid.Row="0" BackgroundColor="White" Color="#70AE98" Margin="20,0,0,0"  />
+                <CheckBox IsChecked="False" Grid.Row="0" BackgroundColor="#FFFAFB" Color="#7DE2D1" Margin="20,10,20,0"  />
                 <!--CheckedChanged="{Binding CheckBoxCheckedChanged}" TO DO-->
-                <Label Text="I consent to having FoodSharing Inc collect my personal data" Margin="60,0,20,0" TextColor="Black" BackgroundColor="White" Grid.Row="0" FontSize="Medium"/>
-                <Button Command="{Binding RegisterCommand}" Grid.Row="1" Text="Create user" TextColor="#70AE98"  
+                <Label Text="I consent to having FoodSharing Inc collect my personal data" Margin="80,15,20,0" TextColor="#2B2C28" BackgroundColor="#FFFAFB" Grid.Row="0" FontSize="18"/>
+                <Button Command="{Binding RegisterCommand}" Grid.Row="1" Text="Create user" TextColor="#2B2C28"  
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"  
-                    BackgroundColor="White"  CornerRadius="8" Margin="100,10,100,0" IsEnabled="{Binding IsNotBusy}" BorderWidth="2" BorderColor="#70AE98" />
-                <Button Command="{Binding ChangeToSignIn}" FontSize="Medium" Grid.Row="2" Margin="100,0,100,0" 
-                    Text="Sign in now" FontAttributes="Bold" BackgroundColor="White" BorderWidth="2" BorderColor="#70AE98" TextColor="Black" CornerRadius="8" 
+                    BackgroundColor="#FFFAFB"  CornerRadius="8" Margin="100,5,100,0" IsEnabled="{Binding IsNotBusy}" BorderWidth="2" BorderColor="#2B2C28" />
+                <Button Command="{Binding ChangeToSignIn}" FontSize="18" Grid.Row="2" Margin="100,0,100,0" 
+                    Text="Sign in now" FontAttributes="Bold" BackgroundColor="#2B2C28" BorderWidth="2" BorderColor="#2B2C28" TextColor="#FFFAFB" CornerRadius="8" 
                     IsEnabled="{Binding IsNotBusy}"/>
             </Grid>
         </StackLayout>

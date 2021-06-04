@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Pages.LoginPage"
              NavigationPage.HasNavigationBar="false"
-             BackgroundImageSource="bgfoods.jpg" >
+             BackgroundColor="#339989" >
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -12,31 +12,34 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <StackLayout Orientation="Vertical" Padding="0" Spacing="140" Grid.Row="0" Margin="60,20,60,20">
+            <Label Text="FoodSharing" FontSize="50" TextColor="#FFFAFB" FontAttributes="Bold" TextDecorations="None" HorizontalOptions="Center" FontFamily="Garamond" Margin="0,60,0,0"/>
+            <Label Text="Welcome!" FontSize="35" HorizontalOptions="Center" Grid.Row="1" FontFamily="Garamond" TextColor="#FFFAFB" Margin="0,20,0,0"/>
+            <StackLayout Orientation="Vertical" Padding="0" Spacing="140" Grid.Row="2" Margin="60,-120,60,20">
                 <BoxView HeightRequest="20"/>
-                <Frame BackgroundColor="#70AE98" HasShadow="False" CornerRadius="8" >
+                <Frame BackgroundColor="#2B2C28" HasShadow="False" CornerRadius="8" >
                     <StackLayout Orientation="Vertical" Spacing="10">
                         <Entry x:Name="Username" Text="{Binding Username}" Placeholder="Username"   
-                           PlaceholderColor="White" HeightRequest="40"   
+                           PlaceholderColor="#FFFAFB" HeightRequest="40"   
                            Keyboard="Email"  
-                           TextColor="White"
+                           TextColor="#FFFAFB"
                            ClearButtonVisibility="WhileEditing" IsEnabled="{Binding IsNotBusy}"/>
                         <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
-                           PlaceholderColor="White" HeightRequest="40"   
+                           PlaceholderColor="#FFFAFB" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="White"
+                           TextColor="#FFFAFB"
                            ClearButtonVisibility="WhileEditing" IsEnabled="{Binding IsNotBusy}"/>
                     </StackLayout>
                 </Frame>
                    </StackLayout>
-            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"  Grid.Row="3"/>
-            <Button Command="{Binding LoginCommand}" Text="Login" TextColor="White" IsEnabled="{Binding IsNotBusy}" 
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Row="1" 
-                    BackgroundColor="#70AE98" CornerRadius="8" Margin="90,20,90,0"/>
-            <Button Command="{Binding CreateUserCommand}" Grid.Row="2" Text="Sign up now" VerticalOptions="Start"
-                    BorderColor="#70AE98" BorderWidth="2" FontAttributes="Bold" Margin="90,10,90,10" FontSize="Large" BackgroundColor="White"
-                    TextColor="Black" CornerRadius="8" IsEnabled="{Binding IsNotBusy}"/>
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"  Grid.Row="5" Color="#7DE2D1"/>
+            <Button Command="{Binding LoginCommand}" Text="Login" TextColor="#FFFAFB" IsEnabled="{Binding IsNotBusy}" 
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand" Grid.Row="3" 
+                    BackgroundColor="#2B2C28" CornerRadius="8" Margin="90,20,90,0"/>
+            <Button Command="{Binding CreateUserCommand}" Grid.Row="4" Text="Sign up now" VerticalOptions="Start" 
+                    BorderColor="#2B2C28" BorderWidth="2" FontAttributes="Bold" Margin="90,10,90,10" FontSize="Large" BackgroundColor="#FFFAFB"
+                    TextColor="#2B2C28" CornerRadius="8" IsEnabled="{Binding IsNotBusy}"/>
 
         </Grid>
     </ContentPage.Content>
