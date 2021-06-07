@@ -19,16 +19,10 @@ namespace FoodSharing.Services
         {
             return restService.RefreshMessageDataAsync(userId);
         }
-
         public Task<Response> SaveMessageAsync(Message message)
         {
             return restService.SaveMessageAsync(message, true);
         }
-
-        //public Task<Response> DeleteMessageAsync(Message message)
-        //{
-        //    return restService.DeleteMessageAsync(message.MessageId);
-        //}
     }
 }
 

@@ -24,16 +24,6 @@ namespace FoodSharing.Pages
             vm.DisplayApplicationError += () => DisplayAlert("Error", "Fatal application error, contact the administrator!", "OK");
             vm.DisplayCompleteFields += () => DisplayAlert("Error", "All fields must be completed!", "OK");
             InitializeComponent();
-
-            //Email.Completed += (object sender, EventArgs e) =>
-            //{
-            //    Password.Focus();
-            //};
-
-            //Password.Completed += (object sender, EventArgs e) =>
-            //{
-            //    vm.SubmitCommand.Execute(null);
-            //};
         }
     }
 }

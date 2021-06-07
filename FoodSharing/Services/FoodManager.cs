@@ -14,17 +14,10 @@ namespace FoodSharing.Services
         {
             restService = service;
         }
-        public List<Food> Foods { get; set; }
         public Task<List<Food>> GetFoodsAsync()
         {
             return restService.RefreshFoodDataAsync();
         }
-
-        public Task<ApplicationUser> GetUser(string username, string password)
-        {
-            return restService.GetUser(username, password);
-        } 
-
         public Task<Response> UpdateFoodAsync(Food food)
         {
             return restService.SaveFoodAsync(food, false);
@@ -33,7 +26,6 @@ namespace FoodSharing.Services
         {
             return restService.SaveFoodAsync(food, true);
         }
-
         public Task<Response> DeleteFoodAsync(int foodId)
         {
             return restService.DeleteFoodAsync(foodId);

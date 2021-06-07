@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodSharing.Pages.PublicProfilePage" BackgroundColor="#F0FAF8" NavigationPage.IconColor="#2B2C28">
+             x:Class="FoodSharing.Pages.PublicProfilePage" BackgroundColor="#FFFAFB" NavigationPage.IconColor="#2B2C28">
     <ScrollView>
         <StackLayout>
             <Grid>
@@ -18,18 +18,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Text="About user" TextDecorations="Underline" Margin="20,20,220,10" HorizontalTextAlignment="Start" FontSize="25" TextColor="#2B2C28" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" />
+                <Label Text="About user" TextDecorations="Underline" Margin="20,20,220,10" HorizontalTextAlignment="Start"
+                       FontSize="25" TextColor="#2B2C28" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" />
                 <Frame BackgroundColor="Transparent"  HasShadow="False" Grid.Column="0" Grid.Row="1">
                     <StackLayout Orientation="Vertical" Spacing="5" Opacity="0.9">
-                        <Label Text="First Name:" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Medium"/>
-                        <Label Text="{Binding FirstName}"        
-                           TextColor="#2B2C28"
-                           FontSize="Large" HorizontalTextAlignment="Center">
-                        </Label>
-                        <Label Text="Last Name:" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Medium"/>
-                        <Label Text="{Binding LastName}"        
-                           TextColor="#2B2C28"
-                           FontSize="Large" HorizontalTextAlignment="Center"/>
                         <Label Text="User Name:" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Medium"/>
                         <Label Text="{Binding UserName}"        
                            TextColor="#2B2C28"
@@ -40,7 +32,8 @@
                            FontSize="Large" HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
-                <Label Text="Reviews:" TextDecorations="Underline" Grid.Column="0" Grid.Row="2" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Large" Margin="20,0,270,20"/>
+                <Label Text="Reviews:" TextDecorations="Underline" Grid.Column="0" Grid.Row="2" TextColor="#2B2C28" 
+                       FontAttributes="Bold" FontSize="Large" Margin="20,0,270,20"/>
                 <CollectionView ItemsSource="{Binding Reviews }" Grid.Column="0" Grid.Row="3" Margin="20,0,20,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -52,8 +45,8 @@
                                 <Label  Grid.Row="0" FontSize="Large" TextColor="#2B2C28"
                                 HorizontalOptions="StartAndExpand"
                                 Text="{Binding ReviewContent}"/>
-                                <Label Grid.Row="1" TextTransform="Uppercase" FontAttributes="Bold"
-                                        HorizontalOptions="StartAndExpand" FontSize="Large" TextColor="#2B2C28"
+                                <Label Grid.Row="1" TextTransform="Uppercase" TextDecorations="Underline"
+                                        HorizontalOptions="StartAndExpand" FontSize="Medium" TextColor="#2B2C28"
                                 Text="{Binding ReviewerId.UserName}"/>
                             </Grid>
                         </DataTemplate>
@@ -62,25 +55,28 @@
                 <Entry x:Name="chatTextInput" 
                              Text="{Binding Review}" 
                              TextColor="#2B2C28" 
-                             Keyboard="Chat" 
+                             Keyboard="Chat"
+                             MaxLength="450"
                              HorizontalOptions="FillAndExpand" 
                              PlaceholderColor="#2B2C28"
                              Placeholder="Type your review here"
                              Grid.Row="4" 
-                             Grid.Column="0" Margin="20,0,130,0"/>
+                             Grid.Column="0" 
+                             Margin="20,0,130,0"/>
                 <Button Text="Post" Grid.Row="4" ImageSource="send.png"
                                    Grid.Column="0" FontSize="Medium" Command="{Binding PostReviewCommand}" 
                                    HorizontalOptions="End" IsEnabled="{Binding IsNotBusy}"
                                    BackgroundColor="#339989" CornerRadius="8" 
                                    Margin="240,0,20,00" TextColor="#FFFAFB"
                                    FontAttributes="Bold" />
-                <Label Text="Donations:" TextDecorations="Underline" Opacity="0.9" Grid.Column="0" Grid.Row="6" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Large" Margin="20,10,230,20"/>
+                <Label Text="Donations:" TextDecorations="Underline" Opacity="0.9" Grid.Column="0" Grid.Row="6" TextColor="#2B2C28" 
+                       FontAttributes="Bold" FontSize="Large" Margin="20,10,230,20"/>
                 <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="7"
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" Margin="20,0,20,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10" >
+                            <Grid Padding="10" BackgroundColor="#FFFAFB" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>

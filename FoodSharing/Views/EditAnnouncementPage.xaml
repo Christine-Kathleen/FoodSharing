@@ -22,7 +22,9 @@
                     </Entry>
                     <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodTypes" />
                     <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodTypes"/>
-                    <Button Command="{Binding TakePicCommand}" Margin="70,0,70,0" Text="Take a new picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="#FFFAFB" BorderColor="#339989" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+                    <Button Command="{Binding TakePicCommand}" Margin="70,0,70,0" Text="Take a new picture! 📸" 
+                            FontAttributes="Bold" FontSize="Large" BackgroundColor="#FFFAFB" BorderColor="#339989" 
+                            BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding ImageSource}"/>
                 </StackLayout>
             </Frame>

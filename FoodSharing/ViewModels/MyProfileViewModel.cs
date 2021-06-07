@@ -119,7 +119,10 @@ namespace FoodSharing.ViewModels
             FoodManager myFoodManager = new FoodManager(restSevice);
             List<Food> listFoods = await myFoodManager.GetFoodsAsync();
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
+            string connectionString = "DefaultEndpointsProtocol=https;" +
+                "AccountName=foodsharingimages;" +
+                "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
+                "EndpointSuffix=core.windows.net";
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             string containerName = "foodpicsblobs";
@@ -128,7 +131,6 @@ namespace FoodSharing.ViewModels
             {
                 if (user.Id == item.UserID)
                 {
-                    // Get a reference to a blob
                     BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
                     item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
                     Foods.Add(item);
@@ -139,7 +141,7 @@ namespace FoodSharing.ViewModels
         {
             if (selectedFood != null)
             {
-                await App.Current.MainPage.Navigation.PushAsync(new EditAnnouncementPage((Food)selectedFood));
+                await App.Current.MainPage.Navigation.PushAsync(new EditAnnouncementPage(selectedFood));
                 SelectedFood = null;
             }
         }

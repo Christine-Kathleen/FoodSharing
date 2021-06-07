@@ -22,7 +22,6 @@ namespace FoodSharing.ViewModels
         public ICommand UpdateProductCommand { get; set; }
         public ICommand DeleteProductCommand { get; set; }
         public ICommand CancelCommand { get; set; }
-        //private readonly Food donatedfood;
 
         public ICommand TakePicCommand { get; set; }
 
@@ -163,7 +162,6 @@ namespace FoodSharing.ViewModels
                 case Constants.Status.Success:
                     {
                         DisplayFoodDeleted();
-                        //TO DO refresh?
                         await App.Current.MainPage.Navigation.PushAsync(new MyProfile());
                         break;
                     }
@@ -184,7 +182,10 @@ namespace FoodSharing.ViewModels
             selectedFood.Name = Name;
             if (IsImageChanged)
             {
-                string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
+                string connectionString = "DefaultEndpointsProtocol=https;" +
+                    "AccountName=foodsharingimages;" +
+                    "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
+                    "EndpointSuffix=core.windows.net";
                 
                 BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
                 string containerName = "foodpicsblobs";
@@ -253,16 +254,11 @@ namespace FoodSharing.ViewModels
                 return;
 
             IsImageChanged = true;
-            //Save photo as a byte array to store later in azure
+
             photo = new byte[file.GetStream().Length];
             file.GetStream().Read(photo, 0, (int)file.GetStream().Length);
             MemoryStream test = new MemoryStream(photo);
-            //file.GetStream().CopyTo(test);
             ImageSource = ImageSource.FromStream(() => test);
-            //{
-            //  var stream = file.GetStream();
-            //    return stream;
-            //});
         }
     }
 }

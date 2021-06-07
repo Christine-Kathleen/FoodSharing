@@ -54,10 +54,10 @@ namespace FoodSharing.ViewModels
         }
 
         public async void OnUserNameClicked()
-        {
+        {//TO DO
         }
         public async void OnSendMessageClicked()
-        {
+        {//TO DO
         }
 
     }

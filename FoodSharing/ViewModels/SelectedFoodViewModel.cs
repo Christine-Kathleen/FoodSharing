@@ -105,10 +105,11 @@ namespace FoodSharing.ViewModels
         }
         public async void OnUserNameClicked()
         {
-            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage(donatedfood.User)); //TO DO who s profile???
+            await App.Current.MainPage.Navigation.PushAsync(new PublicProfilePage(donatedfood.User));
         }
         public async void OnSendMessageClicked()
         {
+            //TO DO
            // await App.Current.MainPage.Navigation.PushAsync(new MainPage());
         }
     }

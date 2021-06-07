@@ -16,7 +16,12 @@ namespace FoodSharing.Views
         public HomeMadePage()
         {
             InitializeComponent();
-            BindingContext = new HomeMadeViewModel(Models.TypeOfFood.HomeMade);
+            var vm = new HomeMadeViewModel(Models.TypeOfFood.FromStore);
+            this.BindingContext = vm;
+            vm.DisplayNotSupportedOnDevice += () => DisplayAlert("Error", "Location is not supported on this device, please change device. The location will be set as default to Alba Iulia.", "OK");
+            vm.DisplayUnableToGetLocation += () => DisplayAlert("Error", "Unable to get location. The location will be set as default to Alba Iulia.", "OK");
+            vm.DisplayNotEnabledOnDevice += () => DisplayAlert("Error", "Location not enabled on device. The location will be set as default to Alba Iulia.", "OK");
+            vm.DisplayPermissionException += () => DisplayAlert("Error", "There was a permission exception. The location will be set as default to Alba Iulia.", "OK");
         }
     }
 }

@@ -16,9 +16,7 @@
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Margin="20,20,20,0"
                        Source="{Binding ImageSource}"
-                       Aspect="AspectFill"
-                       HeightRequest="200"
-                       WidthRequest="200" />
+                       Aspect="AspectFill" />
                 <Label Grid.Row="1"  Margin="20,20,40,0" FontSize="Large"
                        Text="{Binding FoodType}" HorizontalOptions="End"
                        TextColor="#2B2C28" TextDecorations="Underline"/>
@@ -32,12 +30,14 @@
                        Text="{Binding Distance}"
                        TextColor="#2B2C28" FontSize="Medium"
                        FontAttributes="Italic" />
-                <Button Grid.Row="4" FontSize="Large" Margin="100,10,20,20" HorizontalOptions="CenterAndExpand"
+                <Button Grid.Row="4" FontSize="Large" Margin="110,10,20,20" HorizontalOptions="CenterAndExpand"
                        Command="{Binding UserClickedCommand}" TextTransform="None" FontAttributes="Bold"
                        BackgroundColor="#FFFAFB" TextColor="#2B2C28"
                        Text="{Binding UserName}" CornerRadius="8"/>
-                <Label Grid.Row="4" TextColor="#2B2C28" Text="Message the user:" TextDecorations="Underline" HorizontalOptions="Start" FontSize="Large" Margin="20,20,20,20" />
-                <Editor Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,0,210,20" TextColor="#2B2C28" FontSize="Medium" AutoSize="Disabled" />
+                <Label Grid.Row="4" TextColor="#2B2C28" Text="Message the user:" TextDecorations="None"
+                       HorizontalOptions="Start" FontSize="Large" Margin="20,20,20,20" />
+                <Editor Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,0,210,20" 
+                        TextColor="#2B2C28" FontSize="Medium" AutoSize="Disabled" />
             <Button Grid.Row="5" FontSize="15"
                        Command="{Binding SendMessageCommand}"
                        BackgroundColor="#339989" CornerRadius="8" 

@@ -21,10 +21,14 @@ namespace FoodSharing.ViewModels
         public ICommand SelectedChangedFood { get; set; }
         public ObservableCollection<Food> Foods { get; set; }
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        object selectedFood;
+        public Action DisplayNotSupportedOnDevice;
+        public Action DisplayPermissionException;
+        public Action DisplayNotEnabledOnDevice;
+        public Action DisplayUnableToGetLocation;
 
         private TypeOfFood FoodType;
-        public object SelectedFood
+        Food selectedFood;
+        public Food SelectedFood
         {
             get
             {
@@ -67,7 +71,10 @@ namespace FoodSharing.ViewModels
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
             List<Food> listFoods = await myFoodManager.GetFoodsAsync();
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
+            string connectionString = "DefaultEndpointsProtocol=https;" +
+                "AccountName=foodsharingimages;" +
+                "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
+                "EndpointSuffix=core.windows.net";
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             string containerName = "foodpicsblobs";
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
@@ -76,7 +83,6 @@ namespace FoodSharing.ViewModels
                 if (item.FoodType != foodtype)
                     continue;
                 item.SetUserLoc(new Location(user.UserLocLatitude, user.UserLocLongitude));
-                // Get a reference to a blob
                 BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
                 item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
                 Foods.Add(item);
@@ -86,7 +92,7 @@ namespace FoodSharing.ViewModels
         {
             if (selectedFood != null)
             {
-                await App.Current.MainPage.Navigation.PushAsync(new SelectedFoodPage((Food)selectedFood));
+                await App.Current.MainPage.Navigation.PushAsync(new SelectedFoodPage(selectedFood));
                 SelectedFood = null;
             }
         }
@@ -106,27 +112,27 @@ namespace FoodSharing.ViewModels
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
                 cts = new CancellationTokenSource();
                 location = await Geolocation.GetLocationAsync(request, cts.Token);
-
-                if (location != null)
-                {
-                   // Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                }
+//TO DO Del?
+                //if (location != null)
+                //{
+                      //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                //}
             }
-            catch (FeatureNotSupportedException fnsEx)
+            catch (FeatureNotSupportedException)
             {
-                // Handle not supported on device exception
+                DisplayNotSupportedOnDevice();
             }
-            catch (FeatureNotEnabledException fneEx)
+            catch (FeatureNotEnabledException)
             {
-                // Handle not enabled on device exception
+                DisplayNotEnabledOnDevice();
             }
-            catch (PermissionException pEx)
+            catch (PermissionException)
             {
-                // Handle permission exception
+                DisplayPermissionException();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Unable to get location
+                DisplayUnableToGetLocation();
             }
             return location;
         }

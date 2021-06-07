@@ -32,8 +32,6 @@ namespace FoodSharing.Pages
             vm.DisplayPasswordHasNoOneUniqueCharacter += () => DisplayAlert("Error", "The password requires at least one distinct character!", "OK");
             vm.DisplayCompleteFields += () => DisplayAlert("Error", "All fields must be completed!", "OK");
             vm.DisplayPhoneNrErr += () => DisplayAlert("Error", "The phone number length must be of 10! Ex: 0754345221.", "OK");
-
-
             vm.DisplayUserCreated += () => DisplayAlert("Success", "The user was created!", "OK");
             InitializeComponent();
         }

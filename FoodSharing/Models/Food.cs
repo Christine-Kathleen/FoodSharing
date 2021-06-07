@@ -21,9 +21,7 @@ namespace FoodSharing.Models
 
         [Key]
         public int FoodId { get; set; }
-        //[Required(ErrorMessage = "FoodLocationLatitude is required")]
         public double FoodLocationLatitude { get; set; }
-        //[Required(ErrorMessage = "FoodLocationLongitude is required")]
         public double FoodLocationLongitude { get; set; }
 
         private Location userLoc = new Location(46.0667, 23.5833);
@@ -38,17 +36,12 @@ namespace FoodSharing.Models
         [Required(ErrorMessage = "Details are required")]
         public string Details { get; set; }
         public string ImageUrl { get; set; }
-        [Required] 
         public string Distance { get { return Math.Round(Xamarin.Essentials.Location.CalculateDistance(new Location(FoodLocationLatitude, FoodLocationLongitude), userLoc, DistanceUnits.Kilometers), 2).ToString() + "km"; } }
         [Required(ErrorMessage = "The food type is required")]
         public TypeOfFood FoodType { get; set; }
-        [Required]
-        public Availability AnnouncementAvailability { get; set; }
         public ApplicationUser User { get; set; }
         [Required]
         public string UserID { get; set; }
-
-
 
         private ImageSource imageSource;
 
@@ -68,12 +61,5 @@ namespace FoodSharing.Models
     {
         FromStore = 0,
         HomeMade = 1
-    }
-
-    public enum Availability
-    {
-        Available = 0,
-        Reserved = 1,
-        Unavailable = 2
     }
 }

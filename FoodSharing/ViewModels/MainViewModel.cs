@@ -12,9 +12,7 @@ namespace FoodSharing.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private string email;
-        //private readonly User user;
-        
+        private string email; 
         public string Email
         {
             get { return email; }
@@ -32,28 +30,13 @@ namespace FoodSharing.ViewModels
 
         public MainViewModel()
         {
-            //email = user.Email;
             LogOutUserCommand = new Command(OnLogOut);
             AccountSettingsCommand = new Command(OnAccountSettings);
-           
-            //test();
-            //Task t= App.Database.SaveCategoryAsync(new Category() { UserID = user.ID, CategoryName = "FPS" });
-
-            // App.Database.SaveGameAsync(new Game() { UserID = user.ID, });
-        }
-
-        //public async void test()
-        //{
-        //   int Catid =await App.Database.SaveCategoryAsync(new Category() { UserID = user.ID, CategoryName = "FPS" });
-        //    await App.Database.SaveGameAsync(new Game() { UserID = user.ID,CategoryID=Catid,Description="My fav FPS",Name="CallOfDuty",ReleaseDate=new System.DateTime(2012,01,02) });
-        //    List<Game> g = await App.Database.GetGamesAsync();
-        //}
-       
+        }      
         public async void OnAccountSettings()
         {
             await App.Current.MainPage.Navigation.PushAsync(new UserSettingsPage());
         }
-
         public async void OnLogOut()
         {
             await App.Current.MainPage.Navigation.PushAsync(new LoginPage());

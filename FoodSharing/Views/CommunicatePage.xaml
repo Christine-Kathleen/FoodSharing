@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FoodSharing.ViewModels" 
-             x:Class="FoodSharing.Views.CommunicatePage">
+             x:Class="FoodSharing.Views.CommunicatePage" BackgroundColor="#474545">
     <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="490" />
@@ -11,7 +11,7 @@
                 <ColumnDefinition Width="270" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-        <CollectionView ItemsSource="{Binding Messages }" BackgroundColor="#474545">
+        <CollectionView ItemsSource="{Binding Messages }" BackgroundColor="#FFFAFB">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="0">
@@ -22,55 +22,46 @@
                             <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" TextColor="#FFFAFB"
-                           HorizontalTextAlignment="Start" 
+                        <Entry Grid.Column="0" Grid.Row="0" TextColor="#2B2C28"
+                           HorizontalTextAlignment="Start" IsEnabled="False" IsReadOnly="True" 
                            Margin="10,20,0,0" FontSize="Medium"
                            Text="{Binding Content}"
                            FontAttributes="Bold" />
-                        <!--<ListView Grid.Row="0"
-                             Margin="0" 
-                             HasUnevenRows="True" 
-                             VerticalOptions="FillAndExpand" 
-                             SeparatorColor="Transparent" >
-                            </ListView>
-                            <BoxView HorizontalOptions="FillAndExpand"
-                             HeightRequest="1" BindingContext="{Binding MessageSent}"
-                             BackgroundColor="#1E90FF"
-                             Grid.Row="1" Margin="0,0,10,0"/>
-                        <BoxView HorizontalOptions="FillAndExpand"
-                             HeightRequest="1" BindingContext="{Binding MessageReceived}"
-                             BackgroundColor="White"
-                             Grid.Row="1" Margin="0,0,10,0"/>-->
+                        <Entry Grid.Column="0" Grid.Row="0" TextColor="#2B2C28" 
+                           HorizontalTextAlignment="End" IsEnabled="False" IsReadOnly="True" 
+                           Margin="10,20,0,0" FontSize="Medium"
+                           Text="{Binding Content}"
+                           FontAttributes="Bold" />
                     </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         <Editor Grid.Row="1" Grid.Column="0" Placeholder="Type your message"
-                Keyboard="Chat" MaxLength="500" Text="{Binding TextToSend}"  
-                HorizontalOptions="FillAndExpand" PlaceholderColor="LightGray"
+                Keyboard="Chat" MaxLength="450" Text="{Binding TextToSend}"  
+                HorizontalOptions="FillAndExpand" PlaceholderColor="#FFFAFB"
                 Margin="10,0,90,0" TextColor="#2B2C28" 
                 FontSize="Medium" AutoSize="Disabled" />
         <Button Text="Send" Grid.Row="1"
                                    Grid.Column="0" FontSize="Medium" Command="{Binding SendMessageCommunicateCommand}" 
                                    HorizontalOptions="EndAndExpand" 
-                                   BackgroundColor="#1E90FF" CornerRadius="8" 
+                                   BackgroundColor="#339989" CornerRadius="8" 
                                    Margin="0,0,0,8" TextColor="#FFFAFB"
                                    FontAttributes="Bold" />
-        <CollectionView ItemsSource="{Binding Users }" SelectionMode="Single" Grid.Row="0"  Grid.Column="1"
+        <CollectionView ItemsSource="{Binding Users }" SelectionMode="Single" Grid.Row="0"  Grid.Column="1" Margin="0,0,0,10"
                             SelectedItem="{Binding SelectedUser}" SelectionChangedCommand="{Binding SelectedChangedUser}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="0" BackgroundColor="LightGray">
+                    <Grid Padding="0" Background="#474545" >
                             <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <!--<badge:BadgeView Text="{Binding BadgeNumber}" BadgeColor="Red" VerticalOptions="Center" HorizontalOptions="End" />-->
-                        <Label Grid.Column="1" TextColor="#2B2C28"
+                        <!--TO DO <badge:BadgeView Text="{Binding BadgeNumber}" BadgeColor="Red" VerticalOptions="Center" HorizontalOptions="End" />-->
+                        <Label Grid.Column="1" TextColor="#FFFAFB" TextDecorations="Underline"
                            HorizontalTextAlignment="Start" 
-                           Margin="10,20,0,0" FontSize="Medium"
+                           Margin="10,20,0,10" FontSize="Medium"
                            Text="{Binding UserName}"
                            FontAttributes="Bold" />
                     </Grid>

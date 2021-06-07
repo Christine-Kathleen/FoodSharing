@@ -46,7 +46,6 @@ namespace WebAPI.Controllers
                 Id=m.uir.Id
             },
                 FoodType=m.u.FoodType,
-                AnnouncementAvailability=m.u.AnnouncementAvailability,
                 Details=m.u.Details,
                 FoodLocationLatitude=m.u.FoodLocationLatitude,
                 FoodLocationLongitude=m.u.FoodLocationLongitude,

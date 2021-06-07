@@ -28,7 +28,6 @@ namespace FoodSharing.Services
             };
         }
 
-
         public async Task<ApplicationUser> GetUser(string username, string password)
         {
             ApplicationUser user = new ApplicationUser();
@@ -207,8 +206,6 @@ namespace FoodSharing.Services
                 var authResponse = JsonConvert.DeserializeObject<AuthResponse>(stringResponse);
 
                 Preferences.Set("BearerToken", authResponse.Token);
-                //Preferences.Set("RefreshToken", authResponse.RefreshToken);
-
                 return true;
             }
             else
@@ -281,13 +278,9 @@ namespace FoodSharing.Services
         public async Task<Response> DeleteFoodAsync(int id)
         {
             Uri uri = new Uri(string.Format(Constants.FoodUrl, id));
-            //DeleteFoodModel foodModel = new DeleteFoodModel();
-            //foodModel.FoodId = id;
 
             try
             {
-                //string json = JsonSerializer.Serialize<DeleteFoodModel>(foodModel, serializerOptions);
-                //var content = new StringContent(json, Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = await client.DeleteAsync(uri);
                 string jsonresponse = await response.Content.ReadAsStringAsync();
@@ -415,33 +408,6 @@ namespace FoodSharing.Services
                 if (response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine(@"\message successfully saved.");
-                }
-                return response2;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
-            }
-        }
-        public async Task<Response> DeleteMessageAsync(int id)
-        {
-            Uri uri = new Uri(string.Format(Constants.MessageUrl, id));
-            DeleteFoodModel foodModel = new DeleteFoodModel();
-            foodModel.FoodId = id;
-
-            try
-            {
-                string json = JsonSerializer.Serialize<DeleteFoodModel>(foodModel, serializerOptions);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
-                HttpResponseMessage response = await client.PostAsync(uri, content);
-                string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    Debug.WriteLine(@"\food successfully deleted.");
                 }
                 return response2;
             }

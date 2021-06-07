@@ -27,6 +27,11 @@ namespace FoodSharing.ViewModels
         public Action DisplayCompleteFields;
         public Action DisplayFoodCreated;
         public Action DisplayFatalError;
+        public Action DisplayNotSupportedOnDevice;
+        public Action DisplayPermissionException;
+        public Action DisplayNotEnabledOnDevice;
+        public Action DisplayUnableToGetLocation;
+
         public ICommand CreateProductCommand { get; set; }
         public ICommand HomeCommand { get; set; }
         public ICommand TakePicCommand { get; set; }
@@ -81,13 +86,12 @@ namespace FoodSharing.ViewModels
             CreateProductCommand = new Command(OnCreateProduct);
             HomeCommand = new Command(OnHome);
             TakePicCommand = new Command(OnTakePic);
-            ImageTapped = new Command(OnImageTapped);
             GetLoc = GetCurrentLocation();
             
 
             
         }
-        private bool isBusy;
+        bool isBusy = false;
         public bool IsBusy
         {
             get { return isBusy; }
@@ -120,8 +124,10 @@ namespace FoodSharing.ViewModels
             else
             {
                 IsBusy = true;
-                string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
-               
+                string connectionString = "DefaultEndpointsProtocol=https;" +
+                    "AccountName=foodsharingimages;" +
+                    "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
+                    "EndpointSuffix=core.windows.net";
                 BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
                 string containerName = "foodpicsblobs";
                 BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
@@ -131,7 +137,6 @@ namespace FoodSharing.ViewModels
                 BlobClient blobClient = containerClient.GetBlobClient(fileURL);
                 await blobClient.UploadAsync(new MemoryStream(photo), true);
 
-
                 RestService restSevice = new RestService();
                 FoodManager myFoodManager = new FoodManager(restSevice);
                 Response response = await myFoodManager.SaveFoodAsync(new Food {
@@ -140,7 +145,6 @@ namespace FoodSharing.ViewModels
                     Details = FoodDetails,
                     FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),
                     (string)TypeSelection),
-                    AnnouncementAvailability = Availability.Available,
                     UserID = user.Id,
                     FoodLocationLatitude = user.UserLocLatitude,
                     FoodLocationLongitude = user.UserLocLongitude });
@@ -153,8 +157,10 @@ namespace FoodSharing.ViewModels
                         }
                     case Constants.Status.Success:
                         {
-                            DisplayFoodCreated();
+                            IsBusy = true;
                             await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+                            DisplayFoodCreated();
+                            IsBusy = false;
                             break;
                         }
                     default:
@@ -163,8 +169,6 @@ namespace FoodSharing.ViewModels
                             break;
                         }
                 }
-                //TO DO take location from the user device   
-                IsBusy = false;
             }
         }
 
@@ -191,34 +195,10 @@ namespace FoodSharing.ViewModels
             if (file == null)
                 return;
 
-            //Save photo as a byte array to store later in azure
             photo = new byte[file.GetStream().Length];
             file.GetStream().Read(photo, 0, (int)file.GetStream().Length);
             MemoryStream test = new MemoryStream(photo);
-            //file.GetStream().CopyTo(test);
             TakePhoto = ImageSource.FromStream(() => test);
-            //{
-            //  var stream = file.GetStream();
-            //    return stream;
-            //});
-        }
-        private async void OnImageTapped()
-        {
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                // open the maps app directly
-                await Launcher.OpenAsync("geo:0,0?q=394+Pacific+Ave+San+Francisco+CA");
-            }
-            //Code to execute on tapped event
-            //    if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) == Permission.Granted)
-            //    {
-            //    StartRequestingLocationUpdates();
-            //    isRequestingLocationUpdates = true;
-            //    }
-            //    else
-            //    {
-            //    // The app does not have permission ACCESS_FINE_LOCATION 
-            //}
 
         }
 
@@ -226,44 +206,32 @@ namespace FoodSharing.ViewModels
 
         async Task<Location> GetCurrentLocation()
         {
-            var location=new Location();
+            var location = new Location();
             try
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
                 cts = new CancellationTokenSource();
                 location = await Geolocation.GetLocationAsync(request, cts.Token);
-
-                if (location != null)
-                {
-                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                }
             }
-            catch (FeatureNotSupportedException fnsEx)
+            catch (FeatureNotSupportedException)
             {
-                // Handle not supported on device exception
+                DisplayNotSupportedOnDevice();
             }
-            catch (FeatureNotEnabledException fneEx)
+            catch (FeatureNotEnabledException)
             {
-                // Handle not enabled on device exception
+                DisplayNotEnabledOnDevice();
             }
-            catch (PermissionException pEx)
+            catch (PermissionException)
             {
-                // Handle permission exception
+                DisplayPermissionException();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Unable to get location
+                DisplayUnableToGetLocation();
             }
             return location;
         }
-
-        //protected override void OnDisappearing()
-        //{
-        //    if (cts != null && !cts.IsCancellationRequested)
-        //        cts.Cancel();
-        //    base.OnDisappearing();
-        //}
-        protected bool SetProperty<T>(ref T backingStore, T value,
+            protected bool SetProperty<T>(ref T backingStore, T value,
          [CallerMemberName] string propertyName = "",
          Action onChanged = null)
         {
