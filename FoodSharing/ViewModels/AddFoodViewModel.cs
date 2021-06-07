@@ -122,14 +122,12 @@ namespace FoodSharing.ViewModels
                 IsBusy = true;
                 string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
                
-                // Create a container client
                 BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
                 string containerName = "foodpicsblobs";
                 BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
                 containerClient.CreateIfNotExists();
                 string fileURL = Guid.NewGuid().ToString();
 
-                // Get a reference to a blob
                 BlobClient blobClient = containerClient.GetBlobClient(fileURL);
                 await blobClient.UploadAsync(new MemoryStream(photo), true);
 

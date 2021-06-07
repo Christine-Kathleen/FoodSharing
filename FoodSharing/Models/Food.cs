@@ -38,7 +38,7 @@ namespace FoodSharing.Models
         [Required(ErrorMessage = "Details are required")]
         public string Details { get; set; }
         public string ImageUrl { get; set; }
-        [Required] //TO DO Distance calc
+        [Required] 
         public string Distance { get { return Math.Round(Xamarin.Essentials.Location.CalculateDistance(new Location(FoodLocationLatitude, FoodLocationLongitude), userLoc, DistanceUnits.Kilometers), 2).ToString() + "km"; } }
         [Required(ErrorMessage = "The food type is required")]
         public TypeOfFood FoodType { get; set; }

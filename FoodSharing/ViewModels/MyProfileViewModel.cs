@@ -120,9 +120,8 @@ namespace FoodSharing.ViewModels
             List<Food> listFoods = await myFoodManager.GetFoodsAsync();
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=foodsharingimages;AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;EndpointSuffix=core.windows.net";
-            // Create a container client
+
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
-            //The name of the container
             string containerName = "foodpicsblobs";
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             foreach (var item in listFoods)
