@@ -16,6 +16,12 @@ namespace FoodSharing.Views
         {
             InitializeComponent();
             BindingContext = this;
+            var clr = Color.FromHex("#339989");
+            var clrtext = Color.FromHex("#2B2C28");
+            var clrselect = Color.FromHex("#FFFAFB");
+            this.BarBackgroundColor = clr;
+            this.BarTextColor = clrtext;
+            this.SelectedTabColor = clrselect;
         }
     }
 }

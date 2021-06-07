@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodSharing.Pages.SelectedFoodPage" BackgroundColor="White" NavigationPage.IconColor="Black">
+             x:Class="FoodSharing.Pages.SelectedFoodPage" BackgroundColor="#FFFAFB" NavigationPage.IconColor="#2B2C28">
     <ScrollView>
         <StackLayout>
         <Grid>
@@ -21,27 +21,27 @@
                        WidthRequest="200" />
                 <Label Grid.Row="1"  Margin="20,20,40,0" FontSize="Large"
                        Text="{Binding FoodType}" HorizontalOptions="End"
-                       TextColor="Black" TextDecorations="Underline"/>
+                       TextColor="#2B2C28" TextDecorations="Underline"/>
                 <Label Grid.Row="1" Margin="20,20,20,0" HorizontalOptions="Start"
                        Text="{Binding Name}" Opacity="0.9"
-                       TextColor="Black" FontSize="Large" />
+                       TextColor="#2B2C28" FontSize="Large" />
                 <Label Grid.Row="2" HorizontalOptions="StartAndExpand" IsEnabled="False"
                        Text="{Binding Details}" Margin="20,20,20,0"
-                       TextColor="Black" FontSize="Large"/>
+                       TextColor="#2B2C28" FontSize="Large"/>
                 <Label Grid.Row="3" Margin="20,20,20,20"
-                       Text="{Binding Distance}" BackgroundColor="Black"
-                       TextColor="Black" FontSize="Medium"
+                       Text="{Binding Distance}"
+                       TextColor="#2B2C28" FontSize="Medium"
                        FontAttributes="Italic" />
                 <Button Grid.Row="4" FontSize="Large" Margin="100,10,20,20" HorizontalOptions="CenterAndExpand"
                        Command="{Binding UserClickedCommand}" TextTransform="None" FontAttributes="Bold"
-                       BackgroundColor="White" TextColor="Black"
+                       BackgroundColor="#FFFAFB" TextColor="#2B2C28"
                        Text="{Binding UserName}" CornerRadius="8"/>
-                <Label Grid.Row="4" TextColor="Black" Text="Message the user:" TextDecorations="Underline" HorizontalOptions="Start" FontSize="Large" Margin="20,20,20,20" />
-            <Editor Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,0,210,20" TextColor="Black" FontSize="Medium" AutoSize="Disabled" />
+                <Label Grid.Row="4" TextColor="#2B2C28" Text="Message the user:" TextDecorations="Underline" HorizontalOptions="Start" FontSize="Large" Margin="20,20,20,20" />
+                <Editor Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,0,210,20" TextColor="#2B2C28" FontSize="Medium" AutoSize="Disabled" />
             <Button Grid.Row="5" FontSize="15"
                        Command="{Binding SendMessageCommand}"
-                       BackgroundColor="#70AE98" CornerRadius="8" 
-                       Margin="210,0,130,20" TextColor="White"
+                       BackgroundColor="#339989" CornerRadius="8" 
+                       Margin="210,0,130,20" TextColor="#FFFAFB"
                        FontAttributes="Bold"  ImageSource="send.png" />
             
         </Grid>

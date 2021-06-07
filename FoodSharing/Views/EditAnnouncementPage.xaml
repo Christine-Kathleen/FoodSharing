@@ -1,44 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FoodSharing.ViewModels" x:DataType="viewmodels:EditAnnouncementViewModel"
-             x:Class="FoodSharing.Views.EditAnnouncementPage"  NavigationPage.IconColor="Black" BackgroundColor="White">
+             x:Class="FoodSharing.Views.EditAnnouncementPage"  NavigationPage.IconColor="#2B2C28" BackgroundColor="#FFFAFB">
     <ScrollView>
         <StackLayout Orientation="Vertical" Padding="5" Spacing="5">
             <BoxView HeightRequest="5"/>
-            <Label Text="Edit your announcement:" TextColor="Black" FontSize="Large" Margin="20,0,20,0"/>
+            <Label Text="Edit your announcement:" TextColor="#2B2C28" FontSize="Large" Margin="20,0,20,0"/>
             <Frame BackgroundColor="Transparent" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10" RadioButtonGroup.GroupName="FoodTypes" RadioButtonGroup.SelectedValue="{Binding FoodType}">
+                    <Label Text="Name:" FontSize="Medium" TextColor="#2B2C28"/>
                     <Entry x:Name="Name" Text="{Binding Name }" Placeholder="Naming of the product"   
-                           PlaceholderColor="Black" HeightRequest="40"     
-                           TextColor="Black" 
+                           PlaceholderColor="#2B2C28" HeightRequest="40"     
+                           TextColor="#2B2C28" 
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
+                    <Label Text="Details:" FontSize="Medium" TextColor="#2B2C28"/>
                     <Entry x:Name="Details" Text="{Binding Details}" Placeholder="Details about the product"   
-                           PlaceholderColor="Black" HeightRequest="40"   
-                           TextColor="Black"
+                           PlaceholderColor="#2B2C28" HeightRequest="40"   
+                           TextColor="#2B2C28"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
                     <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodTypes" />
                     <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodTypes"/>
-                    <Button Command="{Binding TakePicCommand}" Margin="70,0,70,0" Text="Take a new picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+                    <Button Command="{Binding TakePicCommand}" Margin="70,0,70,0" Text="Take a new picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="#FFFAFB" BorderColor="#339989" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding ImageSource}"/>
                 </StackLayout>
             </Frame>
-            <Grid Padding="10" BackgroundColor="White">
+            <Grid Padding="10" BackgroundColor="#FFFAFB">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Button Command="{Binding UpdateProductCommand}" Grid.Row="0" Text="Update" TextColor="White" TextTransform="None"
+                <Button Command="{Binding UpdateProductCommand}" Grid.Row="0" Text="Update" TextColor="#FFFAFB" TextTransform="None"
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="100,0,100,0"  
-                    BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70"  />
-                <Button Command="{Binding DeleteProductCommand}" Grid.Row="1" Text="Delete" TextColor="Black"  
+                    BackgroundColor="#339989"  CornerRadius="8" Opacity="0.70"  />
+                <Button Command="{Binding DeleteProductCommand}" Grid.Row="1" Text="Delete" TextColor="#2B2C28"  
                     FontAttributes="Bold" FontSize="Medium" Margin="100,0,100,0"  TextTransform="None"
-                    BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
+                    BackgroundColor="#FFFAFB" BorderColor="#339989" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
                     />
-                <Button Command="{Binding CancelCommand}" Grid.Row="2" Text="Cancel" TextColor="#70AE98" TextTransform="None" 
+                <Button Command="{Binding CancelCommand}" Grid.Row="2" Text="Cancel" TextColor="#339989" TextTransform="None" 
                     FontAttributes="Bold" FontSize="Medium" Margin="100,0,100,0" 
-                    BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
+                    BackgroundColor="#FFFAFB" BorderColor="#339989" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
                      />
             </Grid>
         </StackLayout>

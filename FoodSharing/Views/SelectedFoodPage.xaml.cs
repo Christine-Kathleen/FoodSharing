@@ -21,7 +21,7 @@ namespace FoodSharing.Pages
             this.BindingContext = vm;
             InitializeComponent();
             var navigationPage = Application.Current.MainPage as NavigationPage;
-            navigationPage.BarBackgroundColor = Color.FromRgb(112, 174, 152);
+            navigationPage.BarBackgroundColor = Color.FromRgb(51, 153, 137);
         }
     }
 }

@@ -1,37 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodSharing.Pages.AddFoodPage"
-             NavigationPage.HasNavigationBar="false">
+             x:Class="FoodSharing.Pages.AddFoodPage">
     <ScrollView>
         <StackLayout Orientation="Vertical" Padding="5" Spacing="5">
                 <BoxView HeightRequest="5"/>
-            <Label Text="Give away anything you would eat yourself:" TextColor="Black" FontSize="Large" Margin="20,0,20,0"/>
+            <Label Text="Give away anything you would eat yourself:" TextColor="#2B2C28" FontSize="Large" Margin="20,0,20,0"/>
             <Frame BackgroundColor="Transparent" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10" RadioButtonGroup.GroupName="FoodType" RadioButtonGroup.SelectedValue="{Binding TypeSelection}">
+                    <Label Text="Name:" FontSize="Medium" TextColor="#2B2C28"/>
                     <Entry x:Name="Name" Text="{Binding FoodName }" Placeholder="Naming of the product"   
-                           PlaceholderColor="Black" HeightRequest="40"     
-                           TextColor="Black" 
+                           PlaceholderColor="#2B2C28" HeightRequest="40"     
+                           TextColor="#2B2C28" 
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
+                    <Label Text="Details:" FontSize="Medium" TextColor="#2B2C28"/>
                     <Entry x:Name="Details" Text="{Binding FoodDetails}" Placeholder="Details about the product"   
-                           PlaceholderColor="Black" HeightRequest="40"   
-                           TextColor="Black"
+                           PlaceholderColor="#2B2C28" HeightRequest="40"   
+                           TextColor="#2B2C28"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
                     <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodType"/>
                     <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodType"/>
-                    <Button Command="{Binding TakePicCommand}" HorizontalOptions="Center" Margin="70,0,70,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
+                    <Button Command="{Binding TakePicCommand}" HorizontalOptions="Center" Margin="70,0,70,0" Text="Take a picture! 📸" FontAttributes="Bold" FontSize="Large" BackgroundColor="#FFFAFB" BorderColor="#339989" BorderWidth="2" CornerRadius="8" Opacity="0.70"/>
                     <Image  HorizontalOptions="Center" HeightRequest="170" Source="{Binding TakePhoto}"/>
                 </StackLayout>
             </Frame>
-            <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="White" TextTransform="None" 
+            <Button Command="{Binding CreateProductCommand}" Text="Create" TextColor="#FFFAFB" TextTransform="None" 
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" Margin="80,0,80,0"  
-                    BackgroundColor="#70AE98"  CornerRadius="8" Opacity="0.70" IsEnabled="{Binding IsNotBusy}" />
-            <Button Command="{Binding HomeCommand}" Text="Cancel" TextColor="#70AE98" TextTransform="None" 
-                    FontAttributes="Bold" FontSize="Medium" VerticalOptions="Start" Margin="80,0,80,0"
-                    BackgroundColor="White" BorderColor="#70AE98" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
-                    IsEnabled="{Binding IsNotBusy}" />
+                    BackgroundColor="#339989"  CornerRadius="8" Opacity="0.70" IsEnabled="{Binding IsNotBusy}" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

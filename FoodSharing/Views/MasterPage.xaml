@@ -2,26 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Pages.MasterPage"
-             Title="Master Page" BackgroundColor="White"
+             Title="Master Page" BackgroundColor="#FFFAFB"
              NavigationPage.HasNavigationBar="false">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Text="Main Page" FontSize="20" Margin="20,0,20,0" TextTransform="None" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="1" Grid.Column="0" Command="{Binding HomeCommand}" />
-        <Button Text="Private Profile" FontSize="20" Margin="20,0,20,0" TextTransform="None" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="2" Grid.Column="0" Command="{Binding PrivateProfileCommand}"/>
-        <Button Text="Public Profile" FontSize="20" Margin="20,0,20,0" TextTransform="None" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="3" Grid.Column="0" Command="{Binding PublicProfileCommand}"/>
-        <Button Text="Account Settings" FontSize="20" Margin="20,0,20,0" TextTransform="None" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="4" Grid.Column="0" Command="{Binding AccountSettingsCommand}" />
-        <Button Text="Logout" FontSize="20" Margin="20,0,20,0" TextTransform="None" TextColor="Black" BorderColor="#70AE98" BorderWidth="2" BackgroundColor="White" Grid.Row="5" Grid.Column="0" Command="{Binding LogoutCommand}" />
-        <Button Text="Help Food Sharing grow" FontSize="20" Margin="20,0,20,0" TextTransform="None" HeightRequest="70" BackgroundColor="#70AE98" VerticalOptions="End" TextColor="Black"  Grid.Row="6" Grid.Column="0" Command="{Binding HelpGrowCommand}"/>
+        <Button Text="Main Page" FontSize="20" Margin="40,40,40,10" Padding="17" TextTransform="None" CornerRadius="8" TextColor="#2B2C28" BorderColor="#339989" BorderWidth="3" BackgroundColor="#FFFAFB" Grid.Row="1" Grid.Column="0" Command="{Binding HomeCommand}" />
+        <Button Text="Private Profile" FontSize="20" Margin="40,0,40,10" Padding="17" TextTransform="None" CornerRadius="8" TextColor="#2B2C28" BorderColor="#339989" BorderWidth="3" BackgroundColor="#FFFAFB" Grid.Row="2" Grid.Column="0" Command="{Binding PrivateProfileCommand}"/>
+        <Button Text="Public Profile" FontSize="20" Margin="40,0,40,10" Padding="17" TextTransform="None" CornerRadius="8" TextColor="#2B2C28" BorderColor="#339989" BorderWidth="3" BackgroundColor="#FFFAFB" Grid.Row="3" Grid.Column="0" Command="{Binding PublicProfileCommand}"/>
+        <Button Text="Account Settings" FontSize="20" Margin="40,0,40,10" Padding="17" TextTransform="None" CornerRadius="8" TextColor="#2B2C28" BorderColor="#339989" BorderWidth="3" BackgroundColor="#FFFAFB" Grid.Row="4" Grid.Column="0" Command="{Binding AccountSettingsCommand}" />
+        <Button Text="Logout" FontSize="20" Margin="40,0,40,10" Padding="17" TextTransform="None" CornerRadius="8" TextColor="#2B2C28" BorderColor="#339989" BorderWidth="3" BackgroundColor="#FFFAFB" Grid.Row="5" Grid.Column="0" Command="{Binding LogoutCommand}" />
+        <Button Text="Help Food Sharing grow" FontSize="20" Margin="20,100,20,10" Padding="17" CornerRadius="8" TextTransform="None" FontAttributes="Bold" HeightRequest="70" BackgroundColor="#339989" VerticalOptions="End" TextColor="#FFFAFB"  Grid.Row="6" Grid.Column="0" Command="{Binding HelpGrowCommand}"/>
     </Grid>
 </ContentPage>

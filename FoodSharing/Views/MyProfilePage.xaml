@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FoodSharing.Pages.MyProfile"
-             BackgroundImageSource="bgfoods.jpg" NavigationPage.IconColor="Black">
+             x:Class="FoodSharing.Pages.MyProfile" BackgroundColor="#F0FAF8" NavigationPage.IconColor="#2B2C28">
     <ScrollView>
     <StackLayout>
         <Grid>
@@ -18,40 +17,40 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Text="About you" Opacity="0.9" Margin="20,0,220,0" HorizontalTextAlignment="Start" FontSize="25" TextColor="Black" Grid.Column="0" Grid.Row="1" FontAttributes="Bold" BackgroundColor="White"/>
+                <Label Text="About you"  TextDecorations="Underline" Margin="20,20,220,10" HorizontalTextAlignment="Start" FontSize="25" TextColor="#2B2C28" Grid.Column="0" Grid.Row="1" FontAttributes="Bold"/>
             <Frame BackgroundColor="Transparent"  HasShadow="False" Grid.Column="0" Grid.Row="2">
-                    <StackLayout Orientation="Vertical" Spacing="5" BackgroundColor="White" Opacity="0.9">
-                    <Label Text="First Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                    <StackLayout Orientation="Vertical" Spacing="5">
+                        <Label Text="First Name:" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Medium"/>
                     <Label Text="{Binding FirstName}"        
-                           TextColor="Black"
+                           TextColor="#2B2C28"
                            FontSize="Large" HorizontalTextAlignment="Center">
                     </Label>
-                    <Label Text="Last Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="Last Name:" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Medium"/>
                     <Label Text="{Binding LastName}"        
-                           TextColor="Black"
+                           TextColor="#2B2C28"
                            FontSize="Large" HorizontalTextAlignment="Center"/>
-                    <Label Text="User Name:" TextColor="Black" FontAttributes="Bold" FontSize="Medium"/>
+                        <Label Text="User Name:" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Medium"/>
                     <Label Text="{Binding UserName}"        
-                           TextColor="Black"
+                           TextColor="#2B2C28"
                            FontSize="Large" HorizontalTextAlignment="Center"/>
-                    <Label Text="Describe yourself:" TextColor="Black" FontAttributes="Bold" FontSize="Medium" Margin="0,0,0,0"/>
+                        <Label Text="Describe yourself:" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Medium" Margin="0,10,0,0"/>
                     <Entry x:Name="Description" Text="{Binding Description}" Placeholder="Add a profile description"   
-                           PlaceholderColor="Black" HeightRequest="60"   
+                           PlaceholderColor="#2B2C28" HeightRequest="60"   
                            Keyboard="Text"  
-                           TextColor="Black"
+                           TextColor="#2B2C28"
                            ClearButtonVisibility="WhileEditing" MaxLength="500"/>
                 </StackLayout>
                 </Frame>
-                <Button Command="{Binding UpdateProfileCommand}" Text="Update profile" TextColor="Black" IsEnabled="{Binding IsNotBusy}" 
+                <Button Command="{Binding UpdateProfileCommand}" Text="Update profile" TextColor="#2B2C28" BackgroundColor="#F0FAF8" IsEnabled="{Binding IsNotBusy}" 
                     FontAttributes="Bold" FontSize="17" HorizontalOptions="Center" Margin="20,0,20,0"  VerticalOptions="Center" 
-                    Grid.Column="0" Grid.Row="3" BackgroundColor="White" Opacity="0.9" BorderWidth="2" BorderColor="#70AE98" CornerRadius="8"/>
-                <Label Text="Your announcements:" Grid.Column="0" Grid.Row="5" Opacity="0.9" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" FontSize="Large" Margin="20,10,100,20"/>
+                    Grid.Column="0" Grid.Row="3" Opacity="0.9" BorderWidth="4" BorderColor="#339989" CornerRadius="8"/>
+                <Label Text="Your announcements:" TextDecorations="Underline" Grid.Column="0" Grid.Row="5" TextColor="#2B2C28" FontAttributes="Bold" FontSize="Large" Margin="20,20,100,20"/>
                 <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="6"
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" Margin="20,0,20,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10" BackgroundColor="White">
+                            <Grid Padding="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
@@ -64,12 +63,12 @@
                        Aspect="AspectFill"
                        HeightRequest="150"
                        WidthRequest="150" />
-                                <Label Grid.Column="1" TextColor="Black" 
+                                <Label Grid.Column="1" TextColor="#2B2C28" 
                        VerticalTextAlignment="Center" 
                        Margin="10,-60,20,0" FontSize="Large"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
-                                <Label Grid.Column="1" TextColor="Black"
+                                <Label Grid.Column="1" TextColor="#2B2C28"
                        VerticalTextAlignment="Center"
                        Margin="10,0,20,0" FontSize="Medium"
                        Text="{Binding FoodType}"

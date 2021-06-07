@@ -5,8 +5,8 @@
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
         <StackLayout>
-            <Frame BackgroundColor="#70AE98" Padding="24" CornerRadius="0">
-                <Label Text="⚙️ Account Settings" HorizontalTextAlignment="Center" TextColor="White" FontSize="30"/>
+            <Frame BackgroundColor="#339989" Padding="24" CornerRadius="0">
+                <Label Text="⚙️ Account Settings" HorizontalTextAlignment="Center" TextColor="#FFFAFB" FontSize="30"/>
             </Frame>
             <Grid>
                 <Grid.RowDefinitions>
@@ -18,20 +18,20 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <StackLayout Orientation="Vertical" Spacing="10" Grid.Column="0" Grid.Row="0" Padding="10,30,10,30">
+                <StackLayout Orientation="Vertical" Spacing="10" Grid.Column="0" Grid.Row="0" Padding="20,30,20,30">
                     <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
-                           PlaceholderColor="#70AE98" HeightRequest="40"   
+                           PlaceholderColor="#339989" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="Black"/>
-                    <Label Text="Enter the new password here:" Padding="10,30,10,30" TextColor="Black" FontSize="25"/>
+                           TextColor="#2B2C28"/>
+                    <Label Text="Enter the new password here:" Padding="10,30,10,30" TextColor="#2B2C28" FontSize="25"/>
                     <Entry x:Name="NewPassword" Text="{Binding NewPassword}" Placeholder="NEW Password"   
-                           PlaceholderColor="#70AE98" HeightRequest="40"   
+                           PlaceholderColor="#339989" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="Black"/>
+                           TextColor="#2B2C28"/>
                 </StackLayout>
-                <Button Command="{Binding PasswordChangeCommand}" Opacity="0.70" FontAttributes="Bold" CornerRadius="8"  Margin="70,0,70,0" FontSize="Medium" Grid.Column="0" Grid.Row="1" Text="Change Password" BackgroundColor="#70AE98" TextColor="White" Padding="10,10,10,10" />
-                <Button Command="{Binding DeleteAccountCommand}" Opacity="0.70" FontAttributes="Bold" CornerRadius="8"  Margin="70,0,70,0" FontSize="Medium" Grid.Column="0" Grid.Row="2" Text="Delete Account" BackgroundColor="#70AE98" TextColor="White" Padding="10,10,10,10" />
-                <Button Command="{Binding BackToMainPageCommand}" Opacity="0.70" FontAttributes="Bold" CornerRadius="8"  Margin="100,20,100,20" FontSize="Medium" Grid.Column="0" Grid.Row="3" Text="Cancel" BackgroundColor="White" BorderColor="Black" BorderWidth="2" TextColor="Black" Padding="10,10,10,10" />
+                <Button Command="{Binding PasswordChangeCommand}" FontAttributes="Bold" CornerRadius="8"  Margin="80,0,70,0" FontSize="Medium" Grid.Column="0" Grid.Row="1" Text="Change Password" BackgroundColor="#339989" TextColor="#FFFAFB" Padding="15" />
+                <Button Command="{Binding DeleteAccountCommand}" FontAttributes="Bold" CornerRadius="8"  Margin="80,0,70,0" FontSize="Medium" Grid.Column="0" Grid.Row="2" Text="Delete Account" BackgroundColor="#339989" TextColor="#FFFAFB" Padding="15" />
+                <Button Command="{Binding BackToMainPageCommand}" FontAttributes="Bold" CornerRadius="8"  Margin="110,20,100,20" FontSize="Medium" Grid.Column="0" Grid.Row="3" Text="Cancel" BackgroundColor="#FFFAFB" BorderColor="#2B2C28" BorderWidth="2" TextColor="#2B2C28" Padding="10,10,10,10" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>
