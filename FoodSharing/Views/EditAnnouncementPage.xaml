@@ -20,7 +20,7 @@
                            TextColor="#2B2C28"
                            ClearButtonVisibility="WhileEditing">
                     </Entry>
-                    <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodTypes" />
+                    <RadioButton Content="FromStore" Value="FromStore" GroupName="FoodTypes" IsChecked="True" />
                     <RadioButton Content="HomeMade" Value="HomeMade" GroupName="FoodTypes"/>
                     <Button Command="{Binding TakePicCommand}" Margin="70,0,70,0" Text="Take a new picture! 📸" 
                             FontAttributes="Bold" FontSize="Large" BackgroundColor="#FFFAFB" BorderColor="#339989" 
@@ -40,7 +40,7 @@
                     FontAttributes="Bold" FontSize="Medium" Margin="100,0,100,0"  TextTransform="None"
                     BackgroundColor="#FFFAFB" BorderColor="#339989" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
                     />
-                <Button Command="{Binding CancelCommand}" Grid.Row="2" Text="Cancel" TextColor="#339989" TextTransform="None" 
+                <Button Command="{Binding CancelCommand}" Grid.Row="2" Text="Cancel" TextColor="#2B2C28" TextTransform="None" 
                     FontAttributes="Bold" FontSize="Medium" Margin="100,0,100,0" 
                     BackgroundColor="#FFFAFB" BorderColor="#339989" BorderWidth="2" CornerRadius="8" Opacity="0.70" 
                      />

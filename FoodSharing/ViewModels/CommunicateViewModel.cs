@@ -21,6 +21,37 @@ namespace FoodSharing.ViewModels
         public ObservableCollection<Message> Messages { get; set; }
 
         public ObservableCollection<ApplicationUser> Users { get; set; }
+        private string selectedUserName;
+        public string SelectedUserName
+        {
+            get { return selectedUserName; }
+            set
+            {
+                selectedUserName = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedUserName"));
+            }
+        }
+        private string sentContent;
+        public string SentContent
+        {
+            get { return sentContent; }
+            set
+            {
+                sentContent = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SentContent"));
+            }
+        }
+        private string receivedContent;
+        public string ReceivedContent
+        {
+            get { return receivedContent; }
+            set
+            {
+                receivedContent = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("ReceivedContent"));
+            }
+        }
+
 
         ApplicationUser user;
         public CommunicateViewModel()

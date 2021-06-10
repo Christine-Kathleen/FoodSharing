@@ -15,8 +15,13 @@ namespace FoodSharing.Views
     {
         public CommunicatePage()
         {
+            NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
             BindingContext = new CommunicateViewModel();
         }
-    }
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+    }    
 }

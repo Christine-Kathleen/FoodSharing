@@ -64,7 +64,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <CheckBox IsChecked="False" Grid.Row="0" BackgroundColor="#FFFAFB" Color="#7DE2D1" Margin="0,10,0,0"  />
+                <CheckBox IsChecked="{Binding AgreeOnTerms, Mode=TwoWay}"  Grid.Row="0" BackgroundColor="#FFFAFB" Color="#7DE2D1" Margin="0,10,0,0"  />
                 <!--CheckedChanged="{Binding CheckBoxCheckedChanged}" TO DO-->
                 <Label Text="I agree to the Terms of service and Privacy Policy" Margin="34,15,20,0" TextColor="#2B2C28" 
                        BackgroundColor="#FFFAFB" Grid.Row="0" FontSize="15" FontAttributes="Italic"/>

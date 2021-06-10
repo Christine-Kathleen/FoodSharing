@@ -9,8 +9,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
-        <CollectionView ItemsSource="{Binding Foods }"
-                            SelectionMode="Single" ItemSizingStrategy="MeasureFirstItem"
+        <CollectionView  ItemsSource="{Binding Foods }"
+                            SelectionMode="Single"
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}">
             <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -47,8 +47,8 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         <Button Text="+" FontSize="30"  Command="{Binding AddCommand}" BackgroundColor="#2B2C28" 
-                                Margin="0,0,20,30" TextColor="#FFFAFB" BorderColor="#7DE2D1" BorderWidth="4" 
-                                WidthRequest="60" HeightRequest="60" BorderRadius="30" 
+                                Margin="0,0,35,20" TextColor="#FFFAFB" BorderColor="#7DE2D1" BorderWidth="4" 
+                                WidthRequest="60" HeightRequest="60" BorderRadius="30" FlowDirection="LeftToRight"
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
         </Grid>
     </ContentPage>

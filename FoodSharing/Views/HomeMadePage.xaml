@@ -46,7 +46,7 @@
             </CollectionView>
             <Button Text="+" FontSize="30"  Command="{Binding AddCommand}"
                                 BackgroundColor="#2B2C28" BorderWidth="4" 
-                                Margin="0,0,20,30" TextColor="#FFFAFB" BorderColor="#7DE2D1"
+                                Margin="0,0,35,20" TextColor="#FFFAFB" BorderColor="#7DE2D1"
                                 WidthRequest="60" HeightRequest="60" BorderRadius="30" 
                                 VerticalOptions="End" HorizontalOptions="End" Grid.Column="0" Grid.Row="0"></Button>
         </Grid>

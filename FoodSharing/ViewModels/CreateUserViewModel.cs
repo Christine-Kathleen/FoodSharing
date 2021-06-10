@@ -18,6 +18,7 @@ namespace FoodSharing.ViewModels
     {
         public Action DisplayTakenEmail;
         public Action DisplayFatalError;
+        public Action DisplayCheckboxNotChecked;
         public Action DisplayTakenUserName;
         public Action DisplayNoPassword;
         public Action DisplayInvalidEmail;
@@ -41,6 +42,16 @@ namespace FoodSharing.ViewModels
         private Regex regexPasswordHasUpperCase = new Regex("[A-Z]");
         private Regex regexPasswordHasNonalphanumeric = new Regex(@"\W");
         private Regex regexPasswordHasOneUniqueCharacter = new Regex(@"(.)(?<!\1.+)(?!.*\1)");
+        bool agreeOnTerms;
+        public bool AgreeOnTerms
+        {
+            get { return agreeOnTerms; }
+            set
+            {
+                agreeOnTerms = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("AgreeOnTerms"));
+            }
+        }
 
         private string firstName = "user";
         public string FirstName
@@ -145,13 +156,16 @@ namespace FoodSharing.ViewModels
         {
             RegisterCommand = new Command(OnRegister);
             ChangeToSignIn = new Command(OnChangeToSignIn);
-
         }
 
         public async void OnRegister()
         {
             IsBusy = true;
-            if (!regexEmail.IsMatch(email.ToUpper()))
+            if (AgreeOnTerms.Equals(false)) 
+            {
+                DisplayCheckboxNotChecked();
+            }
+            else if (!regexEmail.IsMatch(email.ToUpper()))
             {
                 DisplayInvalidEmail();
                 return;

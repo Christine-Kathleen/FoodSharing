@@ -22,16 +22,15 @@
                             <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Entry Grid.Column="0" Grid.Row="0" TextColor="#2B2C28"
-                           HorizontalTextAlignment="Start" IsEnabled="False" IsReadOnly="True" 
+                        <Label Text="{Binding SelectedUserName}" FontSize="18" HorizontalTextAlignment="Center"/> <!--TO DO selected username-->
+                        <Label Grid.Column="0" Grid.Row="0" TextColor="#2B2C28" Background="#339989"
+                           HorizontalTextAlignment="Start" Padding="6"
                            Margin="10,20,0,0" FontSize="Medium"
-                           Text="{Binding Content}"
-                           FontAttributes="Bold" />
-                        <Entry Grid.Column="0" Grid.Row="0" TextColor="#2B2C28" 
-                           HorizontalTextAlignment="End" IsEnabled="False" IsReadOnly="True" 
+                           Text="{Binding SentContent}" />
+                        <Label Grid.Column="1" Grid.Row="0" TextColor="#2B2C28" Background="#339989"
+                           HorizontalTextAlignment="End" Padding="6"
                            Margin="10,20,0,0" FontSize="Medium"
-                           Text="{Binding Content}"
-                           FontAttributes="Bold" />
+                           Text="{Binding ReceivedContent}" />
                     </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -57,13 +56,14 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <!--TO DO <badge:BadgeView Text="{Binding BadgeNumber}" BadgeColor="Red" VerticalOptions="Center" HorizontalOptions="End" />-->
-                        <Label Grid.Column="1" TextColor="#FFFAFB" TextDecorations="Underline"
+                        <Label Grid.Column="0" TextColor="#FFFAFB" TextDecorations="Underline"
                            HorizontalTextAlignment="Start" 
                            Margin="10,20,0,10" FontSize="Medium"
                            Text="{Binding UserName}"
                            FontAttributes="Bold" />
+                        <Image Grid.Column="1" HorizontalOptions="End"  HeightRequest="30" WidthRequest="30" Source="newmess.png" IsVisible="{Binding NewMessage}"/>
                     </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
