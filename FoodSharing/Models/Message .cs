@@ -21,12 +21,12 @@ namespace FoodSharing.Models
         [Required]
         public string SenderUserId { get; set; }
 
-        [Required(ErrorMessage = "Must have a sender")]
+        //[Required(ErrorMessage = "Must have a sender")]
         public ApplicationUser SenderId { get; set; }
         [Required]
         public string ReceiverUserId { get; set; }
 
-        [Required(ErrorMessage = "Must have a receiver")]
+        //[Required(ErrorMessage = "Must have a receiver")]
         public ApplicationUser ReceiverId { get; set; }
 
         [Required(ErrorMessage = "Must have a message state")]

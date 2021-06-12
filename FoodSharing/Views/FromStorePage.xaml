@@ -11,7 +11,7 @@
             </Grid.ColumnDefinitions>
         <CollectionView  ItemsSource="{Binding Foods }"
                             SelectionMode="Single"
-                            SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}">
+                          SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}">
             <CollectionView.ItemTemplate>
                     <DataTemplate>
                     <Grid Padding="10" BackgroundColor="#FFFAFB">

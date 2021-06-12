@@ -17,18 +17,41 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public ICommand UserClickedCommand { get; set; }
         public ICommand SendMessageCommand { protected set; get; }
+        public Action DisplayFatalError;
+        public Action DisplayMessageAlreadySent;
+        public Action DisplayErrorOnSending;
 
         public ObservableCollection<Message> Messages { get; set; }
 
         public ObservableCollection<ApplicationUser> Users { get; set; }
-        private string selectedUserName;
-        public string SelectedUserName
+        bool newMessage;
+        public bool NewMessage //TO DO
         {
-            get { return selectedUserName; }
+            get { return newMessage; }
             set
             {
-                selectedUserName = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("SelectedUserName"));
+                newMessage = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("NewMessage"));
+            }
+        }
+        private string textToSend;
+        public string TextToSend
+        {
+            get { return textToSend; }
+            set
+            {
+                textToSend = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("textToSend"));
+            }
+        }
+        private string selectedUser;
+        public string SelectedUser
+        {
+            get { return selectedUser; }
+            set
+            {
+                selectedUser = user.UserName;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedUser"));
             }
         }
         private string sentContent;
@@ -49,6 +72,16 @@ namespace FoodSharing.ViewModels
             {
                 receivedContent = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("ReceivedContent"));
+            }
+        }
+        private MessageState sent;
+        public MessageState Sent
+        {
+            get { return sent; }
+            set
+            {
+                sent = Sent;
+                PropertyChanged(this, new PropertyChangedEventArgs("Sent"));
             }
         }
 
@@ -76,6 +109,7 @@ namespace FoodSharing.ViewModels
                 if (!Users.Contains(item.ReceiverId))
                 {
                     Users.Add(item.ReceiverId);
+                    //Message.Equals(sentContent);
                 }
                 if (!Users.Contains(item.SenderId))
                 {
@@ -89,7 +123,46 @@ namespace FoodSharing.ViewModels
         }
         public async void OnSendMessageClicked()
         {//TO DO
-        }
+            RestService restSevice = new RestService();
+            MessageManager myMessageManager = new MessageManager(restSevice);
+            Response response = await myMessageManager.SaveMessageAsync(new Message { Content = TextToSend, SenderUserId = user.Id, ReceiverUserId = selectedUser, State = Sent });
+            switch (response.Status)
+            {
+                case Constants.Status.Error:
+                    {
+                        switch (response.Message)
+                        {
+                            case Constants.APIMessages.ErrorAlreadyExists:
+                                {
+                                    DisplayMessageAlreadySent();
+                                    break;
+                                }
 
+                            case Constants.APIMessages.ErrorOnCreating:
+                                {
+                                    DisplayErrorOnSending();
+                                    break;
+                                }
+                            case Constants.APIMessages.Success:
+                            default:
+                                {
+                                    DisplayFatalError();
+                                    break;
+                                }
+                        }
+                    }
+                    break;
+                case Constants.Status.Success:
+                    {
+                        Console.WriteLine("Message sent");
+                        break;
+                    }
+                default:
+                    {
+                        DisplayFatalError();
+                        break;
+                    }
+            }
+        }
     }
 }

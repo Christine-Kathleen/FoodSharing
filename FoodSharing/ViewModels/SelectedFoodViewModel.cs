@@ -110,7 +110,7 @@ namespace FoodSharing.ViewModels
         public async void OnSendMessageClicked()
         {
             //TO DO
-           // await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+
         }
     }
 }

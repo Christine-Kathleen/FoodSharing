@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FoodSharing.ViewModels"
              x:Class="FoodSharing.Pages.PublicProfilePage" BackgroundColor="#FFFAFB" NavigationPage.IconColor="#2B2C28">
     <ScrollView>
         <StackLayout>
@@ -32,47 +32,10 @@
                            FontSize="Large" HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
-                <Label Text="Reviews:" TextDecorations="Underline" Grid.Column="0" Grid.Row="2" TextColor="#2B2C28" 
-                       FontAttributes="Bold" FontSize="Large" Margin="20,0,270,20"/>
-                <CollectionView ItemsSource="{Binding Reviews }" Grid.Column="0" Grid.Row="3" Margin="20,0,20,0">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Label  Grid.Row="0" FontSize="Large" TextColor="#2B2C28"
-                                HorizontalOptions="StartAndExpand"
-                                Text="{Binding ReviewContent}"/>
-                                <Label Grid.Row="1" TextTransform="Uppercase" TextDecorations="Underline"
-                                        HorizontalOptions="StartAndExpand" FontSize="Medium" TextColor="#2B2C28"
-                                Text="{Binding ReviewerId.UserName}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-                <Entry x:Name="chatTextInput" 
-                             Text="{Binding Review}" 
-                             TextColor="#2B2C28" 
-                             Keyboard="Chat"
-                             MaxLength="450"
-                             HorizontalOptions="FillAndExpand" 
-                             PlaceholderColor="#2B2C28"
-                             Placeholder="Type your review here"
-                             Grid.Row="4" 
-                             Grid.Column="0" 
-                             Margin="20,0,130,0"/>
-                <Button Text="Post" Grid.Row="4" ImageSource="send.png"
-                                   Grid.Column="0" FontSize="Medium" Command="{Binding PostReviewCommand}" 
-                                   HorizontalOptions="End" IsEnabled="{Binding IsNotBusy}"
-                                   BackgroundColor="#339989" CornerRadius="8" 
-                                   Margin="240,0,20,00" TextColor="#FFFAFB"
-                                   FontAttributes="Bold" />
-                <Label Text="Donations:" TextDecorations="Underline" Opacity="0.9" Grid.Column="0" Grid.Row="6" TextColor="#2B2C28" 
+                <Label Text="Donations:" TextDecorations="Underline" Opacity="0.9" Grid.Column="0" Grid.Row="2" TextColor="#2B2C28" 
                        FontAttributes="Bold" FontSize="Large" Margin="20,10,230,20"/>
-                <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="7"
-                            SelectionMode="Single"
+                <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="3"
+                            SelectionMode="Single" HeightRequest="200" EmptyView="There are no announcements posted by this user" 
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" Margin="20,0,20,0">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -106,6 +69,41 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                <Label Text="Reviews:" TextDecorations="Underline" Grid.Column="0" Grid.Row="4" TextColor="#2B2C28" 
+                       FontAttributes="Bold" FontSize="Large" Margin="20,10,270,0"/>
+                <CollectionView ItemsSource="{Binding Reviews }" Grid.Column="0" HeightRequest="200" Grid.Row="5" Margin="20,10,20,20" EmptyView="There are no reviews for this user"  >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label  Grid.Row="0" FontSize="Large" TextColor="#2B2C28"
+                                Text="{Binding ReviewContent}"/>
+                                <Label Grid.Row="1" TextTransform="Uppercase" TextDecorations="Underline" FontSize="Medium" TextColor="#2B2C28" Margin="0,0,0,20"
+                                Text="{Binding ReviewerId.UserName}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Entry x:Name="chatTextInput" 
+                             Text="{Binding Review}" 
+                             TextColor="#2B2C28" 
+                             Keyboard="Chat"
+                             MaxLength="450"
+                             HorizontalOptions="FillAndExpand" 
+                             PlaceholderColor="#2B2C28"
+                             Placeholder="Type your review here"
+                             Grid.Row="6" 
+                             Grid.Column="0" 
+                             Margin="20,10,130,10"/>
+                <Button Text="Post" Grid.Row="6" ImageSource="send.png"
+                                   Grid.Column="0" FontSize="Medium" Command="{Binding PostReviewCommand}" 
+                                   HorizontalOptions="End" IsEnabled="{Binding IsNotBusy}"
+                                   BackgroundColor="#339989" CornerRadius="8" 
+                                   Margin="240,10,20,10" TextColor="#FFFAFB"
+                                   FontAttributes="Bold" />
             </Grid>
         </StackLayout>
     </ScrollView>

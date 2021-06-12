@@ -84,12 +84,22 @@ namespace FoodSharing.ViewModels
                 review = value;
                 if (review == null)
                 {
-                    review = "There are reviews for this user";
+                    review = "There are no reviews for this user";
                 }
                 PropertyChanged(this, new PropertyChangedEventArgs("Review"));
             }
         }
 
+        private string reviewContent;
+        public string ReviewContent
+        {
+            get { return reviewContent; }
+            private set
+            {
+                reviewContent = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("ReviewContent"));
+            }
+        }
         private string description;
         public string Description
         {
@@ -113,7 +123,6 @@ namespace FoodSharing.ViewModels
                 SetProperty(ref isBusy, value);
                 SetProperty(ref isBusy, value, nameof(IsNotBusy));
             }
-
         }
         public bool IsNotBusy
         {

@@ -93,7 +93,7 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException) //only this? TO DO
             {
                 if (MessageExists(message.MessageId))
                 {

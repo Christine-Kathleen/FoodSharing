@@ -18,6 +18,7 @@ namespace FoodSharing.Views
             NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
             var vm = new FromStoreViewModel(Models.TypeOfFood.FromStore);
+            var navigationPage = Application.Current.MainPage as NavigationPage;
             this.BindingContext = vm;
             vm.DisplayNotSupportedOnDevice += () => DisplayAlert("Error", "Location is not supported on this device, please change device. The location will be set as default to Alba Iulia.", "OK");
             vm.DisplayUnableToGetLocation += () => DisplayAlert("Error", "Unable to get location. The location will be set as default to Alba Iulia.", "OK");

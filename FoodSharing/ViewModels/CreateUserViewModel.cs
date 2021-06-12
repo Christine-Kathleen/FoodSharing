@@ -262,7 +262,6 @@ namespace FoodSharing.ViewModels
         {
             await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
-        //TO DO checkbox must be checked 
         protected bool SetProperty<T>(ref T backingStore, T value,
           [CallerMemberName] string propertyName = "",
           Action onChanged = null)
