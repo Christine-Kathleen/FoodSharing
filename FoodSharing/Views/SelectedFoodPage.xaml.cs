@@ -22,6 +22,9 @@ namespace FoodSharing.Pages
             InitializeComponent();
             var navigationPage = Application.Current.MainPage as NavigationPage;
             navigationPage.BarBackgroundColor = Color.FromRgb(51, 153, 137);
+            vm.DisplayErrorOnSending += () => DisplayAlert("Error", "Error on creating! Message was not sent!", "OK");
+            vm.DisplayMessageAlreadySent += () => DisplayAlert("Error", "There is a message with the same id that was been sent! Message was not sent!", "OK");
+            vm.DisplayFatalError += () => DisplayAlert("Error", "Fatal error! Message was not sent!", "OK");
         }
     }
 }

@@ -73,7 +73,7 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnRegisterFailed };
             }
         }
         public async Task SaveUserAsync(ApplicationUser user, bool isNewUser)
@@ -131,7 +131,7 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnUpdate };
             }
         }
         public async Task<Response> UpdateUserAsync(UpdateUserModel model)
@@ -158,7 +158,7 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnUpdate };
             }
         }
 
@@ -186,7 +186,7 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnDeletion };
             }
         }
 
@@ -259,7 +259,7 @@ namespace FoodSharing.Services
                 {
                     response = await client.PutAsync(uri, content);
                 }
-                string jsonresponse = await response.Content.ReadAsStringAsync();
+                string jsonresponse = await response.Content.ReadAsStringAsync();                
                 Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
@@ -271,7 +271,7 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnCreating };
             }
         }
 
@@ -295,7 +295,7 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnDeletion };
             }
         }
        // public List<Review> Reviews { get; set; }
@@ -353,7 +353,7 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnCreating };
             }
         }
         //public List<Message> Messages { get; set; }
@@ -414,7 +414,33 @@ namespace FoodSharing.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
-                return null;
+                return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnCreating };
+            }
+        }
+        public async Task<Response> UpdateMessageAsync(int id)
+        {
+            Uri uri = new Uri(string.Format(Constants.MessageUrl,  id));
+
+            try
+            {
+                //StringContent content = new StringContent("[]", Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
+                HttpResponseMessage response = null;
+                response = await client.PatchAsync(uri, null);
+
+                string jsonresponse = await response.Content.ReadAsStringAsync();
+                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine(@"\food successfully saved.");
+                }
+                return response2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(@"\tERROR {0}", ex.Message);
+                return new Response() {  Status=Constants.Status.Error, Message=Constants.APIMessages.ErrorOnUpdate};
             }
         }
     }    

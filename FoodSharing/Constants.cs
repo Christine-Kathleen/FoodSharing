@@ -19,6 +19,11 @@ namespace FoodSharing
         public static string ReviewUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Reviews/{0}" : "http://localhost:44318/api/Reviews/{0}";
         public static string MessageUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://foodsharingmobile.azurewebsites.net/api/Messages/{0}" : "http://localhost:44318/api/Messages/{0}";
 
+        public static string connectionString = "DefaultEndpointsProtocol=https;" +
+                                                "AccountName=foodsharingimages;" +
+                                                "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
+                                                "EndpointSuffix=core.windows.net";
+
         public enum APIMessages
         {
             ErrorRegisterName,
@@ -30,7 +35,8 @@ namespace FoodSharing
             ErrorAlreadyExists,
             ErrorOnPasswordChange, 
             ErrorOnPasswordCheck,
-            ErrorOnUpdate
+            ErrorOnUpdate,
+            ErrorOnNotFound
 
         }
         public enum Status

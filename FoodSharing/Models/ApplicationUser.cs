@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using Xamarin.Essentials;
 using FoodSharing.Models;
 using FoodSharing.Services;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace FoodSharing.Models
 {
@@ -29,5 +31,8 @@ namespace FoodSharing.Models
 
         public double UserLocLatitude { get; set; }
         public double UserLocLongitude { get; set; }
+        [NotMapped]
+        public bool HasUnseenMessages { get; set; } 
+
     }
 }

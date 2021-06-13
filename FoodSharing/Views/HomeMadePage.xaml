@@ -10,7 +10,7 @@
                 <ColumnDefinition Width="400" />
             </Grid.ColumnDefinitions>
             <CollectionView ItemsSource="{Binding Foods }" 
-                            SelectionMode="Single"
+                            SelectionMode="Single" VerticalScrollBarVisibility="Always"
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

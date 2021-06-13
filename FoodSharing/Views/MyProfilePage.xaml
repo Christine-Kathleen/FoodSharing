@@ -46,14 +46,14 @@
                 </StackLayout>
                 </Frame>
                 <Button Command="{Binding UpdateProfileCommand}" Text="Update profile" 
-                        TextColor="#2B2C28" BackgroundColor="#FFFAFB" IsEnabled="{Binding IsNotBusy}" 
+                        TextColor="#2B2C28" BackgroundColor="#339989" IsEnabled="{Binding IsNotBusy}" 
                         FontAttributes="Bold" FontSize="17" HorizontalOptions="Center" Margin="20,0,20,0"  VerticalOptions="Center" 
-                        Grid.Column="0" Grid.Row="3" Opacity="0.9" BorderWidth="4" BorderColor="#339989" CornerRadius="8"/>
+                        Grid.Column="0" Grid.Row="3" CornerRadius="8"/>
                 <Label Text="Your announcements:" TextDecorations="Underline" Grid.Column="0" Grid.Row="5" 
                        TextColor="#2B2C28" FontAttributes="Bold" FontSize="Large" Margin="20,20,100,20"/>
                 <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="6"
                             SelectionMode="Single" HeightRequest="340" EmptyView="There are no announcements for this user" 
-                            SelectedItem="{Binding SelectedFood}" 
+                            SelectedItem="{Binding SelectedFood}" VerticalScrollBarVisibility="Always"
                             SelectionChangedCommand="{Binding SelectedChangedFood}" 
                             Margin="20,0,20,0">
                     <CollectionView.ItemTemplate>

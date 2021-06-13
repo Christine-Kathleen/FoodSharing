@@ -92,19 +92,21 @@ namespace FoodSharing.ViewModels
             
         }
         bool isBusy = false;
+        bool isNotBusy = true;
         public bool IsBusy
         {
             get { return isBusy; }
             set
             {
                 SetProperty(ref isBusy, value);
-                SetProperty(ref isBusy, value, nameof(IsNotBusy));
+                IsNotBusy = !value;
             }
 
         }
         public bool IsNotBusy
         {
-            get { return !IsBusy; }
+            get { return isNotBusy; }
+            set { SetProperty(ref isNotBusy, value); }
         }
         public async void OnCreateProduct()
         {
@@ -124,10 +126,7 @@ namespace FoodSharing.ViewModels
             else
             {
                 IsBusy = true;
-                string connectionString = "DefaultEndpointsProtocol=https;" +
-                    "AccountName=foodsharingimages;" +
-                    "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
-                    "EndpointSuffix=core.windows.net";
+                string connectionString = Constants.connectionString;
                 BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
                 string containerName = "foodpicsblobs";
                 BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
@@ -143,6 +142,7 @@ namespace FoodSharing.ViewModels
                     ImageUrl = fileURL,
                     Name = FoodName,
                     Details = FoodDetails,
+                    AnnouncementAvailability = Availability.Available,
                     FoodType = (TypeOfFood)Enum.Parse(typeof(TypeOfFood),
                     (string)TypeSelection),
                     UserID = user.Id,
@@ -153,6 +153,7 @@ namespace FoodSharing.ViewModels
                     case Constants.Status.Error:
                         {
                             DisplayFatalError();
+                            IsBusy = false;
                             break;
                         }
                     case Constants.Status.Success:
@@ -166,6 +167,7 @@ namespace FoodSharing.ViewModels
                     default:
                         {
                             DisplayFatalError();
+                            IsBusy = false;
                             break;
                         }
                 }

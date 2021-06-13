@@ -1,7 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:FoodSharing.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FoodSharing.Views.CommunicatePage" BackgroundColor="#474545">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#339989" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
     <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="490" />
@@ -11,34 +28,34 @@
                 <ColumnDefinition Width="270" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-        <CollectionView ItemsSource="{Binding Messages }" BackgroundColor="#FFFAFB">
+        <CollectionView ItemsSource="{Binding Messages }" Grid.Row="0" Grid.Column="0" BackgroundColor="#2B2C28" ItemsUpdatingScrollMode="KeepLastItemInView" VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="0">
-                            <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
+                <DataTemplate>
+                    <Grid Padding="0">
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding SelectedUser}" TextColor="#2B2C28" FontSize="18" HorizontalTextAlignment="Center"/> <!--TO DO selected username-->
-                        <Label Grid.Column="0" Grid.Row="1" TextColor="#2B2C28" Background="#339989"
-                           HorizontalTextAlignment="Start" Padding="6"
-                           Margin="10,20,0,0" FontSize="Medium"
-                           Text="{Binding SentContent}" />
-                        <Label Grid.Column="1" Grid.Row="1" TextColor="#2B2C28" Background="#339989"
-                           HorizontalTextAlignment="End" Padding="6"
-                           Margin="10,20,0,0" FontSize="Medium"
-                           Text="{Binding ReceivedContent}" />
+                        <Frame
+                            HorizontalOptions="{Binding MessageAlignment}"
+                            CornerRadius="15"
+                            Padding="6" 
+                            BackgroundColor="{Binding ColorOfMessage}"
+                            Margin="20,10,15,10" 
+                            HasShadow="False">
+                            <Label TextColor="#2B2C28" BackgroundColor="{Binding ColorOfMessage}" TextTransform="None" 
+                            Padding="6"
+                            FontSize="Medium"
+                            Text="{Binding Content}">
+                            </Label>
+                        </Frame>
                     </Grid>
-                    </DataTemplate>
+                </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         <Editor Grid.Row="1" Grid.Column="0" Placeholder="Type your message"
                 Keyboard="Chat" MaxLength="450" Text="{Binding TextToSend}"  
                 HorizontalOptions="FillAndExpand" PlaceholderColor="#FFFAFB"
-                Margin="10,0,90,0" TextColor="#2B2C28" 
+                Margin="10,0,90,0" TextColor="#FFFAFB" 
                 FontSize="Medium" AutoSize="Disabled" />
         <Button Text="Send" Grid.Row="1"
                                    Grid.Column="0" FontSize="Medium" Command="{Binding SendMessageCommand}" 
@@ -46,11 +63,11 @@
                                    BackgroundColor="#339989" CornerRadius="8" 
                                    Margin="0,0,0,8" TextColor="#FFFAFB"
                                    FontAttributes="Bold" />
-        <CollectionView ItemsSource="{Binding Users }" SelectionMode="Single" Grid.Row="0"  Grid.Column="1" Margin="0,0,0,10"
-                            SelectedItem="{Binding SelectedUser}" SelectionChangedCommand="{Binding SelectedUser}">
+        <CollectionView ItemsSource="{Binding Users }" SelectionMode="Single" Grid.Row="0"  Grid.Column="1" Margin="0,0,0,10" VerticalScrollBarVisibility="Always"
+                            SelectedItem="{Binding SelectedUser}"  SelectionChangedCommand="{Binding UserClickedCommand}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                    <Grid Padding="0" Background="#474545" >
+                <DataTemplate>
+                    <Grid Padding="0">
                             <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
@@ -58,12 +75,12 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" TextColor="#FFFAFB" TextDecorations="Underline"
-                           HorizontalTextAlignment="Start" 
-                           Margin="10,20,0,10" FontSize="Medium"
+                        <Label Grid.Column="0" TextColor="{Binding ChangeTextColor}"
+                           HorizontalTextAlignment="Center" 
+                           Margin="40,10,20,10" FontSize="Medium"
                            Text="{Binding UserName}"
                            FontAttributes="Bold" />
-                        <Image Grid.Column="1" HorizontalOptions="End"  HeightRequest="30" WidthRequest="30" Source="newmess.png" IsVisible="{Binding NewMessage}"/>
+                        <Image Grid.Column="1" HorizontalOptions="End"  HeightRequest="30" WidthRequest="30" Source="newmess.png" IsVisible="{Binding HasUnseenMessages}"/>
                     </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

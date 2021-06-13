@@ -182,11 +182,7 @@ namespace FoodSharing.ViewModels
             selectedFood.Name = Name;
             if (IsImageChanged)
             {
-                string connectionString = "DefaultEndpointsProtocol=https;" +
-                    "AccountName=foodsharingimages;" +
-                    "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
-                    "EndpointSuffix=core.windows.net";
-                
+                string connectionString = Constants.connectionString;
                 BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
                 string containerName = "foodpicsblobs";
                 BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);

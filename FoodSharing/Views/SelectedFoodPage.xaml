@@ -36,8 +36,8 @@
                        Text="{Binding UserName}" CornerRadius="8"/>
                 <Label Grid.Row="4" TextColor="#2B2C28" Text="Message the user:" TextDecorations="None"
                        HorizontalOptions="Start" FontSize="Large" Margin="20,20,20,20" />
-                <Editor Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,0,210,20" 
-                        TextColor="#2B2C28" FontSize="Medium" AutoSize="Disabled" />
+                <Editor Grid.Row="5"  Keyboard="Chat" MaxLength="500" Margin="20,0,210,20" Placeholder="Type your message"
+                        TextColor="#2B2C28" FontSize="Medium" AutoSize="Disabled" Text="{Binding TextToSend}" />
             <Button Grid.Row="5" FontSize="15"
                        Command="{Binding SendMessageCommand}"
                        BackgroundColor="#339989" CornerRadius="8" 

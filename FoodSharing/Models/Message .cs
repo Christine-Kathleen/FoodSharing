@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using System.Text;
+using Xamarin.Forms;
 
 namespace FoodSharing.Models
 {
@@ -31,6 +34,10 @@ namespace FoodSharing.Models
 
         [Required(ErrorMessage = "Must have a message state")]
         public MessageState State { get; set; }
+        [NotMapped]
+        public System.Drawing.Color ColorOfMessage { get; set; }
+        [NotMapped]
+        public LayoutOptions MessageAlignment { get; set; }
     }
     public enum MessageState
     {

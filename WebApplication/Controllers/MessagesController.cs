@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
         [HttpGet("{userId}")]
         public async Task<ActionResult<IEnumerable<Message>>> GetMessages(string userId)
         {
-            return await _context.Messages.OrderByDescending(x => x.SendTime).Where(x => x.ReceiverUserId == userId || x.SenderUserId == userId).
+            return await _context.Messages.OrderBy(x => x.SendTime).Where(x => x.ReceiverUserId == userId || x.SenderUserId == userId).
           Join(_context.Users,
                 msg => msg.ReceiverUserId,
                 user => user.Id,
@@ -78,10 +78,6 @@ namespace WebAPI.Controllers
           ).ToListAsync();
         }
 
-
-
-
-
         // POST: api/Messages
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -93,7 +89,7 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException) //only this? TO DO
+            catch (DbUpdateException)
             {
                 if (MessageExists(message.MessageId))
                 {
@@ -118,7 +114,7 @@ namespace WebAPI.Controllers
             var message = await _context.Messages.FindAsync(id);
             if (message == null)
             {
-                return NotFound();
+                  return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnNotFound });
             }
 
             _context.Messages.Remove(message);
@@ -134,9 +130,34 @@ namespace WebAPI.Controllers
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateMessage(int id)
+        {
+            var message = await _context.Messages.FindAsync(id);
+            if (message == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnNotFound });
+            }
+
+            message.State = MessageState.Seen;
+            _context.Entry(message).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnUpdate });
+            }
+
+            return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
+        }
         private bool MessageExists(int id)
         {
             return _context.Messages.Any(e => e.MessageId == id);
         }
+
+
     }
 }

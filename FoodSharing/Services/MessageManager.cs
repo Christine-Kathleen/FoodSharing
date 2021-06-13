@@ -23,6 +23,10 @@ namespace FoodSharing.Services
         {
             return restService.SaveMessageAsync(message, true);
         }
+        public Task<Response> UpdateMessageAsync(int id)
+        {
+            return restService.UpdateMessageAsync(id);
+        }
     }
 }
 

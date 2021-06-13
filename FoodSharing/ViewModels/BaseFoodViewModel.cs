@@ -15,7 +15,7 @@ using System;
 
 namespace FoodSharing.ViewModels
 {
-    public class BaseFoodViewModel
+    public class BaseFoodViewModel : INotifyPropertyChanged
     {
         public ICommand AddCommand { get; set; }
         public ICommand SelectedChangedFood { get; set; }
@@ -50,15 +50,16 @@ namespace FoodSharing.ViewModels
         {
             
             Task<Location> t = GetCurrentLocation();
-
+            user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             Task continuationTask = t.ContinueWith((GetCurrentLocation) => {
                 if (user != null && t.Result != null)
                 {
                     user.UserLocLatitude = t.Result.Latitude;
                     user.UserLocLongitude = t.Result.Longitude;
+                    Preferences.Set("UserLocLat", JsonConvert.SerializeObject(user.UserLocLatitude));
+                    Preferences.Set("UserLocLong", JsonConvert.SerializeObject(user.UserLocLongitude));
                 }
-            });
-            user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
+            });           
             FoodType = type;
             AddCommand = new Command(OnAdd);
             SelectedChangedFood = new Command(OnSelectedFood);
@@ -71,10 +72,7 @@ namespace FoodSharing.ViewModels
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
             List<Food> listFoods = await myFoodManager.GetFoodsAsync();
-            string connectionString = "DefaultEndpointsProtocol=https;" +
-                "AccountName=foodsharingimages;" +
-                "AccountKey=ONGnTrShMj4G6r2baZ6QcD/zRSzSl9TgCx6lkXfQYzvK4DKUTbrwHNCw4v0F+2aKQMOpCsNEV4tFJ7N5zb6Ocw==;" +
-                "EndpointSuffix=core.windows.net";
+            string connectionString = Constants.connectionString;
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             string containerName = "foodpicsblobs";
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
@@ -112,11 +110,7 @@ namespace FoodSharing.ViewModels
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
                 cts = new CancellationTokenSource();
                 location = await Geolocation.GetLocationAsync(request, cts.Token);
-//TO DO Del?
-                //if (location != null)
-                //{
-                      //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                //}
+
             }
             catch (FeatureNotSupportedException)
             {

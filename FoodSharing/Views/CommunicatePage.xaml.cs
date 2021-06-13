@@ -21,8 +21,10 @@ namespace FoodSharing.Views
             var navigationPage = Application.Current.MainPage as NavigationPage;
             vm.DisplayErrorOnSending += () => DisplayAlert("Error", "Error on creating! Message was not sent!", "OK");
             vm.DisplayMessageAlreadySent += () => DisplayAlert("Error", "There is a message with the same id that was been sent! Message was not sent!", "OK");
+            vm.DisplayMessageNotFound += () => DisplayAlert("Error", "On Update, the message was not found!", "OK");
+            vm.DisplayErrorOnUpdate += () => DisplayAlert("Error", "There was an error updating the message!", "OK");
             vm.DisplayFatalError += () => DisplayAlert("Error", "Fatal error! Message was not sent!", "OK");
-
+            
             InitializeComponent();
         }
         protected override bool OnBackButtonPressed()

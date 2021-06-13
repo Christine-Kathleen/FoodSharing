@@ -23,23 +23,24 @@ namespace FoodSharing.ViewModels
         public Action DisplayApplicationError;
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private Regex regexemail = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
         private string username = "cristina";
         private string password = "Password@1234";
         bool isBusy = false;
+        bool isNotBusy = true;
         public bool IsBusy
         {
             get { return isBusy; }
             set
             {
                 SetProperty(ref isBusy, value);
-                SetProperty(ref isBusy, value, nameof(IsNotBusy));
+                IsNotBusy = !value;
             }
 
         }
         public bool IsNotBusy
         {
-            get { return !IsBusy; }
+            get { return isNotBusy; }
+            set { SetProperty(ref isNotBusy, value); }
         }
        // private string username;
         public string Username

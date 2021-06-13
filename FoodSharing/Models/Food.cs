@@ -42,6 +42,7 @@ namespace FoodSharing.Models
         public ApplicationUser User { get; set; }
         [Required]
         public string UserID { get; set; }
+        public Availability AnnouncementAvailability { get; set; }
 
         private ImageSource imageSource;
 
@@ -56,7 +57,12 @@ namespace FoodSharing.Models
             }
         }
     }
-
+    public enum Availability
+    {
+        Available = 0,
+        Reserved = 1,
+        Unavailable = 2
+    }
     public enum TypeOfFood
     {
         FromStore = 0,
