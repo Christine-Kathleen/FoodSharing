@@ -18,7 +18,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Text="About user" TextDecorations="Underline" Margin="20,20,220,10" HorizontalTextAlignment="Start"
+                <Label Text="About user" TextDecorations="Underline" Margin="20,20,20,10" HorizontalTextAlignment="Start"
                        FontSize="25" TextColor="#2B2C28" Grid.Column="0" Grid.Row="0" FontAttributes="Bold" />
                 <Frame BackgroundColor="Transparent"  HasShadow="False" Grid.Column="0" Grid.Row="1">
                     <StackLayout Orientation="Vertical" Spacing="5" Opacity="0.9">
@@ -33,7 +33,7 @@
                     </StackLayout>
                 </Frame>
                 <Label Text="Donations:" TextDecorations="Underline" Opacity="0.9" Grid.Column="0" Grid.Row="2" TextColor="#2B2C28" 
-                       FontAttributes="Bold" FontSize="Large" Margin="20,10,230,20"/>
+                       FontAttributes="Bold" FontSize="Large" Margin="20,10,20,20"/>
                 <CollectionView ItemsSource="{Binding Foods }" Grid.Column="0" Grid.Row="3" VerticalScrollBarVisibility="Always"
                             SelectionMode="Single" HeightRequest="200" EmptyView="There are no announcements posted by this user" 
                             SelectedItem="{Binding SelectedFood}" SelectionChangedCommand="{Binding SelectedChangedFood}" Margin="20,0,20,0">
@@ -70,7 +70,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <Label Text="Reviews:" TextDecorations="Underline" Grid.Column="0" Grid.Row="4" TextColor="#2B2C28" 
-                       FontAttributes="Bold" FontSize="Large" Margin="20,10,270,0"/>
+                       FontAttributes="Bold" FontSize="Large" Margin="20,10,20,0"/>
                 <CollectionView ItemsSource="{Binding Reviews }" VerticalScrollBarVisibility="Always" Grid.Column="0" HeightRequest="200"
                                 Grid.Row="5" Margin="20,10,20,20" EmptyView="There are no reviews for this user"  >
                     <CollectionView.ItemTemplate>

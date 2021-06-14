@@ -132,7 +132,7 @@ namespace FoodSharing.ViewModels
             set { SetProperty(ref isNotBusy, value); }
         }
 
-        private ApplicationUser reviewedUser;
+        private readonly ApplicationUser reviewedUser;
         public PublicProfileViewModel(ApplicationUser user)
         {
             reviewedUser = user;
@@ -169,7 +169,9 @@ namespace FoodSharing.ViewModels
                 var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
                 RestService restSevice = new RestService();
                 ReviewManager myReviewManager = new ReviewManager(restSevice);
-                Response response = await myReviewManager.SaveReviewAsync(new Review { ReviewContent = Review, ReviewerUserId = user.Id, ReviewedUserId=reviewedUser.Id });
+                Response response = await myReviewManager.SaveReviewAsync(new Review { 
+                    ReviewContent = Review, ReviewerUserId = user.Id, ReviewedUserId=reviewedUser.Id 
+                });
                 switch (response.Status)
                 {
                     case Constants.Status.Error:

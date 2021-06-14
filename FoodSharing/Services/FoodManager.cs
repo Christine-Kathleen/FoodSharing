@@ -8,7 +8,7 @@ namespace FoodSharing.Services
 {
     public class FoodManager
     {
-        IRestService restService;
+        readonly IRestService restService;
 
         public FoodManager(IRestService service)
         {

@@ -80,7 +80,7 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("TakePhoto"));
             }
         }
-        private Task<Location> GetLoc;
+        private readonly Task<Location> GetLoc;
         public AddFoodViewModel()
         {
             CreateProductCommand = new Command(OnCreateProduct);

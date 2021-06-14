@@ -146,9 +146,11 @@ namespace FoodSharing.ViewModels
             var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             if (user != null)
             {
-                UpdateUserModel model = new UpdateUserModel();
-                model.UserId = user.Id;
-                model.Description = Description;
+                UpdateUserModel model = new UpdateUserModel
+                {
+                    UserId = user.Id,
+                    Description = Description
+                };
                 RestService restSevice = new RestService();
                 UserManager myUserManager = new UserManager(restSevice);
                 Response response = await myUserManager.UpdateUserAsync(model);

@@ -15,8 +15,8 @@ namespace FoodSharing.Services
 {
     public class RestService : IRestService
     {
-        HttpClient client;
-        JsonSerializerOptions serializerOptions;
+        readonly HttpClient client;
+        readonly JsonSerializerOptions serializerOptions;
         public string BearerToken => Preferences.Get("BearerToken", string.Empty);
         public RestService()
         {
@@ -43,7 +43,7 @@ namespace FoodSharing.Services
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     string content2 = await responseMessage.Content.ReadAsStringAsync();
-                    user = System.Text.Json.JsonSerializer.Deserialize<ApplicationUser>(content2, serializerOptions);
+                    user = JsonSerializer.Deserialize<ApplicationUser>(content2, serializerOptions);
                 }
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace FoodSharing.Services
                 HttpResponseMessage response = null;
                 response = await client.PostAsync(uri, content);
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
                 if (response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine(@"\user successfully created.");
@@ -120,7 +120,7 @@ namespace FoodSharing.Services
                 HttpResponseMessage response = null;
                 response = await client.PatchAsync(uri, content);
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -147,7 +147,7 @@ namespace FoodSharing.Services
                 HttpResponseMessage response = null;
                 response = await client.PatchAsync(uri, content);
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -165,8 +165,10 @@ namespace FoodSharing.Services
         public async Task<Response> DeleteUserAsync(string id)
         {
             Uri uri = new Uri(string.Format(Constants.DeleteUserUrl));
-            DeleteUserModel userModel = new DeleteUserModel();
-            userModel.UserId = id;
+            DeleteUserModel userModel = new DeleteUserModel
+            {
+                UserId = id
+            };
 
             try
             {
@@ -175,7 +177,7 @@ namespace FoodSharing.Services
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = await client.PostAsync(uri, content);
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -228,7 +230,7 @@ namespace FoodSharing.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    Foods = System.Text.Json.JsonSerializer.Deserialize<List<Food>>(content, serializerOptions);
+                    Foods = JsonSerializer.Deserialize<List<Food>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
@@ -260,7 +262,7 @@ namespace FoodSharing.Services
                     response = await client.PutAsync(uri, content);
                 }
                 string jsonresponse = await response.Content.ReadAsStringAsync();                
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -284,7 +286,7 @@ namespace FoodSharing.Services
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = await client.DeleteAsync(uri);
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -298,7 +300,6 @@ namespace FoodSharing.Services
                 return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnDeletion };
             }
         }
-       // public List<Review> Reviews { get; set; }
 
         public async Task<List<Review>> RefreshReviewDataAsync(string ReviewedUserId)
         {
@@ -313,7 +314,7 @@ namespace FoodSharing.Services
                 {
                     string content = await response.Content.ReadAsStringAsync();
                     if (!string.IsNullOrEmpty(content))
-                        Reviews = System.Text.Json.JsonSerializer.Deserialize<List<Review>>(content, serializerOptions);
+                        Reviews = JsonSerializer.Deserialize<List<Review>>(content, serializerOptions);
                 }
             }
             catch (Exception ex)
@@ -342,7 +343,7 @@ namespace FoodSharing.Services
                     response = await client.PutAsync(uri, content);
                 }
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -356,7 +357,6 @@ namespace FoodSharing.Services
                 return new Response() { Status = Constants.Status.Error, Message = Constants.APIMessages.ErrorOnCreating };
             }
         }
-        //public List<Message> Messages { get; set; }
 
         public async Task<List<Message>> RefreshMessageDataAsync(string UserId)
         {
@@ -372,7 +372,7 @@ namespace FoodSharing.Services
                     string content = await response.Content.ReadAsStringAsync();
                     if (!string.IsNullOrEmpty(content))
                     {
-                        Messages = System.Text.Json.JsonSerializer.Deserialize<List<Message>>(content, serializerOptions);
+                        Messages = JsonSerializer.Deserialize<List<Message>>(content, serializerOptions);
                     }
                 }
             }
@@ -403,7 +403,7 @@ namespace FoodSharing.Services
                     response = await client.PutAsync(uri, content);
                 }
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -429,7 +429,7 @@ namespace FoodSharing.Services
                 response = await client.PatchAsync(uri, null);
 
                 string jsonresponse = await response.Content.ReadAsStringAsync();
-                Response response2 = System.Text.Json.JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
+                Response response2 = JsonSerializer.Deserialize<Response>(jsonresponse, serializerOptions);
 
                 if (response.IsSuccessStatusCode)
                 {

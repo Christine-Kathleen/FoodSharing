@@ -58,7 +58,6 @@ namespace WebAPI.Controllers
             }).ToListAsync();
         }
 
-        // GET: api/Foods/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Food>> GetFood(string id)
         {
@@ -72,8 +71,6 @@ namespace WebAPI.Controllers
             return food;
         }
 
-        // PUT: api/Foods/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFood(int id, Food food)
         {
@@ -96,8 +93,6 @@ namespace WebAPI.Controllers
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
-        // POST: api/Foods
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<IActionResult> PostFood(Food food)
         {
@@ -106,7 +101,7 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
                 if (FoodExists(food.FoodId))
                 {
@@ -122,29 +117,8 @@ namespace WebAPI.Controllers
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
-        //[HttpPatch]
-        //[Route("UpdateFood")]
-        //[Authorize]
-        //public async Task<ActionResult<Food>> UpdateFood(Food food)
-        //{
-        //    _context.Foods.Add(food);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = Status.Error, Message = APIMessages.ErrorOnDeletion });
-        //    }
-
-        //    return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
-
-        //    return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
-        //}
-
         // DELETE: api/Foods/5
         [HttpDelete("{id}")]
-        //[Route("DeleteFood")]
         public async Task<IActionResult> DeleteFood(int id)
         {
             var food = await _context.Foods.FindAsync(id);

@@ -24,36 +24,6 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
-        //// GET: api/Reviews
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
-        //{
-        //    return await _context.Reviews.OrderBy(x => x.SendTime).
-        //   Join(_context.Users, u => u.ReviewerUserId, uir => uir.Id,
-        //   (u, uir) => new { u, uir }).Select(m => new Review
-        //   {
-        //       ReviewerId = new ApplicationUser()
-        //       {
-        //           UserName = m.uir.UserName,
-        //           PasswordHash = "",
-        //           ConcurrencyStamp = "",
-        //           SecurityStamp = "",
-        //           PhoneNumber = m.uir.PhoneNumber,
-        //           Email = m.uir.Email,
-        //           UserLocLatitude = m.uir.UserLocLatitude,
-        //           UserLocLongitude = m.uir.UserLocLongitude
-        //       },
-        //       ReviewContent = m.u.ReviewContent,
-        //       SendTime = m.u.SendTime,
-        //       ReviewId = m.u.ReviewId,
-        //       ReviewerUserId = m.u.ReviewerUserId,
-        //       ReviewedUserId=m.u.ReviewedUserId
-        //   }
-        //   )
-        //   .ToListAsync();
-        //}
-
-        // GET: api/Reviews/5
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Review>>> GetReview(string id)
         {
@@ -86,8 +56,6 @@ namespace WebAPI.Controllers
             return review;
         }
 
-        // PUT: api/Reviews/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReview(int id, Review review)
         {
@@ -117,8 +85,6 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Reviews
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Review>> PostReview(Review review)
         {
@@ -127,7 +93,7 @@ namespace WebAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException ex)
+            catch (DbUpdateException)
             {
                 if (ReviewExists(review.ReviewId))
                 {
@@ -143,7 +109,6 @@ namespace WebAPI.Controllers
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
-        // DELETE: api/Reviews/5
         [HttpPost]
         [Route("DeleteReview")]
         public async Task<IActionResult> DeleteReview(int id)

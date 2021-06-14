@@ -33,13 +33,12 @@ namespace FoodSharing.ViewModels
         public Action DisplayPasswordHasNoUpperCase;
         public Action DisplayPasswordHasNoNonalphanumeric;
         public Action DisplayPasswordHasNoOneUniqueCharacter;
-        private Regex regexTelephoneNr = new Regex(@"^07\d{8}$");
-        private Regex regexPasswordHasNumber = new Regex("[0-9]+");
-        private Regex regexPasswordHasMinLength = new Regex("^.{6,}$");
-        private Regex regexPasswordHasLowerCase = new Regex("[a-z]");
-        private Regex regexPasswordHasUpperCase = new Regex("[A-Z]");
-        private Regex regexPasswordHasNonalphanumeric = new Regex(@"\W");
-        private Regex regexPasswordHasOneUniqueCharacter = new Regex(@"(.)(?<!\1.+)(?!.*\1)");
+        private readonly Regex regexPasswordHasNumber = new Regex("[0-9]+");
+        private readonly Regex regexPasswordHasMinLength = new Regex("^.{6,}$");
+        private readonly Regex regexPasswordHasLowerCase = new Regex("[a-z]");
+        private readonly Regex regexPasswordHasUpperCase = new Regex("[A-Z]");
+        private readonly Regex regexPasswordHasNonalphanumeric = new Regex(@"\W");
+        private readonly Regex regexPasswordHasOneUniqueCharacter = new Regex(@"(.)(?<!\1.+)(?!.*\1)");
         private string newPassword;
         public string NewPassword
         {
@@ -64,8 +63,6 @@ namespace FoodSharing.ViewModels
         public ICommand BackToMainPageCommand { protected set; get; }
         public ICommand DeleteAccountCommand { protected set; get; }
         public ICommand PasswordChangeCommand { protected set; get; }
-
-
 
         public UserSettingsViewModel()
         {
@@ -165,10 +162,12 @@ namespace FoodSharing.ViewModels
                 var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
                 if (user != null)
                 {
-                    UpdatePasswordModel model = new UpdatePasswordModel();
-                    model.UserId = user.Id;
-                    model.Password = Password;
-                    model.NewPassword = NewPassword;
+                    UpdatePasswordModel model = new UpdatePasswordModel
+                    {
+                        UserId = user.Id,
+                        Password = Password,
+                        NewPassword = NewPassword
+                    };
                     RestService restSevice = new RestService();
                     UserManager myUserManager = new UserManager(restSevice);
                     Response response = await myUserManager.UpdatePassword(model);

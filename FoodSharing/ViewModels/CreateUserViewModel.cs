@@ -34,14 +34,14 @@ namespace FoodSharing.ViewModels
         public Action DisplayPasswordHasNoNonalphanumeric;
         public Action DisplayPasswordHasNoOneUniqueCharacter;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private Regex regexTelephoneNr = new Regex(@"^07\d{8}$");
-        private Regex regexEmail = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
-        private Regex regexPasswordHasNumber = new Regex("[0-9]+");
-        private Regex regexPasswordHasMinLength = new Regex("^.{6,}$");
-        private Regex regexPasswordHasLowerCase = new Regex("[a-z]");
-        private Regex regexPasswordHasUpperCase = new Regex("[A-Z]");
-        private Regex regexPasswordHasNonalphanumeric = new Regex(@"\W");
-        private Regex regexPasswordHasOneUniqueCharacter = new Regex(@"(.)(?<!\1.+)(?!.*\1)");
+        private readonly Regex regexTelephoneNr = new Regex(@"^07\d{8}$");
+        private readonly Regex regexEmail = new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
+        private readonly Regex regexPasswordHasNumber = new Regex("[0-9]+");
+        private readonly Regex regexPasswordHasMinLength = new Regex("^.{6,}$");
+        private readonly Regex regexPasswordHasLowerCase = new Regex("[a-z]");
+        private readonly Regex regexPasswordHasUpperCase = new Regex("[A-Z]");
+        private readonly Regex regexPasswordHasNonalphanumeric = new Regex(@"\W");
+        private readonly Regex regexPasswordHasOneUniqueCharacter = new Regex(@"(.)(?<!\1.+)(?!.*\1)");
         bool agreeOnTerms;
         public bool AgreeOnTerms
         {
@@ -216,7 +216,10 @@ namespace FoodSharing.ViewModels
             {
                 RestService restSevice = new RestService();
                 UserManager myUserManager = new UserManager(restSevice);
-                Response response = await myUserManager.RegisterUserAsync(new RegisterModel { Email = Email, FirstName = FirstName, LastName = LastName, UserName = Username, Telephone = Telephone, Password = Password });
+                Response response = await myUserManager.RegisterUserAsync(new RegisterModel { 
+                    Email = Email, FirstName = FirstName, LastName = LastName, UserName = Username, 
+                    Telephone = Telephone, Password = Password 
+                });
                 switch (response.Status)
                 {
                     case Constants.Status.Error:

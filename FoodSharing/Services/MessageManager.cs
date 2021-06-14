@@ -8,7 +8,7 @@ namespace FoodSharing.Services
 {
     public class MessageManager
     {
-        IRestService restService;
+        readonly IRestService restService;
 
         public MessageManager(IRestService service)
         {

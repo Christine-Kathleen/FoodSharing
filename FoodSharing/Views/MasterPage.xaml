@@ -32,7 +32,7 @@
         <Button Text="Logout" FontSize="20" Margin="60,0,60,5" Padding="17" TextTransform="None"
                 CornerRadius="8" TextColor="#2B2C28" BorderColor="#339989" BorderWidth="3" Opacity="0.9"
                 BackgroundColor="#FFFAFB" Grid.Row="5" Grid.Column="0" Command="{Binding LogoutCommand}" />
-        <Button Text="Help Food Sharing" FontSize="25" Margin="40,90,40,10" Padding="17" CornerRadius="8"
+        <Button Text="Help Food Sharing" FontSize="25" Margin="40,90,40,10" Padding="5" CornerRadius="8"
                 TextTransform="None" FontAttributes="Bold" HeightRequest="70" BackgroundColor="#339989" Opacity="0.9"
                 VerticalOptions="End" TextColor="#FFFAFB"  Grid.Row="6" Grid.Column="0" Command="{Binding HelpGrowCommand}"/>
     </Grid>

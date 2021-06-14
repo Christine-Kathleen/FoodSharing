@@ -9,7 +9,7 @@ namespace FoodSharing.Services
 {
     public class UserManager
     {
-        IRestService restService;
+        readonly IRestService restService;
 
         public UserManager(IRestService service)
         {

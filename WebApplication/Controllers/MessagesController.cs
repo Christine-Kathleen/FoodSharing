@@ -24,7 +24,6 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Messages
         [HttpGet("{userId}")]
         public async Task<ActionResult<IEnumerable<Message>>> GetMessages(string userId)
         {
@@ -46,12 +45,7 @@ namespace WebAPI.Controllers
                         UserLocLongitude = user.UserLocLongitude,
                         Id = user.Id
                     },
-                    Content = msg.Content,
-                    MessageId = msg.MessageId,
-                    SendTime = msg.SendTime,
-                    State = msg.State,
-                    SenderUserId = msg.SenderUserId,
-                    ReceiverUserId = msg.ReceiverUserId
+                    msg.Content, msg.MessageId, msg.SendTime, msg.State, msg.SenderUserId, msg.ReceiverUserId
                 }).Join(_context.Users, msg => msg.SenderUserId, uir2 => uir2.Id,
           (u, uir2) => new { u, uir2 }).Select(m => new Message
           {
@@ -78,10 +72,7 @@ namespace WebAPI.Controllers
           ).ToListAsync();
         }
 
-        // POST: api/Messages
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-
         public async Task<ActionResult> PostMessage(Message message)
         {
             _context.Messages.Add(message);
@@ -105,7 +96,6 @@ namespace WebAPI.Controllers
             return Ok(new Response { Status = Status.Success, Message = APIMessages.Success });
         }
 
-        // DELETE: api/Messages/5
         [HttpPost]
         [Route("DeleteMessage")]
 
@@ -157,7 +147,5 @@ namespace WebAPI.Controllers
         {
             return _context.Messages.Any(e => e.MessageId == id);
         }
-
-
     }
 }

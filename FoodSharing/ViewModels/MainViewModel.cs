@@ -26,8 +26,6 @@ namespace FoodSharing.ViewModels
         public ICommand AccountSettingsCommand { protected set; get; }
         public ICommand MyGamesCommand { protected set; get; }
         public ICommand GameCategoriesCommand { protected set; get; }
-
-
         public MainViewModel()
         {
             LogOutUserCommand = new Command(OnLogOut);

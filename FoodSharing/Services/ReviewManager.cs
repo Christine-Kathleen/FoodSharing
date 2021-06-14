@@ -9,7 +9,7 @@ namespace FoodSharing.Services
     public class ReviewManager
     {
 
-        IRestService restService;
+        readonly IRestService restService;
 
         public ReviewManager(IRestService service)
         {

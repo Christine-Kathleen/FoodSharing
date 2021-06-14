@@ -168,7 +168,8 @@ namespace FoodSharing.ViewModels
             {
                 RestService restSevice = new RestService();
                 MessageManager myMessageManager = new MessageManager(restSevice);
-                Message newMessage = new Message { Content = TextToSend, SenderUserId = user.Id, ReceiverUserId = donatedfood.UserID, State = MessageState.Sent };
+                Message newMessage = new Message { Content = TextToSend, SenderUserId = user.Id, 
+                    ReceiverUserId = donatedfood.UserID, State = MessageState.Sent };
                 Response response = await myMessageManager.SaveMessageAsync(newMessage);
                 switch (response.Status)
                 {

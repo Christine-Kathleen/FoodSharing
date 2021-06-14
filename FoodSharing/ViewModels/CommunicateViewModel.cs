@@ -19,17 +19,32 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public ICommand UserClickedCommand { get; set; }
         public ICommand SendMessageCommand { protected set; get; }
+        public static void StartTimer(TimeSpan interval, Func<bool> callback)
+        {
+            Device.StartTimer(new TimeSpan(0, 0, 30), () =>
+            {
+
+               // GetMessages();
+                // do something every 30 seconds
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    // interact with UI elements
+                });
+                return true; // runs again, or false to stop
+            });
+        }
+        
         public Action DisplayFatalError;
         public Action DisplayMessageAlreadySent;
         public Action DisplayErrorOnSending;
         public Action DisplayMessageNotFound;
         public Action DisplayErrorOnUpdate;
 
-        System.Drawing.Color ColorOfMessageSent ;
-        System.Drawing.Color ColorOfMessageReceived;
+        readonly System.Drawing.Color ColorOfMessageSent ;
+        readonly System.Drawing.Color ColorOfMessageReceived;
 
-        LayoutOptions AlignmentForMessageSent;
-        LayoutOptions AlignmentForMessageReceived;
+        readonly LayoutOptions AlignmentForMessageSent;
+        readonly LayoutOptions AlignmentForMessageReceived;
 
         private List<Message> AllMessagesReceivedandSentbyUser;
         public ObservableCollection<Message> Messages { get; set; }
@@ -204,12 +219,15 @@ namespace FoodSharing.ViewModels
         }
         public async void OnSendMessageClicked()
         {
-            if (!string.IsNullOrEmpty(TextToSend))
+            if (!string.IsNullOrEmpty(TextToSend) && SelectedUser!=null)
             {
                 IsBusy = true;
                 RestService restSevice = new RestService();
                 MessageManager myMessageManager = new MessageManager(restSevice);
-                Message newMessage = new Message { Content = TextToSend, SenderUserId = user.Id, ReceiverUserId = SelectedUser.Id, State = MessageState.Sent };
+                Message newMessage = new Message { 
+                    Content = TextToSend, SenderUserId = user.Id, ReceiverUserId = SelectedUser.Id, 
+                    State = MessageState.Sent 
+                };
                 Response response = await myMessageManager.SaveMessageAsync(newMessage);
                 switch (response.Status)
                 {

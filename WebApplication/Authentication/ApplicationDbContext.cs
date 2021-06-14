@@ -14,10 +14,7 @@ namespace WebAPI.Authentication
         public DbSet<Food> Foods { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Review>();
@@ -41,39 +38,4 @@ namespace WebAPI.Authentication
             base.OnModelCreating(builder);
         }
     }
-   
-    //public class ReviewDbContext : IdentityDbContext<ApplicationUser>
-    //{
-    //    public DbSet<Review> Reviews { get; set; }
-    //    public ReviewDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    //    {
-
-    //    }
-    //    protected override void OnModelCreating(ModelBuilder reviewBuilder)
-    //    { 
-    //        reviewBuilder.Entity<Review>().HasKey(t => new { t.ReviewId });
-    //        reviewBuilder.Entity<Review>()
-    //        .HasOne(p => p.)
-    //        .WithMany(b => b.)
-    //        .OnDelete(DeleteBehavior.Cascade)
-    //        .HasForeignKey(fd => fd.ReviewedId);
-    //    }
-    //}
-    //public class MessageDbContext : IdentityDbContext<ApplicationUser>
-    //{
-    //    public DbSet<Message> Messages { get; set; }
-    //    public MessageDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    //    {
-
-    //    }
-    //    protected override void OnModelCreating(ModelBuilder messageBuilder)
-    //    {
-    //        messageBuilder.Entity<Message>().HasKey(t => new { t.MessageId });
-    //        messageBuilder.Entity<Message>()
-    //        //.HasOne(p => p.Receiver)
-    //        //.WithOne(b => b.Id)
-    //        //.OnDelete(DeleteBehavior.Cascade);
-    //    }
-    //}
-
 }

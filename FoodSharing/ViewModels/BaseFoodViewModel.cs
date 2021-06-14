@@ -26,7 +26,7 @@ namespace FoodSharing.ViewModels
         public Action DisplayNotEnabledOnDevice;
         public Action DisplayUnableToGetLocation;
 
-        private TypeOfFood FoodType;
+        private readonly TypeOfFood FoodType;
         Food selectedFood;
         public Food SelectedFood
         {
@@ -44,7 +44,7 @@ namespace FoodSharing.ViewModels
             }
         }
 
-        ApplicationUser user;
+        readonly ApplicationUser user;
 
         public BaseFoodViewModel(TypeOfFood type)
         {
