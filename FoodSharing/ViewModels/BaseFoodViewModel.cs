@@ -57,7 +57,8 @@ namespace FoodSharing.ViewModels
                     user.UserLocLatitude = t.Result.Latitude;
                     user.UserLocLongitude = t.Result.Longitude;
                     Preferences.Set("UserLocLat", JsonConvert.SerializeObject(user.UserLocLatitude));
-                    Preferences.Set("UserLocLong", JsonConvert.SerializeObject(user.UserLocLongitude));
+                    Preferences.Set("UserLocLong", JsonConvert.SerializeObject(user.UserLocLongitude)); 
+                    UpdateLocationsOnFoods();
                 }
             });           
             FoodType = type;
@@ -67,6 +68,22 @@ namespace FoodSharing.ViewModels
             GetFoods(FoodType);
         }
 
+
+        public void UpdateLocationsOnFoods()
+        {
+            for (int i = 0; i < Foods.Count; i++)
+            {
+                if (Foods[i].FoodType != FoodType)
+                    continue;
+                Foods[i].SetUserLoc(new Location(user.UserLocLatitude, user.UserLocLongitude));
+            }
+            //foreach (var item in Foods)
+            //{
+            //    if (item.FoodType != FoodType)
+            //        continue;
+            //    item.SetUserLoc(new Location(user.UserLocLatitude, user.UserLocLongitude));
+            //}
+        }
         public async void GetFoods(TypeOfFood foodtype)
         {
             RestService restSevice = new RestService();

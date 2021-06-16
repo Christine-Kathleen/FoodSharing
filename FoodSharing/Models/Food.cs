@@ -28,6 +28,8 @@ namespace FoodSharing.Models
         public void SetUserLoc(Location location)
         {
             userLoc = location;
+            string test = Distance;
+            test = "";
         }
         [Required(ErrorMessage = "Food Name is required")]
         public string Name { get; set; }

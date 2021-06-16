@@ -72,15 +72,16 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0"
-                           HorizontalTextAlignment="Center" TextColor="#FFFAFB"
-                           Margin="40,10,20,10" FontSize="Medium"
-                           Text="{Binding UserName}"
-                           FontAttributes="Bold" />
-                        <Image Grid.Column="1" HorizontalOptions="End"  HeightRequest="30" WidthRequest="30" Source="newmess.png" IsVisible="{Binding HasUnseenMessages}"/>
+                        TextColor="#FFFAFB"
+                        FontSize="Medium"
+                        Margin="0,20,0,20"
+                        Text="{Binding UserName}"
+                        FontAttributes="Bold" />
+                        <Image Grid.Column="1" HeightRequest="30" WidthRequest="30" Source="newmess.png" IsVisible="{Binding HasUnseenMessages}"/>
                     </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

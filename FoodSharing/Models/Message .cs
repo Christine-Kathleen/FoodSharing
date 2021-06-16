@@ -34,6 +34,8 @@ namespace FoodSharing.Models
         public System.Drawing.Color ColorOfMessage { get; set; }
         [NotMapped]
         public LayoutOptions MessageAlignment { get; set; }
+        [NotMapped]
+        public string CompareMessages { get; set; }
     }
     public enum MessageState
     {

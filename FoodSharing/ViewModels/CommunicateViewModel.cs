@@ -11,6 +11,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace FoodSharing.ViewModels
 {
@@ -19,28 +20,23 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public ICommand UserClickedCommand { get; set; }
         public ICommand SendMessageCommand { protected set; get; }
-        public static void StartTimer(TimeSpan interval, Func<bool> callback)
+        public void StartTimer()
         {
             Device.StartTimer(new TimeSpan(0, 0, 30), () =>
             {
-
-               // GetMessages();
                 // do something every 30 seconds
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    // interact with UI elements
-                });
+                UpdateMessages();
                 return true; // runs again, or false to stop
             });
         }
-        
+
         public Action DisplayFatalError;
         public Action DisplayMessageAlreadySent;
         public Action DisplayErrorOnSending;
         public Action DisplayMessageNotFound;
         public Action DisplayErrorOnUpdate;
 
-        readonly System.Drawing.Color ColorOfMessageSent ;
+        readonly System.Drawing.Color ColorOfMessageSent;
         readonly System.Drawing.Color ColorOfMessageReceived;
 
         readonly LayoutOptions AlignmentForMessageSent;
@@ -107,8 +103,8 @@ namespace FoodSharing.ViewModels
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    
-    readonly ApplicationUser user;
+
+        readonly ApplicationUser user;
         public CommunicateViewModel()
         {
             ColorOfMessageSent = Color.FromRgb(51, 153, 137);
@@ -120,46 +116,69 @@ namespace FoodSharing.ViewModels
             user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             Messages = new ObservableCollection<Message>();
             Users = new ObservableCollection<ApplicationUser>();
-            GetMessages();
+            UpdateMessages();
+            StartTimer();
         }
-
-        public async void GetMessages()
+        public async Task<List<Message>> GetMessages()
         {
             RestService restSevice = new RestService();
             MessageManager myMessageManager = new MessageManager(restSevice);
-            AllMessagesReceivedandSentbyUser = await myMessageManager.GetMessagesAsync(user.Id);
+            return await myMessageManager.GetMessagesAsync(user.Id);
+        }
+        public async void UpdateMessages()
+        {
+            AllMessagesReceivedandSentbyUser = await GetMessages();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                UpdateUserList();
+                foreach (var item in AllMessagesReceivedandSentbyUser)
+                {
+                    if (Users.Any(x => x.Id == item.SenderId.Id))
+                    {
+                        if (item.State == MessageState.Sent)
+                        {
+                            Users.Where(x => x.Id == item.SenderId.Id).FirstOrDefault().HasUnseenMessages = true;
+                            MessageSeen(item.MessageId);
+                        }
+                    }
+                }
+                if (Users.Count > 0 && SelectedUser == null) 
+                    SelectedUser = Users[0];
+                OnUserNameClicked();
+            });
+
+        }
+
+        //ApplicationUser SelectedUserTemp;
+        private void UpdateUserList()
+        {
+            //SelectedUserTemp = SelectedUser;
+            Users.Clear();
             foreach (var item in AllMessagesReceivedandSentbyUser)
             {
                 if (!Users.Any(x => x.Id == item.ReceiverId.Id) && item.ReceiverId.Id != user.Id)
                 {
-
+                    item.ReceiverId.HasUnseenMessages = false;
                     Users.Add(item.ReceiverId);
                 }
                 if (!Users.Any(x => x.Id == item.SenderId.Id) && item.SenderId.Id != user.Id)
                 {
-
+                    item.ReceiverId.HasUnseenMessages = false;
                     Users.Add(item.SenderId);
                 }
             }
-            foreach (var item in AllMessagesReceivedandSentbyUser)
-            {
-                if (Users.Any(x => x.Id == item.SenderId.Id))
-                {
-                    if (item.State == MessageState.Sent)
-                    {
-                        Users.Where(x => x.Id == item.SenderId.Id).FirstOrDefault().HasUnseenMessages = true;
-                        MessageSeen(item.MessageId);
-                    }
-                }
-            }
-            if (Users.Count > 0)
-                SelectedUser = Users[0];
-            OnUserNameClicked();
+
+            //As Users list has new references, we need to set back the appropriate User selected before!!!!
+            if (SelectedUser!=null)
+            SelectedUser = Users.FirstOrDefault(x => x.Id == SelectedUser.Id);
         }
 
         public void OnUserNameClicked()
         {
-
+            //if (SelectedUser==null && SelectedUserTemp!=null)
+            //{
+            //    SelectedUser = SelectedUserTemp;
+            //}
             if (SelectedUser != null)
             {
                 Messages.Clear();
@@ -174,59 +193,70 @@ namespace FoodSharing.ViewModels
                 }
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         public async void MessageSeen(int id)
         {
             RestService restSevice = new RestService();
             MessageManager myMessageManager = new MessageManager(restSevice);
             Response response = await myMessageManager.UpdateMessageAsync(id);
-            switch (response.Status)
+            //To be sure, we dont have crossthread call from timer
+            Device.BeginInvokeOnMainThread(() =>
             {
-                case Constants.Status.Error:
-                    {
-                        switch (response.Message)
+                switch (response.Status)
+                {
+                    case Constants.Status.Error:
                         {
-                            case Constants.APIMessages.ErrorOnNotFound:
-                                {
-                                    DisplayMessageNotFound();
-                                    break;
-                                }
+                            switch (response.Message)
+                            {
+                                case Constants.APIMessages.ErrorOnNotFound:
+                                    {
+                                        DisplayMessageNotFound();
+                                        break;
+                                    }
 
-                            case Constants.APIMessages.ErrorOnUpdate:
-                                {
-                                    DisplayErrorOnUpdate();
-                                    break;
-                                }
-                            case Constants.APIMessages.Success:
-                            default:
-                                {
-                                    DisplayFatalError();
-                                    break;
-                                }
+                                case Constants.APIMessages.ErrorOnUpdate:
+                                    {
+                                        DisplayErrorOnUpdate();
+                                        break;
+                                    }
+                                case Constants.APIMessages.Success:
+                                default:
+                                    {
+                                        DisplayFatalError();
+                                        break;
+                                    }
+                            }
                         }
-                    }
-                    break;
-                case Constants.Status.Success:
-                    {
-                        Console.WriteLine("Message updated as seen");
                         break;
-                    }
-                default:
-                    {
-                        DisplayFatalError();
-                        break;
-                    }
-            }
+                    case Constants.Status.Success:
+                        {
+                            Console.WriteLine("Message updated as seen");
+                            break;
+                        }
+                    default:
+                        {
+                            DisplayFatalError();
+                            break;
+                        }
+                }
+            });
         }
         public async void OnSendMessageClicked()
         {
-            if (!string.IsNullOrEmpty(TextToSend) && SelectedUser!=null)
+            if (!string.IsNullOrEmpty(TextToSend) && SelectedUser != null)
             {
                 IsBusy = true;
                 RestService restSevice = new RestService();
                 MessageManager myMessageManager = new MessageManager(restSevice);
-                Message newMessage = new Message { 
-                    Content = TextToSend, SenderUserId = user.Id, ReceiverUserId = SelectedUser.Id, 
-                    State = MessageState.Sent 
+                Message newMessage = new Message
+                {
+                    Content = TextToSend,
+                    SenderUserId = user.Id,
+                    ReceiverUserId = SelectedUser.Id,
+                    State = MessageState.Sent
                 };
                 Response response = await myMessageManager.SaveMessageAsync(newMessage);
                 switch (response.Status)
