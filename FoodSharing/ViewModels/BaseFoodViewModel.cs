@@ -77,18 +77,13 @@ namespace FoodSharing.ViewModels
                     continue;
                 Foods[i].SetUserLoc(new Location(user.UserLocLatitude, user.UserLocLongitude));
             }
-            //foreach (var item in Foods)
-            //{
-            //    if (item.FoodType != FoodType)
-            //        continue;
-            //    item.SetUserLoc(new Location(user.UserLocLatitude, user.UserLocLongitude));
-            //}
         }
         public async void GetFoods(TypeOfFood foodtype)
         {
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
             List<Food> listFoods = await myFoodManager.GetFoodsAsync();
+
             string connectionString = Constants.connectionString;
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             string containerName = "foodpicsblobs";

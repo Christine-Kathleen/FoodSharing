@@ -86,10 +86,7 @@ namespace FoodSharing.ViewModels
             CreateProductCommand = new Command(OnCreateProduct);
             HomeCommand = new Command(OnHome);
             TakePicCommand = new Command(OnTakePic);
-            GetLoc = GetCurrentLocation();
-            
-
-            
+            GetLoc = GetCurrentLocation();        
         }
         bool isBusy = false;
         bool isNotBusy = true;
@@ -101,7 +98,6 @@ namespace FoodSharing.ViewModels
                 SetProperty(ref isBusy, value);
                 IsNotBusy = !value;
             }
-
         }
         public bool IsNotBusy
         {
@@ -126,13 +122,14 @@ namespace FoodSharing.ViewModels
             else
             {
                 IsBusy = true;
+                // Create a container client
                 string connectionString = Constants.connectionString;
                 BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
                 string containerName = "foodpicsblobs";
                 BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
                 containerClient.CreateIfNotExists();
                 string fileURL = Guid.NewGuid().ToString();
-
+                // Get a reference to a blob
                 BlobClient blobClient = containerClient.GetBlobClient(fileURL);
                 await blobClient.UploadAsync(new MemoryStream(photo), true);
 

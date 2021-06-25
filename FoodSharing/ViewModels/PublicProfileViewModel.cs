@@ -107,10 +107,10 @@ namespace FoodSharing.ViewModels
             private set
             {
                 description = value;
-                if (description == null)
-                {
-                    description = "-";
-                }
+                //if (description == null)
+                //{
+                //    description = "-";
+                //}
                 PropertyChanged(this, new PropertyChangedEventArgs("Description"));
             }
         }
@@ -139,6 +139,7 @@ namespace FoodSharing.ViewModels
             FirstName = user.FirstName;
             LastName = user.LastName;
             UserName = user.UserName;
+            Description = user.Description;
             Description = user.Description;
             Foods = new ObservableCollection<Food>();
             Reviews = new ObservableCollection<Review>();

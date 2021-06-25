@@ -383,7 +383,6 @@ namespace FoodSharing.Services
 
             return Messages;
         }
-
         public async Task<Response> SaveMessageAsync(Message message, bool isNewItem)
         {
             Uri uri = new Uri(string.Format(Constants.MessageUrl, string.Empty));
@@ -423,7 +422,6 @@ namespace FoodSharing.Services
 
             try
             {
-                //StringContent content = new StringContent("[]", Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {this.BearerToken}");
                 HttpResponseMessage response = null;
                 response = await client.PatchAsync(uri, null);

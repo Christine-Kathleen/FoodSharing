@@ -24,9 +24,9 @@ namespace FoodSharing.ViewModels
         {
             Device.StartTimer(new TimeSpan(0, 0, 30), () =>
             {
-                // do something every 30 seconds
-                UpdateMessages();
-                return true; // runs again, or false to stop
+                // do every 30 seconds
+                UpdateMessages();  
+                return true; 
             });
         }
 
@@ -148,11 +148,8 @@ namespace FoodSharing.ViewModels
             });
 
         }
-
-        //ApplicationUser SelectedUserTemp;
         private void UpdateUserList()
         {
-            //SelectedUserTemp = SelectedUser;
             Users.Clear();
             foreach (var item in AllMessagesReceivedandSentbyUser)
             {
@@ -167,18 +164,13 @@ namespace FoodSharing.ViewModels
                     Users.Add(item.SenderId);
                 }
             }
-
-            //As Users list has new references, we need to set back the appropriate User selected before!!!!
+            //As Users list has new references, I need to set back the appropriate User selected before
             if (SelectedUser!=null)
             SelectedUser = Users.FirstOrDefault(x => x.Id == SelectedUser.Id);
         }
 
         public void OnUserNameClicked()
         {
-            //if (SelectedUser==null && SelectedUserTemp!=null)
-            //{
-            //    SelectedUser = SelectedUserTemp;
-            //}
             if (SelectedUser != null)
             {
                 Messages.Clear();
@@ -193,10 +185,6 @@ namespace FoodSharing.ViewModels
                 }
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
         public async void MessageSeen(int id)
         {
             RestService restSevice = new RestService();

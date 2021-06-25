@@ -28,8 +28,6 @@ namespace FoodSharing.Models
         public void SetUserLoc(Location location)
         {
             userLoc = location;
-            string test = Distance;
-            test = "";
         }
         [Required(ErrorMessage = "Food Name is required")]
         public string Name { get; set; }
@@ -38,7 +36,7 @@ namespace FoodSharing.Models
         [Required(ErrorMessage = "Details are required")]
         public string Details { get; set; }
         public string ImageUrl { get; set; }
-        public string Distance { get { return Math.Round(Xamarin.Essentials.Location.CalculateDistance(new Location(FoodLocationLatitude, FoodLocationLongitude), userLoc, DistanceUnits.Kilometers), 2).ToString() + "km"; } }
+        public string Distance { get { return Math.Round(Location.CalculateDistance(new Location(FoodLocationLatitude, FoodLocationLongitude), userLoc, DistanceUnits.Kilometers), 2).ToString() + "km"; } }
         [Required(ErrorMessage = "The food type is required")]
         public TypeOfFood FoodType { get; set; }
         public ApplicationUser User { get; set; }
