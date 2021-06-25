@@ -17,7 +17,7 @@ namespace FoodSharing.Services
         }
         public Task<List<Review>> GetReviewsAsync(string ReviewedUserId)
         {
-            return restService.RefreshReviewDataAsync(ReviewedUserId);
+            return restService.GetReviewDataAsync(ReviewedUserId);
         }
         public Task<Response> SaveReviewAsync(Review review)
         {

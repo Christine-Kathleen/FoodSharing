@@ -218,7 +218,7 @@ namespace FoodSharing.Services
 
         public List<Food> Foods { get; set; }
 
-        public async Task<List<Food>> RefreshFoodDataAsync()
+        public async Task<List<Food>> GetFoodsDataAsync()
         {
             Foods = new List<Food>();
 
@@ -301,7 +301,7 @@ namespace FoodSharing.Services
             }
         }
 
-        public async Task<List<Review>> RefreshReviewDataAsync(string ReviewedUserId)
+        public async Task<List<Review>> GetReviewDataAsync(string ReviewedUserId)
         {
             List<Review>  Reviews = new List<Review>();
 
@@ -358,7 +358,7 @@ namespace FoodSharing.Services
             }
         }
 
-        public async Task<List<Message>> RefreshMessageDataAsync(string UserId)
+        public async Task<List<Message>> GetMessageDataAsync(string UserId)
         {
             List<Message>  Messages = new List<Message>();
 

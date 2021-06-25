@@ -17,7 +17,7 @@ namespace FoodSharing.Services
         public List<Message> Messages { get; set; }
         public Task<List<Message>> GetMessagesAsync(string userId)
         {
-            return restService.RefreshMessageDataAsync(userId);
+            return restService.GetMessageDataAsync(userId);
         }
         public Task<Response> SaveMessageAsync(Message message)
         {

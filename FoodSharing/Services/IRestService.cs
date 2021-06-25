@@ -7,7 +7,7 @@ namespace FoodSharing.Services
 {
     public interface IRestService
     {
-        Task<List<Food>> RefreshFoodDataAsync();
+        Task<List<Food>> GetFoodsDataAsync();
         Task<Response> SaveFoodAsync(Food food, bool isNewItem);
         Task<Response> DeleteFoodAsync(int id);
 
@@ -18,11 +18,11 @@ namespace FoodSharing.Services
         Task SaveUserAsync(ApplicationUser user, bool isNewUser);
         Task<Response> RegisterUserAsync(RegisterModel model);
 
-        Task<List<Review>> RefreshReviewDataAsync(string ReviewedUserId);
+        Task<List<Review>> GetReviewDataAsync(string ReviewedUserId);
         Task<Response> SaveReviewAsync(Review review, bool isNewItem);
 
         Task<Response> SaveMessageAsync(Message message, bool isNewItem);
         Task<Response> UpdateMessageAsync(int id);
-        Task<List<Message>> RefreshMessageDataAsync(string UserId);
+        Task<List<Message>> GetMessageDataAsync(string UserId);
     }
 }
