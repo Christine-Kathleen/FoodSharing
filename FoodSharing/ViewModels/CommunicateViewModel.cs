@@ -20,17 +20,7 @@ namespace FoodSharing.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public ICommand UserClickedCommand { get; set; }
         public ICommand SendMessageCommand { get; set; }
-
         public ICommand RefreshCommand { get; set; }
-        public void StartTimer()
-        {
-            Device.StartTimer(new TimeSpan(0, 0, 30), () =>
-            {
-                // do every 30 seconds
-                UpdateMessages();  
-                return true; 
-            });
-        }
 
         public Action DisplayFatalError;
         public Action DisplayMessageAlreadySent;
@@ -116,12 +106,11 @@ namespace FoodSharing.ViewModels
             AlignmentForMessageReceived = LayoutOptions.Start;
             SendMessageCommand = new Command(OnSendMessageClicked);
             UserClickedCommand = new Command(OnUserNameClicked);
-            RefreshCommand = new Command(OnRefreshClicked);
+            RefreshCommand = new Command(UpdateMessages);
             user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
             Messages = new ObservableCollection<Message>();
             Users = new ObservableCollection<ApplicationUser>();
             UpdateMessages();
-            StartTimer();
         }
         public async Task<List<Message>> GetMessages()
         {
@@ -171,10 +160,6 @@ namespace FoodSharing.ViewModels
             //As Users list has new references, I need to set back the appropriate User selected before
             if (SelectedUser!=null)
             SelectedUser = Users.FirstOrDefault(x => x.Id == SelectedUser.Id);
-        }
-        public void OnRefreshClicked()
-        {
-            UpdateMessages();
         }
 
         public void OnUserNameClicked()
