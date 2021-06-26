@@ -80,9 +80,9 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Label  Grid.Row="0" FontSize="Large" TextColor="#2B2C28"
+                                <Label  Grid.Row="0" FontSize="Medium" TextColor="#2B2C28"
                                 Text="{Binding ReviewContent}"/>
-                                <Label Grid.Row="1" TextTransform="Uppercase" TextDecorations="Underline" FontSize="Medium" TextColor="#2B2C28" Margin="0,0,0,20"
+                                <Label Grid.Row="1" TextTransform="Uppercase" TextDecorations="Underline" FontSize="Small" TextColor="#2B2C28" Margin="0,0,0,20"
                                 Text="{Binding ReviewerId.UserName}"/>
                             </Grid>
                         </DataTemplate>

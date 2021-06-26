@@ -156,7 +156,6 @@ namespace FoodSharing.ViewModels
             Details = donatedfood.Details;
             Distance = donatedfood.Distance;
             UserName = donatedfood.User.UserName;
-
         }
         public async void OnUserNameClicked()
         {

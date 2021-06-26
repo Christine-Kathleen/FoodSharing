@@ -21,11 +21,9 @@ namespace FoodSharing.Models
         public DateTime SendTime { get; set; }
         [Required]
         public string ReviewedUserId { get; set; }
-        [Required]
         public ApplicationUser ReviewedId { get; set; }
         [Required]
         public string ReviewerUserId { get; set; }
-        [Required]
         public ApplicationUser ReviewerId { get; set; }
 
     }

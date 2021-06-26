@@ -72,13 +72,13 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="75" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0"
                         TextColor="#FFFAFB"
                         FontSize="Medium"
-                        Margin="0,20,0,20"
+                        Margin="5,20,0,20"
                         Text="{Binding UserName}"
                         FontAttributes="Bold" />
                         <Image Grid.Column="1" HeightRequest="30" WidthRequest="30" Source="newmess.png" IsVisible="{Binding HasUnseenMessages}"/>
@@ -86,5 +86,9 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+        <Button ImageSource="refresh.png" Command="{Binding RefreshCommand}"
+                                   BackgroundColor="#FFFAFB" BorderRadius="30" CornerRadius="8" Grid.Row="1" Grid.Column="1"
+                                   Margin="45,0,45,10" TextColor="#FFFAFB" 
+                                   FontAttributes="Bold" />
     </Grid>
     </ContentPage>

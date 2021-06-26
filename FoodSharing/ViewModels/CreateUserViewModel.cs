@@ -93,7 +93,7 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
             }
         }
-        private string username = "user3";
+        private string username = "User3";
         public string Username
         {
             get { return username; }
@@ -123,14 +123,15 @@ namespace FoodSharing.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("CheckPassword"));
             }
         }
-        private bool isBusy;
+        bool isBusy = false;
+        bool isNotBusy = true;
         public bool IsBusy
         {
             get { return isBusy; }
             set
             {
                 SetProperty(ref isBusy, value);
-                SetProperty(ref isBusy, value, nameof(IsNotBusy));
+                IsNotBusy = !value;
             }
 
         }
@@ -147,7 +148,8 @@ namespace FoodSharing.ViewModels
         }
         public bool IsNotBusy
         {
-            get { return !IsBusy; }
+            get { return isNotBusy; }
+            set { SetProperty(ref isNotBusy, value); }
         }
 
         public ICommand RegisterCommand { protected set; get; }
@@ -164,53 +166,64 @@ namespace FoodSharing.ViewModels
             if (AgreeOnTerms.Equals(false)) 
             {
                 DisplayCheckboxNotChecked();
+                IsBusy = false;
             }
             else if (!regexEmail.IsMatch(email.ToUpper()))
             {
                 DisplayInvalidEmail();
+                IsBusy = false;
                 return;
             }
             else if (!regexPasswordHasNumber.IsMatch(password))
             {
                 DisplayPasswordHasNoNumber();
+                IsBusy = false;
                 return;
             }
             else if (!regexPasswordHasMinLength.IsMatch(password))
             {
                 DisplayPasswordHasNoMinLength();
+                IsBusy = false;
                 return;
             }
             else if (!regexPasswordHasLowerCase.IsMatch(password))
             {
                 DisplayPasswordHasNoLowerCase();
+                IsBusy = false;
                 return;
             }
             else if (!regexPasswordHasUpperCase.IsMatch(password))
             {
                 DisplayPasswordHasNoUpperCase();
+                IsBusy = false;
                 return;
             }
             else if (!regexPasswordHasNonalphanumeric.IsMatch(password))
             {
                 DisplayPasswordHasNoNonalphanumeric();
+                IsBusy = false;
                 return;
             }
             else if (!regexPasswordHasOneUniqueCharacter.IsMatch(password))
             {
                 DisplayPasswordHasNoOneUniqueCharacter();
+                IsBusy = false;
                 return;
             }
             else if (!regexTelephoneNr.IsMatch(Telephone))
             {
                 DisplayPhoneNrErr();
+                IsBusy = false;
             }
             else if (checkPassword != password)
             {
                 DisplayPasswordMismatch();
+                IsBusy = false;
             }
             else if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) || string.IsNullOrEmpty(Username))
             {
                 DisplayCompleteFields();
+                IsBusy = false;
             }
             else
             {
@@ -229,12 +242,14 @@ namespace FoodSharing.ViewModels
                                 case Constants.APIMessages.ErrorRegisterName:
                                     {
                                         DisplayTakenUserName();
+                                        IsBusy = false;
                                         break;
                                     }
 
                                 case Constants.APIMessages.ErrorRegisterEmail:
                                     {
                                         DisplayTakenEmail();
+                                        IsBusy = false;
                                         break;
                                     }
                                 case Constants.APIMessages.ErrorOnRegisterFailed:
@@ -243,6 +258,7 @@ namespace FoodSharing.ViewModels
                                 default:
                                     {
                                         DisplayFatalError();
+                                        IsBusy = false;
                                         break;
                                     }
                             }
@@ -251,13 +267,16 @@ namespace FoodSharing.ViewModels
                     case Constants.Status.Success:
                         {
                             DisplayUserCreated();
+                            IsBusy = false;
                             break;
                         }
                     default:
                         {
                             DisplayFatalError();
+                            IsBusy = false;
                             break;
                         }
+
                 }
             }
         }

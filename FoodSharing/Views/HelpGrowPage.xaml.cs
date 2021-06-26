@@ -14,6 +14,8 @@ namespace FoodSharing.Pages
     {
         public HelpGrowPage()
         {
+            var navigationPage = Application.Current.MainPage as NavigationPage;
+            navigationPage.BarBackgroundColor = Color.FromRgb(51, 153, 137);
             InitializeComponent();
         }
     }

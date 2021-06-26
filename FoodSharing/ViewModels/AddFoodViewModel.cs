@@ -98,6 +98,7 @@ namespace FoodSharing.ViewModels
                 SetProperty(ref isBusy, value);
                 IsNotBusy = !value;
             }
+
         }
         public bool IsNotBusy
         {

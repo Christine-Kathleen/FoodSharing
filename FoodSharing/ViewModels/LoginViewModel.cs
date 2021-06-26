@@ -11,6 +11,8 @@ using Xamarin.Essentials;
 using FoodSharing.Services;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace FoodSharing.ViewModels
 {
@@ -23,7 +25,7 @@ namespace FoodSharing.ViewModels
         public Action DisplayApplicationError;
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private string username = "cristina";
+        private string username = "Cristina";
         private string password = "Password@1234";
         bool isBusy = false;
         bool isNotBusy = true;
@@ -103,7 +105,10 @@ namespace FoodSharing.ViewModels
             {
                 ApplicationUser user = await userRestService.GetUser(Username, Password);
                 if (user != null)
-                {
+                {                   
+                    Location loc=await GetCurrentLocation();
+                    user.UserLocLatitude = loc.Latitude;
+                    user.UserLocLongitude = loc.Longitude;
                     Preferences.Set("User", JsonConvert.SerializeObject(user));
                     await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                 }
@@ -118,6 +123,34 @@ namespace FoodSharing.ViewModels
                 IsBusy = false;
             }
 
+        }
+
+        async Task<Location> GetCurrentLocation()
+        {
+            var location = new Location();
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                CancellationTokenSource cts = new CancellationTokenSource();
+                location = await Geolocation.GetLocationAsync(request, cts.Token);
+            }
+            catch (FeatureNotSupportedException)
+            {
+                //DisplayNotSupportedOnDevice();
+            }
+            catch (FeatureNotEnabledException)
+            {
+                //DisplayNotEnabledOnDevice();
+            }
+            catch (PermissionException)
+            {
+                //DisplayPermissionException();
+            }
+            catch (Exception)
+            {
+                //DisplayUnableToGetLocation();
+            }
+            return location;
         }
         public async void OnCreateUserClicked()
         {

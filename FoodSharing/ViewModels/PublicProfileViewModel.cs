@@ -107,10 +107,10 @@ namespace FoodSharing.ViewModels
             private set
             {
                 description = value;
-                //if (description == null)
-                //{
-                //    description = "-";
-                //}
+                if (description == null)
+                {
+                    description = "-";
+                }
                 PropertyChanged(this, new PropertyChangedEventArgs("Description"));
             }
         }
@@ -132,15 +132,12 @@ namespace FoodSharing.ViewModels
             set { SetProperty(ref isNotBusy, value); }
         }
 
-        private readonly ApplicationUser reviewedUser;
+        private readonly ApplicationUser profileUser;
         public PublicProfileViewModel(ApplicationUser user)
         {
-            reviewedUser = user;
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            UserName = user.UserName;
-            Description = user.Description;
-            Description = user.Description;
+            profileUser = user;
+            UserName = profileUser.UserName;
+            Description = profileUser.Description;
             Foods = new ObservableCollection<Food>();
             Reviews = new ObservableCollection<Review>();
             SelectedChangedFood = new Command(OnSelectedFood);
@@ -171,7 +168,7 @@ namespace FoodSharing.ViewModels
                 RestService restSevice = new RestService();
                 ReviewManager myReviewManager = new ReviewManager(restSevice);
                 Response response = await myReviewManager.SaveReviewAsync(new Review { 
-                    ReviewContent = Review, ReviewerUserId = user.Id, ReviewedUserId=reviewedUser.Id 
+                    ReviewContent = Review, ReviewerUserId = user.Id, ReviewedUserId= profileUser.Id 
                 });
                 switch (response.Status)
                 {
@@ -199,7 +196,7 @@ namespace FoodSharing.ViewModels
         {
             RestService restSevice = new RestService();
             ReviewManager myReviewManager = new ReviewManager(restSevice);
-            List<Review> listReviewss = await myReviewManager.GetReviewsAsync(reviewedUser.Id);
+            List<Review> listReviewss = await myReviewManager.GetReviewsAsync(profileUser.Id);
             Reviews.Clear();
             foreach (var item in listReviewss)
             { 
@@ -211,20 +208,17 @@ namespace FoodSharing.ViewModels
             RestService restSevice = new RestService();
             FoodManager myFoodManager = new FoodManager(restSevice);
             List<Food> listFoods = await myFoodManager.GetFoodsAsync();
-            var user = JsonConvert.DeserializeObject<ApplicationUser>(Preferences.Get("User", "default_value"));
-            var userLocLat = JsonConvert.DeserializeObject<double>(Preferences.Get("UserLocLat", "default_value"));
-            var userLocLong = JsonConvert.DeserializeObject<double>(Preferences.Get("UserLocLong", "default_value"));
             string connectionString = Constants.connectionString;
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             string containerName = "foodpicsblobs";
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             foreach (var item in listFoods)
             {
-                if (user.Id == item.UserID)
+                if (profileUser.Id == item.UserID)
                 {
                     BlobClient blobClient = containerClient.GetBlobClient(item.ImageUrl);
                     item.ImageSource = ImageSource.FromStream(() => { var stream = blobClient.OpenRead(); return stream; });
-                    item.SetUserLoc(new Location(userLocLat, userLocLong));
+                    item.SetUserLoc(new Location(profileUser.UserLocLatitude, profileUser.UserLocLongitude));
                     Foods.Add(item);           
                 }
             }
