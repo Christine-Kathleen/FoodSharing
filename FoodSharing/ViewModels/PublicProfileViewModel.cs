@@ -180,6 +180,7 @@ namespace FoodSharing.ViewModels
                     case Constants.Status.Success:
                         {
                             DisplayReviewAdded();
+                            ReviewContent = null;
                             GetReviews();
                             break;
                         }

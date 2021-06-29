@@ -111,8 +111,10 @@ namespace FoodSharing.ViewModels
                 if (user != null)
                 {                   
                     Location loc=await GetCurrentLocation();
-                    user.UserLocLatitude = loc.Latitude;
-                    user.UserLocLongitude = loc.Longitude;
+                    //user.UserLocLatitude = loc.Latitude;
+                    //user.UserLocLongitude = loc.Longitude;
+                    user.UserLocLatitude = 46.0733;
+                    user.UserLocLongitude = 23.5805;
                     Preferences.Set("User", JsonConvert.SerializeObject(user));
                     await App.Current.MainPage.Navigation.PushAsync(new MainPage());
                 }

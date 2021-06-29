@@ -29,16 +29,16 @@
                        WidthRequest="150" />
                         <Label Grid.Column="1" TextColor="#2B2C28" 
                        VerticalTextAlignment="Center" 
-                       Margin="10,-40,20,0" FontSize="Large"
+                       Margin="10,-30,20,0" FontSize="Large"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
                         <Label Grid.Column="1" TextColor="#2B2C28"
                        VerticalTextAlignment="Center"
-                       Margin="10,10,20,0" FontSize="Medium"
+                       Margin="10,30,20,0" FontSize="Medium"
                        Text="{Binding Distance}"
                        FontAttributes="Italic"/>
                         <Label Grid.Column="1" TextColor="#2B2C28"
-                       Margin="10, 0,20,0" FontSize="12"
+                       Margin="10,0,20,0" FontSize="12"
                        Text="{Binding TimePosted}" VerticalOptions="End"/>
                     </Grid>
                     </DataTemplate>
