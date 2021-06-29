@@ -23,6 +23,10 @@ namespace FoodSharing.Pages
             vm.DisplayFailedLogin += () => DisplayAlert("Error", "Login failed, please check your username and password!", "OK");
             vm.DisplayApplicationError += () => DisplayAlert("Error", "Fatal application error, contact the administrator!", "OK");
             vm.DisplayCompleteFields += () => DisplayAlert("Error", "All fields must be completed!", "OK");
+            vm.DisplayNotSupportedOnDevice += () => DisplayAlert("Error", "Location is not supported on this device, please change device. The location will be set as default to Alba Iulia.", "OK");
+            vm.DisplayUnableToGetLocation += () => DisplayAlert("Error", "Unable to get location. The location will be set as default to Alba Iulia.", "OK");
+            vm.DisplayNotEnabledOnDevice += () => DisplayAlert("Error", "Location not enabled on device. The location will be set as default to Alba Iulia.", "OK");
+            vm.DisplayPermissionException += () => DisplayAlert("Error", "There was a permission exception. The location will be set as default to Alba Iulia.", "OK");
             InitializeComponent();
         }
     }

@@ -21,10 +21,6 @@ namespace FoodSharing.ViewModels
         public ICommand SelectedChangedFood { get; set; }
         public ObservableCollection<Food> Foods { get; set; }
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        public Action DisplayNotSupportedOnDevice;
-        public Action DisplayPermissionException;
-        public Action DisplayNotEnabledOnDevice;
-        public Action DisplayUnableToGetLocation;
 
         private readonly TypeOfFood FoodType;
         Food selectedFood;

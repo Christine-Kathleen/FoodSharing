@@ -19,11 +19,7 @@ namespace FoodSharing.Views
             InitializeComponent();
             var vm = new FromStoreViewModel(Models.TypeOfFood.FromStore);
             var navigationPage = Application.Current.MainPage as NavigationPage;
-            this.BindingContext = vm;
-            vm.DisplayNotSupportedOnDevice += () => DisplayAlert("Error", "Location is not supported on this device, please change device. The location will be set as default to Alba Iulia.", "OK");
-            vm.DisplayUnableToGetLocation += () => DisplayAlert("Error", "Unable to get location. The location will be set as default to Alba Iulia.", "OK");
-            vm.DisplayNotEnabledOnDevice += () => DisplayAlert("Error", "Location not enabled on device. The location will be set as default to Alba Iulia.", "OK");
-            vm.DisplayPermissionException += () => DisplayAlert("Error", "There was a permission exception. The location will be set as default to Alba Iulia.", "OK");   
+            this.BindingContext = vm; 
         }
         protected override bool OnBackButtonPressed()
         {

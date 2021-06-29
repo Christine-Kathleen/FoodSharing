@@ -24,6 +24,10 @@ namespace FoodSharing.ViewModels
         public Action DisplayCompleteFields;
         public Action DisplayApplicationError;
         public Action DisplayInvalidLoginPrompt;
+        public Action DisplayNotSupportedOnDevice;
+        public Action DisplayPermissionException;
+        public Action DisplayNotEnabledOnDevice;
+        public Action DisplayUnableToGetLocation;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private string username = "Cristina";
         private string password = "Password@1234";
@@ -136,19 +140,19 @@ namespace FoodSharing.ViewModels
             }
             catch (FeatureNotSupportedException)
             {
-                //DisplayNotSupportedOnDevice();
+                DisplayNotSupportedOnDevice();
             }
             catch (FeatureNotEnabledException)
             {
-                //DisplayNotEnabledOnDevice();
+                DisplayNotEnabledOnDevice();
             }
             catch (PermissionException)
             {
-                //DisplayPermissionException();
+                DisplayPermissionException();
             }
             catch (Exception)
             {
-                //DisplayUnableToGetLocation();
+                DisplayUnableToGetLocation();
             }
             return location;
         }
